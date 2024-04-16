@@ -92,7 +92,25 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 ## Resolved bugs
 
-### Debugging 1
+## Debugging the Add Event Image Upload Button
+
+Initially, the Add Event Image Upload Button was not functioning as expected. The standard button appeared grey inside the customized orange button, which was not the desired behavior. The issue was that the browser's default file input button was not being styled correctly.
+
+To resolve this, I discovered used an apparently common workaround for styling file inputs. I hid the actual file input and used a label to create a custom button. The label was associated with the file input using the `htmlFor` attribute, so clicking the label triggered the file input. This made the entire label, including the `Asset` component and the custom button text, act like a file upload button.
+
+However, this initially resulted in two buttons being displayed due to the ternary operation in the code. To fix this, I used a second ternary operation to change the text of the same button, instead of having two separate buttons. This ensured that only one button was displayed at a time, with the text changing based on whether an image had been uploaded.
+
+With these changes, the image upload button is now working as expected, with the correct styling and behavior.
+
+## Debugging the Image Display in the add event
+
+While working on the Create Event module, I encountered another issue where the image wasn't staying within its container. I initially thought the problem was with the CSS properties max-width and max-height I had used. I tried setting defined heights and widths to the image and its parent containers, but this didn't solve the issue.
+
+After some investigation, I realized that the issue wasn't with the CSS properties or with Bootstrap overwriting my custom CSS. The problem was that I was addressing the wrong element. The placeholder image was sourced from the assets module, not from the image tag. So, I needed to apply the sizing css code to both the image and the asset to get the same result with the placeholder and the image uploaded by the users.
+
+After this change, the image started responding as expected. However, there was still some work to be done. I noticed that the positioning style in the two levels of parents wasn't mirrored. So, I made sure to mirror the positioning style in the two levels of parents to ensure the image was displayed correctly within its container.
+
+In conclusion, the image display issue in the Create Event module was resolved by addressing the correct element in the CSS and mirroring the positioning style in the two levels of parents. It was a good reminder that sometimes the issue isn't with the code you're focusing on, but somewhere else entirely.
 
 
 ## Contributors

@@ -9,6 +9,7 @@ import './api/axiosDefaults';
 
 import SignUpForm from './pages/auth/SignUpForm';
 import SignInForm from './pages/auth/SignInForm';
+import EventCreateForm from './pages/events/EventCreateForm';
 
 
 
@@ -24,7 +25,7 @@ function App() {
               <Route exact path="/signup" render={() => <SignUpForm/> } />
               <Route exact path="/goingon" render={() => <h1>Going On</h1>} />
               <Route exact path="/joining" render={() => <h1>Joining</h1>} />
-              <Route exact path="/event/create" render={() => <h1>Create event</h1>} />
+              <Route exact path="/event/create" render={() => <EventCreateForm/>} />
               <Route render={() => <h1>Page Not Found!</h1>} />
             </Switch>
           </Container>
