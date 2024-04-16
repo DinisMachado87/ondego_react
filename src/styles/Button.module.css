@@ -1,0 +1,38 @@
+.Button {
+  box-sizing: border-box;
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.Button:hover {
+  text-shadow: 1rem 1rem 1rem orange;
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.Button:hover:active {
+  text-shadow: 1rem 1rem 1rem orange !important;
+}
+
+.Button:active {
+  text-shadow: 1rem 1rem 1rem orange !important;
+}
+
+.Button:focus {
+  text-shadow: 1rem 1rem 1rem orange;
+}
+
+.Green,
+.Green:hover,
+.Green:active,
+.Green:focus {
+  background: green;
+  border: 1px solid green;
+  color: black;
+}
+
+.FullWidth {
+  width: 100%;
+}

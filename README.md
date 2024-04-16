@@ -10,6 +10,22 @@
 
 ## Design
 
+### Establishing **Öndëgö**'s Visual Identity
+
+As Öndëgö took shape, I envisioned a design that harmonized playfulness with sobriety, evoking a sense of intrigue and vibrancy. The app's interface features backgrounds in variations of black and very dark grey, lending an eerie yet captivating ambiance. Against this backdrop, fonts in secondary vibrant colors — orange, purple, and green — punctuate the darkness with neon vibes, striking a balance between whimsy and sophistication.
+
+### Logo
+
+In the journey of shaping Öndëgö's visual identity and its logo, I turned to the playful and quirky Platypi font from Google Fonts. With the help of the Google Fonts to SVG Path online tool, I transformed the text outline into a vector graphic (SVG) to give Öndëgö its unique mark.
+
+The process began with selecting Platypi, a playful and quirky Google Font, to reflect Öndëgö's essence. I crafted the outline of the app's name using the Platypi font. The rounded shapes and whimsical charm of Platypi perfectly encapsulated the spirit of Öndëgö, setting the foundation for its visual identity.
+
+To transform the Platypi text into a scalable vector graphic (SVG), I turned to [Google Font to SVG Path](https://danmarshall.github.io/google-font-to-svg-path/), a tool capable of converting text to SVG paths. I then captured the SVG vectors as a design feature.
+
+Next, using [Canva](https://www.canva.com/), I converted the file to a PNG with a transparent background.
+
+Overall, your version effectively communicates your process. These suggestions are merely to enhance clarity and readability. Great work!
+
 ### Font Selection
 
 Öndëgö's font selection embodies a delicate balance between friendliness and authenticity, without straying into gimmickry. Each font choice contributes to the project's visual identity by infusing warmth and approachability into the design, while also maintaining a sense of genuine connection. Through Platypi, Mukta, and Padauk, Öndëgö aims to create an inviting and inclusive atmosphere where spontaneity thrives, fostering meaningful interactions among friends without resorting to artificiality or clichés.
@@ -85,7 +101,13 @@ Dinis Machado
 
 ## Credits
 
-All emojis designed by OpenMoji – the open-source emoji and icon project. License: CC BY-SA 4.0
+[OpenMoji Awesome](https://github.com/gromain/openmoji-awesome?tab=readme-ov-file#openmoji-awesome-) 
+Like Font-Awesome and Twemoji-amazing, but for Openmoji Emojis!
+
+[https://openmoji.org/](https://openmoji.org/) 
+All emojis were designed by OpenMoji – the open-source emoji and icon project. License: CC BY-SA 4.0
+
+[https://favicon.io/favicon-converter/](https://favicon.io/favicon-converter/)
 
 ## Resources
 

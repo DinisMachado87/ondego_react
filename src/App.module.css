@@ -1,0 +1,42 @@
+.App {
+  background-color: #212121 ;
+  min-height: 100vh ;
+  color: white;
+}
+
+.Main {
+  padding-top: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-shadow: none;
+  transition: text-shadow ease-in-out 0.3s;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  text-shadow: 1rem 1rem 1rem;
+  transition: text-shadow ease-in-out 0.3s;
+}
+
+a:hover i {
+  text-shadow: 1rem 1rem 1rem;
+  transition: text-shadow ease-in-out 0.3s;
+}
+
+i {
+  font-size: 1.6rem;
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+i:hover {
+  cursor: pointer;
+  text-shadow: 1rem 1rem 1rem;
+  transition: text-shadow ease-in-out 0.3s;
+}
