@@ -74,7 +74,24 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 ## Functionality
 
-### Functionality 1
+### Event Creation with Default Date and Time
+
+In the development of the EventCreateForm component, I prioritized user experience by prepopulating the start and end times of an event with default values. This feature is particularly beneficial for users creating spontaneous events, a key focus of this application.
+
+I set the start time (when_start) to default to today's date at 18:00 (6 PM), and the end time (when_end) to default to today's date at 23:00 (11 PM). These times were chosen as they typically represent after-work hours when most spontaneous events are likely to occur.
+
+To achieve this, I created the getTodayAt function, which takes hours and minutes as parameters and returns a string representing the current date at the specified time.
+
+    const getTodayAt = (hours, minutes) => {
+        let date = new Date();
+        date.setHours(hours);
+        date.setMinutes(minutes);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
+        return date.toISOString().slice(0, 16);
+    }
+
+By prepopulating these fields, I've reduced the number of clicks and typing required by the user, making the event creation process quicker and more efficient. Even if users need to adjust the hours, they likely won't need to change the minutes or date, further enhancing their experience.
 
 ## Deployment
 
@@ -82,7 +99,7 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 ## Resolved bugs
 
-## Debugging the Add Event Image Upload Button
+### Debugging the Add Event Image Upload Button
 
 Initially, the Add Event Image Upload Button was not functioning as expected. The standard button appeared grey inside the customized orange button, which was not the desired behavior. The issue was that the browser's default file input button was not being styled correctly.
 
@@ -92,7 +109,7 @@ However, this initially resulted in two buttons being displayed due to the terna
 
 With these changes, the image upload button is now working as expected, with the correct styling and behavior.
 
-## Debugging the Image Display in the add event
+### Debugging the Image Display in the add event
 
 While working on the Create Event module, I encountered an issue where the image wasn't staying within its container. Initially, I thought the problem was with the CSS properties `max-width` and `max-height` that I had used. I tried setting defined heights and widths for the image and its parent containers, but this didn't solve the issue.
 
@@ -102,9 +119,37 @@ After making this change, the image started responding as expected. However, the
 
 In conclusion, the image display issue in the Create Event module was resolved by addressing the correct element in the CSS and mirroring the positioning style in the two levels of parents. This served as a reminder that sometimes the issue isn't with the code you're focusing on, but somewhere often so evident it is hard to see!
 
-## Debugging the EventCreateForm Component
+### Debugging the EventCreateForm Component
 
 The EventCreateForm component did not submit the placeholder image when no image was selected by the user. This was due to the `event_Image` state being set to `null` by default, which caused the placeholder image to be removed when the form was submitted without an image. To resolve this issue, I updated the `event_image` state to default to the placeholder image when no image was selected. This ensured that the placeholder image was submitted with the form when no image was selected by the user.
+
+### Debugging Image Upload in EventCreateForm
+
+I encountered still another issue with the image upload functionality. The problem was that when a user did not upload an image for an event, we wanted to send a default placeholder image to the server. However, the server was expecting an image file, not a URL. To resolve this issue, I updated the `event_image` state to store the image file when a user uploaded an image and the placeholder image URL when no image was uploaded. This allowed the form to submit the correct data to the server, ensuring that the placeholder image was displayed when no image was uploaded by the user. This resolved the issue and ensured that the image upload functionality worked as expected. 
+
+The original code was:
+
+    if (imageInput.current.files[0]) {
+        formData.append('event_image', imageInput.current.files[0]);
+    }
+
+This code was checking if the user selected an image file. If they had not, it appended the file to the formData object. If they had not, it did nothing. This was causing an error because the server was expecting a file for the 'event_image' field.
+
+To fix this, I researched a way to modify the code to fetch the placeholder image, convert it to a Blob, create a File object from the Blob, and append it to the formData object when the user does not upload an image. The updated code is:
+
+    if (imageInput.current.files[0]) {
+        formData.append('event_image', imageInput.current.files[0]);
+    } else {
+        const response = await fetch(Upload);
+        const blob = await response.blob();
+        const file = new File([blob], 'upload.jpg', { type: 'image/jpeg' });
+        formData.append('event_image', file);
+    }
+
+In this updated code, Upload is the URL of the placeholder image and 'upload.jpg' is the filename.
+
+This solution ensures that a file is always sent for the 'event_image' field, whether it's the user-uploaded image or the default placeholder image.
+
 
 ## Contributors
 

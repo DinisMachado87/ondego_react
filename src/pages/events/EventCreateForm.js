@@ -18,6 +18,16 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
 
 function EventCreateForm() {
+
+	const getTodayAt = (hours, minutes) => {
+		let date = new Date();
+		date.setHours(hours);
+		date.setMinutes(minutes);
+		date.setSeconds(0);
+		date.setMilliseconds(0);
+		return date.toISOString().slice(0, 16);
+	}
+
 	const [errors, setErrors] = useState({});
 
 	const [eventData, setEventData] = useState({
@@ -25,8 +35,8 @@ function EventCreateForm() {
 		what_content: '',
 		where_place: '',
 		where_address: '',
-		when_start: '',
-		when_end: '',
+		when_start: getTodayAt(18, 0),
+		when_end: getTodayAt(23, 0),
 		intention: '',
 		event_image: Upload,
 	});
@@ -52,20 +62,20 @@ function EventCreateForm() {
 		});
 	};
 
-const handleChangeImage = (event) => {
-    if (event.target.files.length) {
-        URL.revokeObjectURL(eventData.event_image);
-        setEventData({
-            ...eventData,
-            event_image: URL.createObjectURL(event.target.files[0]),
-        });
-    } else {
-        setEventData({
-            ...eventData,
-            event_image: Upload,
-        });
-    }
-};
+	const handleChangeImage = (event) => {
+		if (event.target.files.length) {
+			URL.revokeObjectURL(eventData.event_image);
+			setEventData({
+				...eventData,
+				event_image: URL.createObjectURL(event.target.files[0]),
+			});
+		} else {
+			setEventData({
+				...eventData,
+				event_image: Upload,
+			});
+		}
+	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -78,7 +88,14 @@ const handleChangeImage = (event) => {
 		formData.append('start', when_start);
 		formData.append('end', when_end);
 		formData.append('intention', intention);
-		formData.append('event_image', imageInput.current.files[0]);
+		if (imageInput.current.files[0]) {
+			formData.append('event_image', imageInput.current.files[0]);
+		} else {
+			const response = await fetch(Upload);
+			const blob = await response.blob();
+			const file = new File([blob], 'upload.jpg', { type: 'image/jpeg' });
+			formData.append('event_image', file);
+		}
 
 		try {
 			const { data } = await axios.post('/events', formData);
@@ -93,158 +110,158 @@ const handleChangeImage = (event) => {
 
 	const textFields = (
 		<div className='text-center OrangeBorder'>
-			<h1 className={styles.Header}>add event</h1>
+			<h1 className={ styles.Header }>add event</h1>
 
 			<Form.Group controlId='WhatTitle'>
 				<Form.Label className='d-none'>What? (title)</Form.Label>
 				<Form.Control
-					className={styles.Input}
+					className={ styles.Input }
 					type='text'
 					placeholder='What? (title)'
 					name='what_title'
-					value={what_title}
-					onChange={handleChange}
+					value={ what_title }
+					onChange={ handleChange }
 				/>
 			</Form.Group>
-			{ errors.what_title?.map((message, idx) => (
+			{ errors && errors.what_title?.map((message, idx) => (
 				<Alert key={ idx } variant='warning'>
 					{ message }
 				</Alert>
-			))}
+			)) }
 
 			<Form.Group controlId='WhatContent'>
 				<Form.Label className='d-none'>What? (content)</Form.Label>
 				<Form.Control
-					className={styles.Input}
+					className={ styles.Input }
 					as='textarea'
-					rows={3}
+					rows={ 3 }
 					placeholder='What? (description)'
 					name='what_content'
-					value={what_content}
-					onChange={handleChange}
+					value={ what_content }
+					onChange={ handleChange }
 				/>
 			</Form.Group>
-			{ errors.what_content?.map((message, idx) => (
+			{ errors && errors.what_content?.map((message, idx) => (
 				<Alert key={ idx } variant='warning'>
 					{ message }
 				</Alert>
-			))}
+			)) }
 
 			<Form.Group controlId='WherePlace'>
 				<Form.Label className='d-none'>Where? (place)</Form.Label>
 				<Form.Control
-					className={styles.Input}
+					className={ styles.Input }
 					type='text'
 					placeholder='Where? (place)'
 					name='where_place'
-					value={where_place}
-					onChange={handleChange}
+					value={ where_place }
+					onChange={ handleChange }
 				/>
 			</Form.Group>
-			{ errors.where_place?.map((message, idx) => (
+			{ errors && errors.where_place?.map((message, idx) => (
 				<Alert key={ idx } variant='warning'>
 					{ message }
 				</Alert>
-			))}
+			)) }
 
 			<Form.Group controlId='WhereAddress'>
 				<Form.Label className='d-none'>Where? (address)</Form.Label>
 				<Form.Control
-					className={styles.Input}
+					className={ styles.Input }
 					type='text'
 					placeholder='Where? (address)'
 					name='where_address'
-					value={where_address}
-					onChange={handleChange}
+					value={ where_address }
+					onChange={ handleChange }
 				/>
 			</Form.Group>
-			{ errors.where_address?.map((message, idx) => (
+			{ errors && errors.where_address?.map((message, idx) => (
 				<Alert key={ idx } variant='warning'>
 					{ message }
 				</Alert>
-			))}
+			)) }
 
-			<Form.Group className={styles.Input} controlId='WhenStart'>
-				<Form.Label className={styles.Label}>When? (start)</Form.Label>
+			<Form.Group className={ styles.Input } controlId='WhenStart'>
+				<Form.Label className={ styles.Label }>When? (start)</Form.Label>
 				<Form.Control
-					className={styles.Input}
+					className={ styles.Input }
 					type='datetime-local'
 					name='when_start'
-					value={when_start}
-					onChange={handleChange}
+					value={ when_start }
+					onChange={ handleChange }
 				/>
 			</Form.Group>
-			{ errors.when_start?.map((message, idx) => (
+			{ errors && errors.when_start?.map((message, idx) => (
 				<Alert key={ idx } variant='warning'>
 					{ message }
 				</Alert>
-			))}
+			)) }
 
-			<Form.Group className={styles.Input} controlId='WhenEnd'>
-				<Form.Label className={styles.Label}>When? (end)</Form.Label>
+			<Form.Group className={ styles.Input } controlId='WhenEnd'>
+				<Form.Label className={ styles.Label }>When? (end)</Form.Label>
 				<Form.Control
-					className={styles.Input}
+					className={ styles.Input }
 					type='datetime-local'
 					name='when_end'
-					value={when_end}
-					onChange={handleChange}
+					value={ when_end }
+					onChange={ handleChange }
 				/>
 			</Form.Group>
-			{ errors.when_end?.map((message, idx) => (
+			{ errors && errors.when_end?.map((message, idx) => (
 				<Alert key={ idx } variant='warning'>
 					{ message }
 				</Alert>
-			))}
+			)) }
 
 			<Form.Group controlId='Intention'>
 				<Form.Label className='d-none'>Intention</Form.Label>
 				<Form.Control
-					className={styles.Input}
+					className={ styles.Input }
 					type='text'
 					placeholder='intention'
 					name='intention'
-					value={intention}
-					onChange={handleChange}
+					value={ intention }
+					onChange={ handleChange }
 				/>
 			</Form.Group>
-			{ errors.intention?.map((message, idx) => (
+			{ errors && errors.intention?.map((message, idx) => (
 				<Alert key={ idx } variant='warning'>
 					{ message }
 				</Alert>
-			))}
+			)) }
 
 			<Button
-				className={`${btnStyles.Button} ${btnStyles.Orange}`}
-				onClick={() => history.goBack()}
+				className={ `${btnStyles.Button} ${btnStyles.Orange}` }
+				onClick={ () => history.goBack() }
 			>
 				cancel
 			</Button>
 			<Button
-				className={`${btnStyles.Button} ${btnStyles.Orange} ${btnStyles.HalfWidth}`}
+				className={ `${btnStyles.Button} ${btnStyles.Orange} ${btnStyles.HalfWidth}` }
 				type='submit'
 			>
 				create
 			</Button>
-			{ errors.non_field_errors?.map((message, idx) => (
+			{ errors && errors.non_field_errors?.map((message, idx) => (
 				<Alert key={ idx } variant='warning' className='mt-3'>
 					{ message }
 				</Alert>
-			))}
+			)) }
 		</div>
 	);
 
 	return (
-		<Form onSubmit={handleSubmit} className={`${styles.Form}`}>
+		<Form onSubmit={ handleSubmit } className={ `${styles.Form}` }>
 			<Row>
-				<Col className='py-2 p-0 p-md-2' md={7} lg={8}>
+				<Col className='py-2 p-0 p-md-2' md={ 7 } lg={ 8 }>
 					<Container
-						className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
+						className={ `${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center` }
 					>
 						<Form.Group className='text-center'>
-							{event_image ? (
+							{ event_image ? (
 								<>
 									<figure>
-										<Image className={styles.Image} src={event_image} />
+										<Image className={ styles.Image } src={ event_image } />
 									</figure>
 								</>
 							) : (
@@ -252,33 +269,33 @@ const handleChangeImage = (event) => {
 									className='d-flex align-items-center'
 									htmlFor='image-upload'
 								>
-									<Asset src={Upload} message='Click to Upload an Image' />
+									<Asset src={ Upload } message='Click to Upload an Image' />
 								</Form.Label>
-							)}
+							) }
 
 							<Form.Label
-								className={`${btnStyles.Button} ${btnStyles.Orange}`}
+								className={ `${btnStyles.Button} ${btnStyles.Orange}` }
 								htmlFor='image-upload'
 							>
-								{event_image ? 'Change the image' : 'Click to add an image'}
+								{ event_image ? 'Change the image' : 'Click to add an image' }
 								<i className='fa-solid fa-cloud-arrow-up'></i>
 								<Form.File
 									id='image-upload'
 									accept='image/*'
-									onChange={handleChangeImage}
+									onChange={ handleChangeImage }
 									hidden
-									ref={imageInput}
+									ref={ imageInput }
 								/>
 							</Form.Label>
 						</Form.Group>
-						<div className='d-md-none'>{textFields}</div>
+						<div className='d-md-none'>{ textFields }</div>
 					</Container>
 				</Col>
-				<Col md={5} lg={4} className='d-none d-md-block p-0 p-md-2'>
+				<Col md={ 5 } lg={ 4 } className='d-none d-md-block p-0 p-md-2'>
 					<Container
-						className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
+						className={ `${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center` }
 					>
-						{textFields}
+						{ textFields }
 					</Container>
 				</Col>
 			</Row>
