@@ -6,7 +6,7 @@
 
 ## Features
 
-### 1. 
+### 1.
 
 ## Design
 
@@ -42,10 +42,9 @@ Overall, your version effectively communicates your process. These suggestions a
 
 For body text and content, **Padauk** was selected as the tertiary font. Its light and airy design prioritizes readability and simplicity, allowing the focus to remain on the content while providing a comfortable reading experience. Padauk seamlessly integrates with the playful energy of Platypi and the relaxed tone of Mukta, completing Öndëgö's font palette.
 
-
 ## How to Use
 
-### 1. 
+### 1.
 
 ## Development User Stories
 
@@ -75,8 +74,7 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 ## Functionality
 
-###  Functionality 1
-
+### Functionality 1
 
 ## Deployment
 
@@ -108,17 +106,16 @@ In conclusion, the image display issue in the Create Event module was resolved b
 
 The EventCreateForm component did not submit the placeholder image when no image was selected by the user. This was due to the `event_Image` state being set to `null` by default, which caused the placeholder image to be removed when the form was submitted without an image. To resolve this issue, I updated the `event_image` state to default to the placeholder image when no image was selected. This ensured that the placeholder image was submitted with the form when no image was selected by the user.
 
-
 ## Contributors
 
 Dinis Machado
 
 ## Credits
 
-[OpenMoji Awesome](https://github.com/gromain/openmoji-awesome?tab=readme-ov-file#openmoji-awesome-) 
+[OpenMoji Awesome](https://github.com/gromain/openmoji-awesome?tab=readme-ov-file#openmoji-awesome-)
 Like Font-Awesome and Twemoji-amazing, but for Openmoji Emojis!
 
-[https://openmoji.org/](https://openmoji.org/) 
+[https://openmoji.org/](https://openmoji.org/)
 All emojis were designed by OpenMoji – the open-source emoji and icon project. License: CC BY-SA 4.0
 
 [https://favicon.io/favicon-converter/](https://favicon.io/favicon-converter/)
@@ -139,8 +136,7 @@ A special thank you to the oversight and discussion insight from my Code Institu
 
 I verified all code:
 
-* In Lighthouse
-* in the Code Institute CI Python Linter
-* In W3C HTML
-* In W3C CSS
-
+- In Lighthouse
+- in the Code Institute CI Python Linter
+- In W3C HTML
+- In W3C CSS

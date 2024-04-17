@@ -106,6 +106,11 @@ const handleChangeImage = (event) => {
 					onChange={handleChange}
 				/>
 			</Form.Group>
+			{ errors.what_title?.map((message, idx) => (
+				<Alert key={ idx } variant='warning'>
+					{ message }
+				</Alert>
+			))}
 
 			<Form.Group controlId='WhatContent'>
 				<Form.Label className='d-none'>What? (content)</Form.Label>
@@ -119,6 +124,11 @@ const handleChangeImage = (event) => {
 					onChange={handleChange}
 				/>
 			</Form.Group>
+			{ errors.what_content?.map((message, idx) => (
+				<Alert key={ idx } variant='warning'>
+					{ message }
+				</Alert>
+			))}
 
 			<Form.Group controlId='WherePlace'>
 				<Form.Label className='d-none'>Where? (place)</Form.Label>
@@ -131,6 +141,11 @@ const handleChangeImage = (event) => {
 					onChange={handleChange}
 				/>
 			</Form.Group>
+			{ errors.where_place?.map((message, idx) => (
+				<Alert key={ idx } variant='warning'>
+					{ message }
+				</Alert>
+			))}
 
 			<Form.Group controlId='WhereAddress'>
 				<Form.Label className='d-none'>Where? (address)</Form.Label>
@@ -143,6 +158,11 @@ const handleChangeImage = (event) => {
 					onChange={handleChange}
 				/>
 			</Form.Group>
+			{ errors.where_address?.map((message, idx) => (
+				<Alert key={ idx } variant='warning'>
+					{ message }
+				</Alert>
+			))}
 
 			<Form.Group className={styles.Input} controlId='WhenStart'>
 				<Form.Label className={styles.Label}>When? (start)</Form.Label>
@@ -154,6 +174,11 @@ const handleChangeImage = (event) => {
 					onChange={handleChange}
 				/>
 			</Form.Group>
+			{ errors.when_start?.map((message, idx) => (
+				<Alert key={ idx } variant='warning'>
+					{ message }
+				</Alert>
+			))}
 
 			<Form.Group className={styles.Input} controlId='WhenEnd'>
 				<Form.Label className={styles.Label}>When? (end)</Form.Label>
@@ -165,6 +190,11 @@ const handleChangeImage = (event) => {
 					onChange={handleChange}
 				/>
 			</Form.Group>
+			{ errors.when_end?.map((message, idx) => (
+				<Alert key={ idx } variant='warning'>
+					{ message }
+				</Alert>
+			))}
 
 			<Form.Group controlId='Intention'>
 				<Form.Label className='d-none'>Intention</Form.Label>
@@ -177,18 +207,15 @@ const handleChangeImage = (event) => {
 					onChange={handleChange}
 				/>
 			</Form.Group>
-
-			{errors && Object.keys(errors).length > 0 && (
-				<Alert variant='danger'>
-					{Object.keys(errors).map((key) => (
-						<p key={key}>{errors[key]}</p>
-					))}
+			{ errors.intention?.map((message, idx) => (
+				<Alert key={ idx } variant='warning'>
+					{ message }
 				</Alert>
-			)}
+			))}
 
 			<Button
 				className={`${btnStyles.Button} ${btnStyles.Orange}`}
-				onClick={() => {}}
+				onClick={() => history.goBack()}
 			>
 				cancel
 			</Button>
@@ -198,6 +225,11 @@ const handleChangeImage = (event) => {
 			>
 				create
 			</Button>
+			{ errors.non_field_errors?.map((message, idx) => (
+				<Alert key={ idx } variant='warning' className='mt-3'>
+					{ message }
+				</Alert>
+			))}
 		</div>
 	);
 
