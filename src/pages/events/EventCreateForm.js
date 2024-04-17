@@ -1,33 +1,34 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react';
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Image from "react-bootstrap/Image";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
 
-import Upload from "../../assets/upload.jpg";
+import Upload from '../../assets/upload.jpg';
 
-import styles from "../../styles/EventCreateEditForm.module.css";
-import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
-import Asset from "../../components/Asset";
-import { Alert } from "react-bootstrap";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import styles from '../../styles/EventCreateEditForm.module.css';
+import appStyles from '../../App.module.css';
+import btnStyles from '../../styles/Button.module.css';
+import Asset from '../../components/Asset';
+import { Alert } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import axios from 'axios';
 
 function EventCreateForm() {
 	const [errors, setErrors] = useState({});
 
 	const [eventData, setEventData] = useState({
-		what_title: "",
-		what_content: "",
-		where_place: "",
-		where_address: "",
-		when_start: "",
-		when_end: "",
-		intention: "",
-		event_image: "",
+		what_title: '',
+		what_content: '',
+		where_place: '',
+		where_address: '',
+		when_start: '',
+		when_end: '',
+		intention: '',
+		event_image: Upload,
 	});
 
 	const {
@@ -51,126 +52,148 @@ function EventCreateForm() {
 		});
 	};
 
-	const handleChangeImage = (event) => {
-		if (event.target.files.length) {
-			URL.revokeObjectURL(eventData.event_image);
-			setEventData({
-				...eventData,
-				event_image: URL.createObjectURL(event.target.files[0]),
-			});
+const handleChangeImage = (event) => {
+    if (event.target.files.length) {
+        URL.revokeObjectURL(eventData.event_image);
+        setEventData({
+            ...eventData,
+            event_image: URL.createObjectURL(event.target.files[0]),
+        });
+    } else {
+        setEventData({
+            ...eventData,
+            event_image: Upload,
+        });
+    }
+};
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
+		const formData = new FormData();
+		formData.append('title', what_title);
+		formData.append('content', what_content);
+		formData.append('place', where_place);
+		formData.append('address', where_address);
+		formData.append('start', when_start);
+		formData.append('end', when_end);
+		formData.append('intention', intention);
+		formData.append('event_image', imageInput.current.files[0]);
+
+		try {
+			const { data } = await axios.post('/events', formData);
+			history.push(`/events/${data.id}`);
+		} catch (err) {
+			console.error(err);
+			if (err.response?.status !== 401) {
+				setErrors(err.response?.data);
+			}
 		}
 	};
 
 	const textFields = (
-		<div
-			className='text-center OrangeBorder'>
-			<h1 className={ styles.Header }>add event</h1>
+		<div className='text-center OrangeBorder'>
+			<h1 className={styles.Header}>add event</h1>
 
 			<Form.Group controlId='WhatTitle'>
 				<Form.Label className='d-none'>What? (title)</Form.Label>
 				<Form.Control
-					className={ styles.Input }
+					className={styles.Input}
 					type='text'
 					placeholder='What? (title)'
-					name='title'
-					value={ what_title }
-					onChange={ handleChange }
+					name='what_title'
+					value={what_title}
+					onChange={handleChange}
 				/>
 			</Form.Group>
 
 			<Form.Group controlId='WhatContent'>
 				<Form.Label className='d-none'>What? (content)</Form.Label>
 				<Form.Control
-					className={ styles.Input }
+					className={styles.Input}
 					as='textarea'
-					rows={ 3 }
+					rows={3}
 					placeholder='What? (description)'
-					name='content'
-					value={ what_content }
-					onChange={ handleChange }
+					name='what_content'
+					value={what_content}
+					onChange={handleChange}
 				/>
 			</Form.Group>
 
 			<Form.Group controlId='WherePlace'>
 				<Form.Label className='d-none'>Where? (place)</Form.Label>
 				<Form.Control
-					className={ styles.Input }
+					className={styles.Input}
 					type='text'
 					placeholder='Where? (place)'
-					name='place'
-					value={ where_place }
-					onChange={ handleChange }
+					name='where_place'
+					value={where_place}
+					onChange={handleChange}
 				/>
 			</Form.Group>
 
 			<Form.Group controlId='WhereAddress'>
 				<Form.Label className='d-none'>Where? (address)</Form.Label>
 				<Form.Control
-					className={ styles.Input }
+					className={styles.Input}
 					type='text'
 					placeholder='Where? (address)'
-					name='address'
-					value={ where_address }
-					onChange={ handleChange }
+					name='where_address'
+					value={where_address}
+					onChange={handleChange}
 				/>
 			</Form.Group>
 
-			<Form.Group
-				className={ styles.Input }
-				controlId='WhenStart'
-			>
+			<Form.Group className={styles.Input} controlId='WhenStart'>
 				<Form.Label className={styles.Label}>When? (start)</Form.Label>
 				<Form.Control
-					className={ styles.Input }
+					className={styles.Input}
 					type='datetime-local'
-					name='start'
-					value={ when_start }
-					onChange={ handleChange }
+					name='when_start'
+					value={when_start}
+					onChange={handleChange}
 				/>
 			</Form.Group>
 
-			<Form.Group
-				className={ styles.Input}
-				controlId='WhenEnd'
-			>
+			<Form.Group className={styles.Input} controlId='WhenEnd'>
 				<Form.Label className={styles.Label}>When? (end)</Form.Label>
 				<Form.Control
-					className={ styles.Input }
+					className={styles.Input}
 					type='datetime-local'
-					name='end'
-					value={ when_end }
-					onChange={ handleChange }
+					name='when_end'
+					value={when_end}
+					onChange={handleChange}
 				/>
 			</Form.Group>
 
 			<Form.Group controlId='Intention'>
 				<Form.Label className='d-none'>Intention</Form.Label>
 				<Form.Control
-					className={ styles.Input }
+					className={styles.Input}
 					type='text'
 					placeholder='intention'
 					name='intention'
-					value={ intention }
-					onChange={ handleChange }
+					value={intention}
+					onChange={handleChange}
 				/>
 			</Form.Group>
 
-			{ errors && Object.keys(errors).length > 0 && (
+			{errors && Object.keys(errors).length > 0 && (
 				<Alert variant='danger'>
-					{ Object.keys(errors).map((key) => (
-						<p key={ key }>{ errors[key] }</p>
-					)) }
+					{Object.keys(errors).map((key) => (
+						<p key={key}>{errors[key]}</p>
+					))}
 				</Alert>
-			) }
+			)}
 
 			<Button
-				className={ `${btnStyles.Button} ${btnStyles.Orange}` }
-				onClick={ () => { } }
+				className={`${btnStyles.Button} ${btnStyles.Orange}`}
+				onClick={() => {}}
 			>
 				cancel
 			</Button>
 			<Button
-				className={ `${btnStyles.Button} ${btnStyles.Orange} ${btnStyles.HalfWidth}` }
+				className={`${btnStyles.Button} ${btnStyles.Orange} ${btnStyles.HalfWidth}`}
 				type='submit'
 			>
 				create
@@ -179,26 +202,17 @@ function EventCreateForm() {
 	);
 
 	return (
-		<Form
-			className={ `${styles.Form}` }
-		>
+		<Form onSubmit={handleSubmit} className={`${styles.Form}`}>
 			<Row>
-				<Col
-					className='py-2 p-0 p-md-2'
-					md={ 7 }
-					lg={ 8 }
-				>
+				<Col className='py-2 p-0 p-md-2' md={7} lg={8}>
 					<Container
-						className={ `${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center` }
+						className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
 					>
 						<Form.Group className='text-center'>
-							{ event_image ? (
+							{event_image ? (
 								<>
 									<figure>
-										<Image
-											className={ styles.Image }
-											src={ event_image }
-										/>
+										<Image className={styles.Image} src={event_image} />
 									</figure>
 								</>
 							) : (
@@ -206,39 +220,33 @@ function EventCreateForm() {
 									className='d-flex align-items-center'
 									htmlFor='image-upload'
 								>
-									<Asset
-										src={ Upload }
-										message='Click to Upload an Image'
-									/>
+									<Asset src={Upload} message='Click to Upload an Image' />
 								</Form.Label>
-							) }
+							)}
 
 							<Form.Label
-								className={ `${btnStyles.Button} ${btnStyles.Orange}` }
+								className={`${btnStyles.Button} ${btnStyles.Orange}`}
 								htmlFor='image-upload'
 							>
-								{ event_image ? "Change the image" : "Click to add an image" }
+								{event_image ? 'Change the image' : 'Click to add an image'}
 								<i className='fa-solid fa-cloud-arrow-up'></i>
 								<Form.File
 									id='image-upload'
 									accept='image/*'
-									onChange={ handleChangeImage }
+									onChange={handleChangeImage}
 									hidden
+									ref={imageInput}
 								/>
 							</Form.Label>
 						</Form.Group>
-						<div className='d-md-none'>{ textFields }</div>
+						<div className='d-md-none'>{textFields}</div>
 					</Container>
 				</Col>
-				<Col
-					md={ 5 }
-					lg={ 4 }
-					className='d-none d-md-block p-0 p-md-2'
-				>
+				<Col md={5} lg={4} className='d-none d-md-block p-0 p-md-2'>
 					<Container
-						className={ `${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center` }
+						className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
 					>
-						{ textFields }
+						{textFields}
 					</Container>
 				</Col>
 			</Row>
