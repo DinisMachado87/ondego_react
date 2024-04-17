@@ -25,3 +25,47 @@ figure {
   justify-content: center;
   align-items: center;
 }
+
+.Input {
+  background: black;
+  border: 1px solid orangered;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  color: orange;
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+}
+
+.Input:focus {
+  background: black;
+  color: orange;
+}
+
+.Input::placeholder {
+  color: orange;
+}
+
+.Header {
+  font-family: "Mukta", sans-serif;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: 0.2em;
+  color: orangered;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.Label {
+  font-family: "Mukta", sans-serif;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 0.2em;
+  color: orangered;
+  border-radius: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: -1.5rem;
+}

@@ -62,12 +62,16 @@ function EventCreateForm() {
 	};
 
 	const textFields = (
-		<div className='text-center OrangeBorder'>
+		<div
+			className='text-center OrangeBorder'>
+			<h1 className={ styles.Header }>add event</h1>
+
 			<Form.Group controlId='WhatTitle'>
 				<Form.Label className='d-none'>What? (title)</Form.Label>
 				<Form.Control
+					className={ styles.Input }
 					type='text'
-					placeholder='title'
+					placeholder='What? (title)'
 					name='title'
 					value={ what_title }
 					onChange={ handleChange }
@@ -77,9 +81,10 @@ function EventCreateForm() {
 			<Form.Group controlId='WhatContent'>
 				<Form.Label className='d-none'>What? (content)</Form.Label>
 				<Form.Control
+					className={ styles.Input }
 					as='textarea'
 					rows={ 3 }
-					placeholder='content'
+					placeholder='What? (description)'
 					name='content'
 					value={ what_content }
 					onChange={ handleChange }
@@ -89,8 +94,9 @@ function EventCreateForm() {
 			<Form.Group controlId='WherePlace'>
 				<Form.Label className='d-none'>Where? (place)</Form.Label>
 				<Form.Control
+					className={ styles.Input }
 					type='text'
-					placeholder='place'
+					placeholder='Where? (place)'
 					name='place'
 					value={ where_place }
 					onChange={ handleChange }
@@ -100,17 +106,22 @@ function EventCreateForm() {
 			<Form.Group controlId='WhereAddress'>
 				<Form.Label className='d-none'>Where? (address)</Form.Label>
 				<Form.Control
+					className={ styles.Input }
 					type='text'
-					placeholder='address'
+					placeholder='Where? (address)'
 					name='address'
 					value={ where_address }
 					onChange={ handleChange }
 				/>
 			</Form.Group>
 
-			<Form.Group controlId='WhenStart'>
-				<Form.Label className='d-none'>When? (start)</Form.Label>
+			<Form.Group
+				className={ styles.Input }
+				controlId='WhenStart'
+			>
+				<Form.Label className={styles.Label}>When? (start)</Form.Label>
 				<Form.Control
+					className={ styles.Input }
 					type='datetime-local'
 					name='start'
 					value={ when_start }
@@ -118,9 +129,13 @@ function EventCreateForm() {
 				/>
 			</Form.Group>
 
-			<Form.Group controlId='WhenEnd'>
-				<Form.Label className='d-none'>When? (end)</Form.Label>
+			<Form.Group
+				className={ styles.Input}
+				controlId='WhenEnd'
+			>
+				<Form.Label className={styles.Label}>When? (end)</Form.Label>
 				<Form.Control
+					className={ styles.Input }
 					type='datetime-local'
 					name='end'
 					value={ when_end }
@@ -131,6 +146,7 @@ function EventCreateForm() {
 			<Form.Group controlId='Intention'>
 				<Form.Label className='d-none'>Intention</Form.Label>
 				<Form.Control
+					className={ styles.Input }
 					type='text'
 					placeholder='intention'
 					name='intention'
@@ -139,7 +155,7 @@ function EventCreateForm() {
 				/>
 			</Form.Group>
 
-			{ errors && (
+			{ errors && Object.keys(errors).length > 0 && (
 				<Alert variant='danger'>
 					{ Object.keys(errors).map((key) => (
 						<p key={ key }>{ errors[key] }</p>
@@ -154,7 +170,7 @@ function EventCreateForm() {
 				cancel
 			</Button>
 			<Button
-				className={ `${btnStyles.Button} ${btnStyles.Orange}` }
+				className={ `${btnStyles.Button} ${btnStyles.Orange} ${btnStyles.HalfWidth}` }
 				type='submit'
 			>
 				create
@@ -163,7 +179,9 @@ function EventCreateForm() {
 	);
 
 	return (
-		<Form>
+		<Form
+			className={ `${styles.Form}` }
+		>
 			<Row>
 				<Col
 					className='py-2 p-0 p-md-2'
@@ -196,8 +214,11 @@ function EventCreateForm() {
 							) }
 
 							<Form.Label
-								className={ `${btnStyles.Button} ${btnStyles.Orange}` } htmlFor="image-upload">
-								{ event_image ? 'Change the image' : 'Click to add an image' }
+								className={ `${btnStyles.Button} ${btnStyles.Orange}` }
+								htmlFor='image-upload'
+							>
+								{ event_image ? "Change the image" : "Click to add an image" }
+								<i className='fa-solid fa-cloud-arrow-up'></i>
 								<Form.File
 									id='image-upload'
 									accept='image/*'
@@ -205,7 +226,6 @@ function EventCreateForm() {
 									hidden
 								/>
 							</Form.Label>
-
 						</Form.Group>
 						<div className='d-md-none'>{ textFields }</div>
 					</Container>
@@ -217,7 +237,9 @@ function EventCreateForm() {
 				>
 					<Container
 						className={ `${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center` }
-					>{ textFields }</Container>
+					>
+						{ textFields }
+					</Container>
 				</Col>
 			</Row>
 		</Form>
