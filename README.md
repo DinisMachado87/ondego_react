@@ -48,6 +48,67 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 ## Development User Stories
 
+### Authentication
+
+#### As a user, I can sign up, sign in, and maintain my logged-in status so that I can access the app's features seamlessly.
+
+- **AC1:** Users can sign up for a new account.
+- **AC2:** Users can sign in to the app.
+- **AC3:** Users can stay logged in until they choose to log out explicitly.
+- **AC4:** Access tokens are refreshed automatically to maintain the logged-in status.
+
+### Creating and Updating Events
+
+#### As a user, I can create events and be able to edit their details so that I can share and manage spontaneous plans with others.
+
+- **AC1:** Users can create new events with relevant details such as title, date, time, location, and description.
+- **AC2:** Event creators can edit event details like title, date, time, location, and description after creation.
+
+### Joining Events
+
+#### As a user, I can join and leave events to indicate my participation and manage my plans effectively.
+
+- **AC1:** Users can join events to indicate their participation.
+- **AC2:** Users can leave events if their plans change.
+
+### Viewing Other Profiles
+
+#### As a user, I can view other users' profiles and follow/unfollow them to stay connected and discover interesting events.
+
+- **AC1:** Users can view other users' profiles details.
+- **AC2:** Users can follow or unfollow other users to customize their event feed.
+
+### Viewing Event List
+
+#### As a user, I can see a list of recent events and be able to search for specific events by keywords.
+
+- **AC1:** Users can view a list of most recent events.
+- **AC2:** Users can search for events using keywords to find events of interest.
+
+### Viewing Event Detail Page
+
+#### As a user, I can view detailed information about an event and be able to interact with it by joining and commenting.
+
+- **AC1:** Users can view detailed information about an event, including its title, date, time, location, description, and creator.
+- **AC2:** Users can join an event to indicate their participation.
+- **AC3:** Users can add comments to an event to share thoughts or ask questions.
+
+### Viewing Profile Detail Page
+
+#### As a user, I can view detailed information about a user's profile, including their 'would like to' and 'feeling...' fields, to understand their social expectations and intentions better.
+
+- **AC1:** Users can view detailed information about a user's profile, including their 'would like to' and 'feeling...' fields.
+- **AC2:** Users can understand the social expectations and intentions of other users through their profile details.
+
+### Communicating Intentions and Expectations
+
+#### As a user, I can communicate my intentions and expectations for an event through profile fields like 'would like to' and 'feeling ...' and event field 'intention' to enhance social consent and understanding.
+
+- **AC1:** Users can set their intentions and expectations for an event through profile fields like 'would like to' and 'feeling ...'.
+- **AC2:** Users can view other users' intentions and expectations for an event through profile details and event information.
+
+
+
 ## Languages:
 
 ## Frameworks and Libraries
