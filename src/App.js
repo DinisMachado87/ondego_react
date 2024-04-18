@@ -27,7 +27,7 @@ function App() {
               <Route exact path="/goingon" render={() => <h1>Going On</h1>} />
               <Route exact path="/joining" render={() => <h1>Joining</h1>} />
               <Route exact path="/event/create" render={() => <EventCreateForm/>} />
-              <Route exact path="/event/:id" render={() => <EventPage /> } />
+              <Route exact path="/events/:id" render={() => <EventPage /> } />
               <Route render={ () => <h1>Page Not Found!</h1> } />
             </Switch>
           </Container>

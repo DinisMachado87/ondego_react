@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-import Badge from "react-bootstrap/Badge";
-import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
 
 import styles from "../../styles/Event.module.css";
 import appStyles from "../../App.module.css";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Media } from "react-bootstrap";
 import Avatar from "../../components/Avatar";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -31,96 +30,98 @@ const Event = (props) => {
     joining_count,
     comments_count,
     eventPage,
+    cannot_count,
+    let_me_see_count,
   } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
 
+  const [joining_status, setJoiningStatus] = useState("3");
+  const [tooltip, setTooltip] = useState("");
+
+  const handleToggle = (status, tooltipText) => {
+    setJoiningStatus(status);
+    setTooltip(tooltipText);
+  };
+
   return (
-    <ListGroup
-      as='ol'
-      numbered
+    <Card
       onClick={() => history.push(`/events/${id}`)}
-      className={appStyles.Pointer}>
-      <ListGroup.Item
-        as='li'
-        className={`${styles.TextShadow} ${styles.StretchedImage} d-flex justify-content-between align-items-start`}
-        style={{
-          backgroundImage: `url(${event_image})`,
-        }}>
-        <Media className={styles.Event}>
-          <Link to={`/profiles/${profile_id}`}>
-            <Avatar
-              src={profile_image}
-              height={55}
-            />
-            {owner}
-          </Link>
+      style={{ backgroundImage: `url(${event_image})` }}
+      className={`${appStyles.Pointer} ${styles.StretchedImage}`}>
+      <Media className={styles.Event}>
+        <Card.Body
+          className={`${styles.TextShadow} d-flex justify-content-between align-items-start`}>
           <div
-            className='ms-2 me-auto'
-            style={{
-              color: "white",
-            }}>
-            {what_title && <div className='fw-bold'>{what_title}</div>}
-            {intention && <span>{intention}</span>}
-          </div>
-          <div
-            className='ms-2 me-auto'
-            style={{
-              color: "white",
-            }}>
-            {what_content && <span>{what_content}</span>}
-            {when_start && <span>{when_start}</span>}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              height: "100%",
-            }}>
-            <img
-              alt='event'
-              src={event_image}
-              className={styles.ProportionalImage}
-            />
-          </div>
-          {joining_count && (
-            <Badge
-              bg='primary'
-              pill>
-              {" "}
-              {`${joining_count} joining`}{" "}
-            </Badge>
-          )}
-          <div>
+          className={`${styles.Container} ${styles.EventBody}`}
+          >
+            <Card.Link to={`/profiles/${profile_id}`}>
+              <Avatar
+                src={profile_image}
+                height={55}
+              />
+              {owner}
+            </Card.Link>
+
+            <h3>{what_title && <div className='fw-bold'>{what_title}</div>}</h3>
+            <h4>{intention && <span>{intention}</span>}</h4>
+            <p>{what_content && <span>{what_content}</span>}</p>
+            <p>{where_place && <span>{where_place}</span>}</p>
+            <p>{where_address && <span>{where_address}</span>}</p>
+
+            <p>{when_start && <span>start: {when_start}</span>}</p>
+            <p>{when_end && <span>end: {when_end}</span>}</p>
+
             <div>created: {created_at}</div>
             <div>updated: {updated_at}</div>
-						{ is_owner && <Link to={ `/events/${id}/edit` }>Edit</Link> }
-						<div className="styles.PostBar">
-							{ is_owner ? (
-								<OverlayTrigger placement="top" overlay={ <Tooltip>You can't join your own event!</Tooltip>} >
-									<i className="fa-solid fa-rocket"></i>
-								</OverlayTrigger>
-							) : joining_id ? (
-									<span onClick={ () => { } }>
-										<i className={`fa-solid fa-rocket ${styles.Join}`}></i><span>joïn</span>
-									</span>
-								) : currentUser ? (
-									<span onClick={ () => { } }>
-										<i className={`fa-solid fa-rocket ${styles.JoinShadow}`}></i><span>baïl</span>
-									</span>
-								) : (
-								<i className="fa-solid fa-rocket"></i>
-							)}
-							{ joining_count }
-								
-						</div>
+
+            {is_owner && (
+              <div>
+                <Link to={`/events/${id}/edit`}>Edit</Link>
+              </div>
+            )}
+            {is_owner && (
+              <div>
+                <Link to={`/events/${id}/delete`}>Delete</Link>
+              </div>
+            )}
+            <div className={`${styles.flexEnd}`}>
+              <img
+                alt='event'
+                src={event_image}
+                className={styles.ProportionalImage}
+              />
+            </div>
           </div>
-        </Media>
-      </ListGroup.Item>
-    </ListGroup>
+        </Card.Body>
+        <Card.Footer>
+          <div
+          className={styles.EventFooter}
+          >
+            <span onClick={() => handleToggle("2", "Joining")}>
+              <i className='fa fa-solid fa-rocket'></i> {joining_count}
+              {tooltip === "Joining" && (
+                <div className={styles.Tooltip}>Joining</div>
+              )}
+            </span>
+            <span onClick={() => handleToggle("3", "Let me see")}>
+              <i className='fa fa-solid fa-user-clock'></i> {let_me_see_count}
+              {tooltip === "Let me see" && (
+                <div className={styles.Tooltip}>Let me see</div>
+              )}
+            </span>
+            <span onClick={() => handleToggle("1", "Cannot")}>
+              <i className='fa fa-solid fa-ban'></i> {cannot_count}
+              {tooltip === "Cannot" && (
+                <div className={styles.Tooltip}>Cannot</div>
+              )}
+            </span>
+          </div>
+        </Card.Footer>
+      </Media>
+    </Card>
   );
 };
 
