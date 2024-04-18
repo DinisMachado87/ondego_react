@@ -39,6 +39,7 @@ function EventCreateForm() {
 		when_end: getTodayAt(23, 0),
 		intention: '',
 		event_image: Upload,
+		link: '',
 	});
 
 	const {
@@ -50,6 +51,7 @@ function EventCreateForm() {
 		when_end,
 		intention,
 		event_image,
+		link,
 	} = eventData;
 
 	const imageInput = useRef(null);
@@ -81,13 +83,14 @@ function EventCreateForm() {
 		event.preventDefault();
 
 		const formData = new FormData();
-		formData.append('title', what_title);
-		formData.append('content', what_content);
-		formData.append('place', where_place);
-		formData.append('address', where_address);
-		formData.append('start', when_start);
-		formData.append('end', when_end);
+		formData.append('what_title', what_title);
+		formData.append('what_content', what_content);
+		formData.append('where_place', where_place);
+		formData.append('where_address', where_address);
+		formData.append('when_start', when_start);
+		formData.append('when_end', when_end);
 		formData.append('intention', intention);
+		formData.append('link', link);
 		if (imageInput.current.files[0]) {
 			formData.append('event_image', imageInput.current.files[0]);
 		} else {
@@ -98,7 +101,7 @@ function EventCreateForm() {
 		}
 
 		try {
-			const { data } = await axios.post('/events', formData);
+			const { data } = await axios.post('/events/', formData);
 			history.push(`/events/${data.id}`);
 		} catch (err) {
 			console.error(err);
@@ -225,6 +228,23 @@ function EventCreateForm() {
 				/>
 			</Form.Group>
 			{ errors && errors.intention?.map((message, idx) => (
+				<Alert key={ idx } variant='warning'>
+					{ message }
+				</Alert>
+			)) }
+
+			<Form.Group controlId='Link'>
+				<Form.Label className='d-none'>Link</Form.Label>
+				<Form.Control
+					className={ styles.Input }
+					type='text'
+					placeholder='link'
+					name='link'
+					value={ link }
+					onChange={ handleChange }
+				/>
+			</Form.Group>
+			{ errors && errors.link?.map((message, idx) => (
 				<Alert key={ idx } variant='warning'>
 					{ message }
 				</Alert>

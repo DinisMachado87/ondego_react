@@ -78,6 +78,13 @@ figure {
   background: #555;
 }
 
+.Pointer,
+.Pointer:hover,
+.Pointer:focus {
+  cursor: pointer;
+  text-shadow: 1rem 1rem 1rem;
+  transition: text-shadow ease-in-out 0.3s;
+}
 
 .eventFormImage {
   max-width: 100%;
