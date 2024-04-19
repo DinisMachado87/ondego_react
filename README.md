@@ -221,6 +221,12 @@ I have also had to work through how to preceed with the triangular filtering of 
 
 For this I went through an exausitve process of debugging and testing the code, using console.log to check the data at each step and identify any issues. I also used the Django Rest Framework browsable API to inspect the data and verify that the choices were being stored correctly. This process helped me identify and resolve several bugs, including issues with the data structure, the model relationships, and the server-side logic, mostly related with how I was accessing and filtering wrongly certain specific data lacking or adding layers at times namely when accessing only one value of a model through the way it is registered as a key for another model and how to cross these keys
 
+I ended up resolving the logic for theaxios request to the backend first without state for clarity. I then added the state and the logic to update the state based on the response from the server. This approach allowed me to focus on one aspect of the functionality at a time and ensure that each part was working correctly before moving on to the next. I also used the React DevTools to inspect the state and verify that it was being updated correctly. This helped me identify and resolve several bugs related to the state management and the axios request.
+
+I had some final issues because I was declaring the variable currentUserJoiningThisEvent after an if statement but I realized I needed to access it outside of the if statement to identify the user's choice for the event. This was a simple fix but it took me some time to identify the issue and resolve it. I also had to update the logic for the axios request to the backend to include the user's choice in the request data. This required updating the data structure and the server-side logic to handle the new field correctly. I also had to update the frontend logic to update the state based on the user's choice and display the correct information to the user. This was a complex process that required careful consideration of the data structure and the relationships between the models. I had to work through several bugs and issues to get the functionality working correctly, but I feel that the final result is a robust and reliable system that effectively manages user choices for events.
+
+![Screen Debug Joinings 1](documentation/ScreenDebugJoinings1.png)
+
 
 ## Contributors
 

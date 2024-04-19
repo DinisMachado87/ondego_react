@@ -1,17 +1,21 @@
 import React, { useState } from "react";
-
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+// React
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+// Axios
 import Card from "react-bootstrap/Card";
-
+import { Media } from "react-bootstrap";
 import styles from "../../styles/Event.module.css";
 import appStyles from "../../App.module.css";
-
+// styles
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Media } from "react-bootstrap";
 import Avatar from "../../components/Avatar";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+// Components
 
 const Event = (props) => {
+  /**
+   * destructure the event passed as a prop
+   */
   const {
     id,
     owner,
@@ -38,12 +42,9 @@ const Event = (props) => {
   } = props;
 
   const currentUser = useCurrentUser();
-
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
-  const [joiningId, setJoiningId] = useState(joining_id);
   const [tooltip, setTooltip] = useState("");
-
   const [selectedJoiningStatus, setSelectedJoiningStatus] =
     useState(joining_status);
 
@@ -60,77 +61,80 @@ const Event = (props) => {
     }
   };
 
-  const handleJoiningChoice = async (choice, tooltip) => {
+  const handleJoiningChoice = async (choice) => {
+    /** Handle the user's click to change their joining status
+     * by sending a POST or PUT request to the joinings instance in the API
+     * and updating the event joining counts on the state
+     */
     try {
-      const joinings = await axiosRes.get("/joinings/", {
-        params: { event: id },
-      });
-      console.log("Joinings:", joinings.data.results);
-      // Get the joinings for this event
+      const joinings = await axiosRes.get("/joinings/");
       const joiningsForThisEvent = joinings.data.results.filter(
         (joining) => joining.event === id
-      ); // Get the joinings for this event
-      for (let joining of joiningsForThisEvent) {
-        // Check if the current user has already joined this event
-        console.log("Joining:", joining);
-        console.log(
-          "Joining owner:",
-          joining.owner,
-          "Current User:",
-          currentUser.username,
-          "Event:",
-          joining.event,
-          "ID:",
-          id
-        );
-        if (joining.owner === currentUser.username) {
-          /* If the current user has already joined this event 
-          and stored that joining instance in a variable */
-          const currentUserJoiningThisEvent = joining;
-          console.log(
-            "currentUserJoiningThisEvent:",
-            currentUserJoiningThisEvent
-          );
-          if (currentUserJoiningThisEvent.status === choice) {
-            /* If the current user has already joined this event with
-            the same choice that is submitting do nothing */
-            console.log("Already in this status");
-            return;
-          } else {
-            /* If the current user has already joined this event with
-            but is submitting a different choice, update the joining status */
-            console.log(
-              "Put request to change status",
-              currentUserJoiningThisEvent
-            );
-            const putReq = await axiosReq.put(
-              `/joinings/${currentUserJoiningThisEvent.id}/`,
-              {
-                event: id,
-                status: choice,
-              }
-            );
-            console.log("Joining status changed:", putReq.data);
-          }
+      );
+      const currentUserJoiningThisEvent = joiningsForThisEvent.find(
+        (joining) => joining.owner === currentUser.username
+      );
+      const previousChoice = currentUserJoiningThisEvent.status;
+      if (currentUserJoiningThisEvent) {
+        // stores the previous choice to update the event counts later
+        if (currentUserJoiningThisEvent.status === choice) {
+          // if the user clicks on the same status, do nothing
+          return;
         } else {
-          /* If the current user has not joined this event yet,
-          create a new joining instance with the submited choice */
-          console.log("Post request to create a new joining");
-          const postreq = await axiosReq.post("/joinings/", {
+          // if the user clicks on a different joining status update the choice with PUT
+          await axiosReq.put(`/joinings/${currentUserJoiningThisEvent.id}/`, {
             event: id,
-            owner: currentUser.username,
             status: choice,
           });
-          console.log("New joining created:", postreq.data);
-        }
-      }
-
-      setTooltip(tooltip);
+          updateEventCounts(previousChoice, choice);
+        } // update the state accordingly
+      } else {
+        // if the user has not a joining instance yet, create a new one with POST
+        await axiosReq.post("/joinings/", {
+          event: id,
+          owner: currentUser.username,
+          status: choice,
+        });
+        updateEventCounts(previousChoice, choice);
+      } // update the state accordingly
       setSelectedJoiningStatus(choice);
-      setJoiningId(joining_id);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const choiceToCountMap = {
+    1: "not_joining_count",
+    2: "joining_count",
+    3: "let_me_see_count",
+  };
+
+  const updateEventCounts = (previousChoice, newChoice) => {
+    /** Update the joining choice counts in the event object
+     * using the previous and new choice values
+     * stored in the handleJoiningChoice function
+     */
+    setEvents((prevEvents) => ({
+      ...prevEvents,
+      results: prevEvents.results.map((event) => {
+        if (event.id === id) {
+          /** Maps this event and updates the event counts using the previous
+           * and new choice variables stored in the handleJoiningChoice function
+           */
+          let updatedEvent = { ...event };
+          if (previousChoice) {
+            updatedEvent[choiceToCountMap[previousChoice]] -= 1;
+          }
+          if (newChoice) {
+            updatedEvent[choiceToCountMap[newChoice]] += 1;
+          }
+          console.log(updatedEvent);
+          return updatedEvent;
+        } else {
+          return event;
+        }
+      }),
+    }));
   };
 
   return (
@@ -155,10 +159,8 @@ const Event = (props) => {
             <p>{what_content && <span>{what_content}</span>}</p>
             <p>{where_place && <span>{where_place}</span>}</p>
             <p>{where_address && <span>{where_address}</span>}</p>
-
             <p>{when_start && <span>start: {when_start}</span>}</p>
             <p>{when_end && <span>end: {when_end}</span>}</p>
-
             <div>created: {created_at}</div>
             <div>updated: {updated_at}</div>
 
@@ -190,7 +192,7 @@ const Event = (props) => {
                     "fa fa-solid fa-rocket " +
                     (selectedJoiningStatus === "2" ? styles.Active : "")
                   }></i>{" "}
-                {joining_count}
+                {joining_count} going
                 {tooltip === "Joining" && (
                   <div className={styles.Tooltip}>Joining</div>
                 )}
@@ -201,7 +203,7 @@ const Event = (props) => {
                     "fa fa-solid fa-dice " +
                     (selectedJoiningStatus === "3" ? styles.Active : "")
                   }></i>{" "}
-                {let_me_see_count}
+                {let_me_see_count} maybe
                 {tooltip === "Let me see" && (
                   <div className={styles.Tooltip}>Let me see</div>
                 )}
@@ -212,7 +214,7 @@ const Event = (props) => {
                     "fa fa-solid fa-heart-circle-bolt " +
                     (selectedJoiningStatus === "1" ? styles.Active : "")
                   }></i>{" "}
-                {not_joining_count}
+                {not_joining_count} can't
                 {tooltip === "Cannot" && (
                   <div className={styles.Tooltip}>Cannot</div>
                 )}
