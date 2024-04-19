@@ -211,13 +211,15 @@ In this updated code, Upload is the URL of the placeholder image and 'upload.jpg
 
 This solution ensures that a file is always sent for the 'event_image' field, whether it's the user-uploaded image or the default placeholder image.
 
-### Debugging and developing the Choices functionality
+### Developing and Debugging Choices Functionality
 
-I adapted the "like" functionality from the CI react walkthrough. I transformed this model from a boolean into a 3 choices model of "I'm going", "I'm not going", and "I'm considering it". I renamed the model from "Like" to "Joining" to better reflect its new purpose.
+The initial implementation of the choices functionality in Öndëgö involved  the adaptation of the CI walkthrough 'Like' example functionality to a more complex 'Joining' model capable of representing three distinct choices: 'Joining', 'let_me_think', and 'not_joining'. This transition required modifying the underlying data structure, updating the model, and implementing server-side logic to manage user choices effectively. I this process I incurred in seeralr bugs that I had to resolve.
 
-To achieve this, I replaced the boolean "like" field with a "choice" field that could take three different values. I also renamed the model from "Like" to "Joining" to better reflect its new purpose.
+First I tried to request the database for the joinings and calculate the counts of each choice in the frontend but soon I realized that this was not the best approach. I then shifted focus to server-side logic, annotating the counts of each choice in the view and returning the updated data to the frontend. This approach allowed me to manage the data more effectively and ensure consistency across user interactions. 
 
-The first challenge was updating the counts of each choice when a user changed their mind. Initially, I tried to handle this on the client side, but I quickly realized that it would lead to inconsistencies. I moved this logic to the server side, Updating and annotating the count of each choice when a user changed their mind.
+I have also had to work through how to preceed with the triangular filtering of the joing, user and event models. I had to create a new model to store the choices and then filter the choices by the user and event models. This was a complex process that required careful consideration of the relationships between the models and the data structure. It was a step-by-step process that involved creating the new model, updating the views, and implementing the necessary logic to filter the choices correctly. but I feel it was an important pragmatic exercise that took my understanding of how to store and access data inRest Framework and React to a new level. namely how to debug and resolve issues when working separately on the frontend and backend, wich is an exciting but also challenging process.
+
+For this I went through an exausitve process of debugging and testing the code, using console.log to check the data at each step and identify any issues. I also used the Django Rest Framework browsable API to inspect the data and verify that the choices were being stored correctly. This process helped me identify and resolve several bugs, including issues with the data structure, the model relationships, and the server-side logic, mostly related with how I was accessing and filtering wrongly certain specific data lacking or adding layers at times namely when accessing only one value of a model through the way it is registered as a key for another model and how to cross these keys
 
 
 ## Contributors

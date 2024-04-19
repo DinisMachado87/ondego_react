@@ -9,7 +9,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Media } from "react-bootstrap";
 import Avatar from "../../components/Avatar";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { axiosReq } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 
 const Event = (props) => {
   const {
@@ -30,21 +30,20 @@ const Event = (props) => {
     joining_id,
     joining_status,
     joining_count,
-    joining_let_me_see_count,
-    joining_cannot_count,
+    let_me_see_count,
+    not_joining_count,
     comments_count,
     eventPage,
-    cannot_count,
-    let_me_see_count,
     setEvents,
   } = props;
 
   const currentUser = useCurrentUser();
+
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
   const [joiningId, setJoiningId] = useState(joining_id);
-
   const [tooltip, setTooltip] = useState("");
+
   const [selectedJoiningStatus, setSelectedJoiningStatus] =
     useState(joining_status);
 
@@ -61,51 +60,57 @@ const Event = (props) => {
     }
   };
 
-
   const handleJoiningChoice = async (choice, tooltip) => {
     console.log("called");
+    console.log("Choice:", choice);
+
     try {
-      let data;
-      if (joiningId) {
-        console.log("put");
-        // If the user has already joined the event, update the existing joining.
-        ({ data } = await axiosReq.put(`/joinings/${joiningId}/`, {
-          joining_status: choice,
-        }));
-      } else {
-        console.log("post");
-        // If the user has not joined the event, create a new joining.
-        ({ data } = await axiosReq.post("/joinings/", {
-          event: id,
-          joining_status: choice,
-        }));
-        // Update joiningId in the state.
-        setJoiningId(data.id);
-      }
-      console.log("Data:", data);
-      console.log("Data ID:", data.id);
+      const joinings = await axiosRes.get("/joinings/");
+      console.log("Joinings:", joinings.data.results);
 
-      setSelectedJoiningStatus(choice);
-      setTooltip(tooltip);
+      const joiningsForThisEvent = joinings.data.results.filter(
+        (joining) => joining.event === id
+      );
 
-      // Update the counts for the joining statuses.
-      setEvents((prevEvents) => ({
-        ...prevEvents,
-        results: prevEvents.results.map((event) =>
-          event.id === id
-            ? {
-                ...event,
-                [`${selectedJoiningStatus}_count`]:
-                  event[`${selectedJoiningStatus}_count`] - 1,
-                [`${choice}_count`]: event[`${choice}_count`] + 1,
+          for (let joining of joiningsForThisEvent) {
+            console.log("Joining:", joining);
+            console.log(
+              "Joining owner:", joining.owner, 'Current User:', currentUser.username,
+              'Event:', joining.event, 'ID:', id
+            );
+            if (joining.owner === currentUser.username) {
+              const currentUserJoiningThisEvent = joining;
+              console.log("currentUserJoiningThisEvent:", currentUserJoiningThisEvent);
+              if (currentUserJoiningThisEvent.status === choice) {
+                console.log("Already in this status");
+                return;
+              } else {
+                console.log("Put request to change status", currentUserJoiningThisEvent);
+                const putReq = await axiosReq.put(`/joinings/${currentUserJoiningThisEvent.id}/`, {
+                  event: id,
+                  status: choice,
+                });
+                console.log("Joining status changed:", putReq.data);
               }
-            : event
-        ),
-      }));
-    } catch (err) {
-      console.log("Error in handleJoiningChoice:", err);
+            } else {
+              console.log("Post request to create a new joining");
+              const postreq = await axiosReq.post("/joinings/", {
+                event: id,
+                owner: currentUser.username,
+                status: choice,
+              });
+              console.log("New joining created:", postreq.data);
+            }
+          }
+      setTooltip(tooltip);
+      setSelectedJoiningStatus(choice);
+      setJoiningId(joining_id);
+    }
+    catch (err) {
+      console.log(err);
     }
   };
+
 
   return (
     <Card
@@ -180,13 +185,13 @@ const Event = (props) => {
                   <div className={styles.Tooltip}>Let me see</div>
                 )}
               </span>
-              <span onClick={() => handleJoiningChoice("1", "Cannot")}>
+              <span onClick={() => handleJoiningChoice("1", "bail")}>
                 <i
                   className={
                     "fa fa-solid fa-heart-circle-bolt " +
                     (selectedJoiningStatus === "1" ? styles.Active : "")
                   }></i>{" "}
-                {cannot_count}
+                {not_joining_count}
                 {tooltip === "Cannot" && (
                   <div className={styles.Tooltip}>Cannot</div>
                 )}
