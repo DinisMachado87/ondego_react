@@ -9,6 +9,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Media } from "react-bootstrap";
 import Avatar from "../../components/Avatar";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { axiosReq } from "../../api/axiosDefaults";
 
 const Event = (props) => {
   const {
@@ -27,23 +28,83 @@ const Event = (props) => {
     profile_id,
     profile_image,
     joining_id,
+    joining_status,
     joining_count,
+    joining_let_me_see_count,
+    joining_cannot_count,
     comments_count,
     eventPage,
     cannot_count,
     let_me_see_count,
+    setEvents,
   } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
+  const [joiningId, setJoiningId] = useState(joining_id);
 
-  const [joining_status, setJoiningStatus] = useState("3");
   const [tooltip, setTooltip] = useState("");
+  const [selectedJoiningStatus, setSelectedJoiningStatus] =
+    useState(joining_status);
 
-  const handleToggle = (status, tooltipText) => {
-    setJoiningStatus(status);
-    setTooltip(tooltipText);
+  const getTooltipText = (status) => {
+    switch (status) {
+      case "1":
+        return "baïl";
+      case "2":
+        return "ön dë gö";
+      case "3":
+        return "Let me thïnk";
+      default:
+        return "";
+    }
+  };
+
+
+  const handleJoiningChoice = async (choice, tooltip) => {
+    console.log("called");
+    try {
+      let data;
+      if (joiningId) {
+        console.log("put");
+        // If the user has already joined the event, update the existing joining.
+        ({ data } = await axiosReq.put(`/joinings/${joiningId}/`, {
+          joining_status: choice,
+        }));
+      } else {
+        console.log("post");
+        // If the user has not joined the event, create a new joining.
+        ({ data } = await axiosReq.post("/joinings/", {
+          event: id,
+          joining_status: choice,
+        }));
+        // Update joiningId in the state.
+        setJoiningId(data.id);
+      }
+      console.log("Data:", data);
+      console.log("Data ID:", data.id);
+
+      setSelectedJoiningStatus(choice);
+      setTooltip(tooltip);
+
+      // Update the counts for the joining statuses.
+      setEvents((prevEvents) => ({
+        ...prevEvents,
+        results: prevEvents.results.map((event) =>
+          event.id === id
+            ? {
+                ...event,
+                [`${selectedJoiningStatus}_count`]:
+                  event[`${selectedJoiningStatus}_count`] - 1,
+                [`${choice}_count`]: event[`${choice}_count`] + 1,
+              }
+            : event
+        ),
+      }));
+    } catch (err) {
+      console.log("Error in handleJoiningChoice:", err);
+    }
   };
 
   return (
@@ -54,9 +115,7 @@ const Event = (props) => {
       <Media className={styles.Event}>
         <Card.Body
           className={`${styles.TextShadow} d-flex justify-content-between align-items-start`}>
-          <div
-          className={`${styles.Container} ${styles.EventBody}`}
-          >
+          <div className={`${styles.Container} ${styles.EventBody}`}>
             <Card.Link to={`/profiles/${profile_id}`}>
               <Avatar
                 src={profile_image}
@@ -97,27 +156,42 @@ const Event = (props) => {
           </div>
         </Card.Body>
         <Card.Footer>
-          <div
-          className={styles.EventFooter}
-          >
-            <span onClick={() => handleToggle("2", "Joining")}>
-              <i className='fa fa-solid fa-rocket'></i> {joining_count}
-              {tooltip === "Joining" && (
-                <div className={styles.Tooltip}>Joining</div>
-              )}
-            </span>
-            <span onClick={() => handleToggle("3", "Let me see")}>
-              <i className='fa fa-solid fa-user-clock'></i> {let_me_see_count}
-              {tooltip === "Let me see" && (
-                <div className={styles.Tooltip}>Let me see</div>
-              )}
-            </span>
-            <span onClick={() => handleToggle("1", "Cannot")}>
-              <i className='fa fa-solid fa-ban'></i> {cannot_count}
-              {tooltip === "Cannot" && (
-                <div className={styles.Tooltip}>Cannot</div>
-              )}
-            </span>
+          <div className={styles.EventFooter}>
+            <div className={styles.EventFooter}>
+              <span onClick={() => handleJoiningChoice("2", "Joining")}>
+                <i
+                  className={
+                    "fa fa-solid fa-rocket " +
+                    (selectedJoiningStatus === "2" ? styles.Active : "")
+                  }></i>{" "}
+                {joining_count}
+                {tooltip === "Joining" && (
+                  <div className={styles.Tooltip}>Joining</div>
+                )}
+              </span>
+              <span onClick={() => handleJoiningChoice("3", "Let me see")}>
+                <i
+                  className={
+                    "fa fa-solid fa-dice " +
+                    (selectedJoiningStatus === "3" ? styles.Active : "")
+                  }></i>{" "}
+                {let_me_see_count}
+                {tooltip === "Let me see" && (
+                  <div className={styles.Tooltip}>Let me see</div>
+                )}
+              </span>
+              <span onClick={() => handleJoiningChoice("1", "Cannot")}>
+                <i
+                  className={
+                    "fa fa-solid fa-heart-circle-bolt " +
+                    (selectedJoiningStatus === "1" ? styles.Active : "")
+                  }></i>{" "}
+                {cannot_count}
+                {tooltip === "Cannot" && (
+                  <div className={styles.Tooltip}>Cannot</div>
+                )}
+              </span>
+            </div>
           </div>
         </Card.Footer>
       </Media>

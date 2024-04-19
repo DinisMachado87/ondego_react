@@ -211,6 +211,14 @@ In this updated code, Upload is the URL of the placeholder image and 'upload.jpg
 
 This solution ensures that a file is always sent for the 'event_image' field, whether it's the user-uploaded image or the default placeholder image.
 
+### Debugging and developing the Choices functionality
+
+I adapted the "like" functionality from the CI react walkthrough. I transformed this model from a boolean into a 3 choices model of "I'm going", "I'm not going", and "I'm considering it". I renamed the model from "Like" to "Joining" to better reflect its new purpose.
+
+To achieve this, I replaced the boolean "like" field with a "choice" field that could take three different values. I also renamed the model from "Like" to "Joining" to better reflect its new purpose.
+
+The first challenge was updating the counts of each choice when a user changed their mind. Initially, I tried to handle this on the client side, but I quickly realized that it would lead to inconsistencies. I moved this logic to the server side, Updating and annotating the count of each choice when a user changed their mind.
+
 
 ## Contributors
 
