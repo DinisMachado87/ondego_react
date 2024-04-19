@@ -61,56 +61,77 @@ const Event = (props) => {
   };
 
   const handleJoiningChoice = async (choice, tooltip) => {
-    console.log("called");
-    console.log("Choice:", choice);
-
     try {
-      const joinings = await axiosRes.get("/joinings/");
+      const joinings = await axiosRes.get("/joinings/", {
+        params: { event: id },
+      });
       console.log("Joinings:", joinings.data.results);
-
+      // Get the joinings for this event
       const joiningsForThisEvent = joinings.data.results.filter(
         (joining) => joining.event === id
-      );
-
-          for (let joining of joiningsForThisEvent) {
-            console.log("Joining:", joining);
+      ); // Get the joinings for this event
+      for (let joining of joiningsForThisEvent) {
+        // Check if the current user has already joined this event
+        console.log("Joining:", joining);
+        console.log(
+          "Joining owner:",
+          joining.owner,
+          "Current User:",
+          currentUser.username,
+          "Event:",
+          joining.event,
+          "ID:",
+          id
+        );
+        if (joining.owner === currentUser.username) {
+          /* If the current user has already joined this event 
+          and stored that joining instance in a variable */
+          const currentUserJoiningThisEvent = joining;
+          console.log(
+            "currentUserJoiningThisEvent:",
+            currentUserJoiningThisEvent
+          );
+          if (currentUserJoiningThisEvent.status === choice) {
+            /* If the current user has already joined this event with
+            the same choice that is submitting do nothing */
+            console.log("Already in this status");
+            return;
+          } else {
+            /* If the current user has already joined this event with
+            but is submitting a different choice, update the joining status */
             console.log(
-              "Joining owner:", joining.owner, 'Current User:', currentUser.username,
-              'Event:', joining.event, 'ID:', id
+              "Put request to change status",
+              currentUserJoiningThisEvent
             );
-            if (joining.owner === currentUser.username) {
-              const currentUserJoiningThisEvent = joining;
-              console.log("currentUserJoiningThisEvent:", currentUserJoiningThisEvent);
-              if (currentUserJoiningThisEvent.status === choice) {
-                console.log("Already in this status");
-                return;
-              } else {
-                console.log("Put request to change status", currentUserJoiningThisEvent);
-                const putReq = await axiosReq.put(`/joinings/${currentUserJoiningThisEvent.id}/`, {
-                  event: id,
-                  status: choice,
-                });
-                console.log("Joining status changed:", putReq.data);
-              }
-            } else {
-              console.log("Post request to create a new joining");
-              const postreq = await axiosReq.post("/joinings/", {
+            const putReq = await axiosReq.put(
+              `/joinings/${currentUserJoiningThisEvent.id}/`,
+              {
                 event: id,
-                owner: currentUser.username,
                 status: choice,
-              });
-              console.log("New joining created:", postreq.data);
-            }
+              }
+            );
+            console.log("Joining status changed:", putReq.data);
           }
+        } else {
+          /* If the current user has not joined this event yet,
+          create a new joining instance with the submited choice */
+          console.log("Post request to create a new joining");
+          const postreq = await axiosReq.post("/joinings/", {
+            event: id,
+            owner: currentUser.username,
+            status: choice,
+          });
+          console.log("New joining created:", postreq.data);
+        }
+      }
+
       setTooltip(tooltip);
       setSelectedJoiningStatus(choice);
       setJoiningId(joining_id);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
   };
-
 
   return (
     <Card
