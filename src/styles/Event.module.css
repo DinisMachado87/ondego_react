@@ -88,7 +88,8 @@
   transition: opacity 0.3s;
 }
 
-.EventFooter i {
+.EventFooter i ,
+.EventFooter p {
   color: green;
   text-shadow: 0.2rem 0.2rem 0.3rem orangered,
     0.1rem 0.1rem 0.1rem orangered,
@@ -104,8 +105,16 @@
   transition: text-shadow ease-in-out 0.3s;
 }
 
-.JoinShadow i:active {
+.JoinShadow i:active,
+.JoinShadow p:active {
   color: orangered;
   text-shadow: 0.1rem 0.1rem 0.1rem blue;
   transition: text-shadow ease-in-out 0.3s;
+}
+
+.EventFooter p {
+  font-size: 1rem;
+  font-family: "Mukta", sans-serif;
+  font-weight: 700;
+  color: black;
 }

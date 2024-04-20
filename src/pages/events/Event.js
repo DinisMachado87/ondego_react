@@ -193,7 +193,9 @@ const Event = (props) => {
                     "fa fa-solid fa-rocket " +
                     (currentPreviousUserChoice === "2" ? styles.Active : "")
                   }></i>{" "}
-                {joining_count} going
+                <p style={{ margin: 0, display: "inline-block" }}>
+                  {joining_count} going
+                </p>
                 {tooltip === "Joining" && (
                   <div className={styles.Tooltip}>Joining</div>
                 )}
@@ -204,18 +206,24 @@ const Event = (props) => {
                     "fa fa-solid fa-dice " +
                     (currentPreviousUserChoice === "3" ? styles.Active : "")
                   }></i>{" "}
-                {let_me_see_count} maybe
+                <p style={{ margin: 0, display: "inline-block" }}>
+                  {let_me_see_count} maybe
+                </p>
                 {tooltip === "Let me see" && (
                   <div className={styles.Tooltip}>Let me see</div>
                 )}
               </span>
-              <span onClick={() => handleJoiningChoice("1", "bail")}>
+              <span
+                className='font-weight-bold'
+                onClick={() => handleJoiningChoice("1", "bail")}>
                 <i
                   className={
                     "fa fa-solid fa-heart-circle-bolt " +
                     (currentPreviousUserChoice === "1" ? styles.Active : "")
                   }></i>{" "}
-                {not_joining_count} can't
+                <p style={{ margin: 0, display: "inline-block" }}>
+                  {not_joining_count} can't
+                </p>{" "}
                 {tooltip === "Cannot" && (
                   <div className={styles.Tooltip}>Cannot</div>
                 )}
