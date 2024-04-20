@@ -40,13 +40,16 @@ const Event = (props) => {
     eventPage,
     setEvents,
   } = props;
-
+  
+  
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
   const [tooltip, setTooltip] = useState("");
-  const [selectedJoiningStatus, setSelectedJoiningStatus] =
-    useState(joining_status);
+  const [currentPreviousUserChoice, setCurrentPreviousUserChoice] = useState(
+    joining_status
+  );
+  // stores the previous user joining status choice and updates in State every time the user changes their choice
 
   const getTooltipText = (status) => {
     switch (status) {
@@ -67,14 +70,11 @@ const Event = (props) => {
      * and updating the event joining counts on the state
      */
     try {
-      const joinings = await axiosRes.get("/joinings/");
-      const joiningsForThisEvent = joinings.data.results.filter(
-        (joining) => joining.event === id
-      );
-      const currentUserJoiningThisEvent = joiningsForThisEvent.find(
-        (joining) => joining.owner === currentUser.username
-      );
-      const previousChoice = currentUserJoiningThisEvent.status;
+      const currentUserJoiningThisEvent = (
+        await axiosRes.get("/joinings/")
+      ).data.results
+        .filter((joining) => joining.event === id)
+        .find((joining) => joining.owner === currentUser.username);
       if (currentUserJoiningThisEvent) {
         // stores the previous choice to update the event counts later
         if (currentUserJoiningThisEvent.status === choice) {
@@ -86,7 +86,8 @@ const Event = (props) => {
             event: id,
             status: choice,
           });
-          updateEventCounts(previousChoice, choice);
+          updateEventCounts(currentPreviousUserChoice, choice);
+          setCurrentPreviousUserChoice(choice);
         } // update the state accordingly
       } else {
         // if the user has not a joining instance yet, create a new one with POST
@@ -95,9 +96,9 @@ const Event = (props) => {
           owner: currentUser.username,
           status: choice,
         });
-        updateEventCounts(previousChoice, choice);
+        updateEventCounts(currentPreviousUserChoice, choice);
+        setCurrentPreviousUserChoice(choice);
       } // update the state accordingly
-      setSelectedJoiningStatus(choice);
     } catch (err) {
       console.log(err);
     }
@@ -109,7 +110,7 @@ const Event = (props) => {
     3: "let_me_see_count",
   };
 
-  const updateEventCounts = (previousChoice, newChoice) => {
+  const updateEventCounts = (currentPreviousUserChoice, newChoice) => {
     /** Update the joining choice counts in the event object
      * using the previous and new choice values
      * stored in the handleJoiningChoice function
@@ -122,8 +123,8 @@ const Event = (props) => {
            * and new choice variables stored in the handleJoiningChoice function
            */
           let updatedEvent = { ...event };
-          if (previousChoice) {
-            updatedEvent[choiceToCountMap[previousChoice]] -= 1;
+          if (currentPreviousUserChoice) {
+            updatedEvent[choiceToCountMap[currentPreviousUserChoice]] -= 1;
           }
           if (newChoice) {
             updatedEvent[choiceToCountMap[newChoice]] += 1;
@@ -190,7 +191,7 @@ const Event = (props) => {
                 <i
                   className={
                     "fa fa-solid fa-rocket " +
-                    (selectedJoiningStatus === "2" ? styles.Active : "")
+                    (currentPreviousUserChoice === "2" ? styles.Active : "")
                   }></i>{" "}
                 {joining_count} going
                 {tooltip === "Joining" && (
@@ -201,7 +202,7 @@ const Event = (props) => {
                 <i
                   className={
                     "fa fa-solid fa-dice " +
-                    (selectedJoiningStatus === "3" ? styles.Active : "")
+                    (currentPreviousUserChoice === "3" ? styles.Active : "")
                   }></i>{" "}
                 {let_me_see_count} maybe
                 {tooltip === "Let me see" && (
@@ -212,7 +213,7 @@ const Event = (props) => {
                 <i
                   className={
                     "fa fa-solid fa-heart-circle-bolt " +
-                    (selectedJoiningStatus === "1" ? styles.Active : "")
+                    (currentPreviousUserChoice === "1" ? styles.Active : "")
                   }></i>{" "}
                 {not_joining_count} can't
                 {tooltip === "Cannot" && (

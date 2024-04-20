@@ -27,6 +27,7 @@
   box-shadow: 0 0 0.5rem 0.5rem green;
   max-width: 80vw;
   min-width: 80vw;
+  border-radius: 1rem;
 }
 
 .ProportionalImage {
@@ -34,7 +35,7 @@
   right: 2rem;
   top: 2rem;
   object-fit: cover;
-  border-radius: o.25rem;
+  border-radius: 0.5rem;
   border: 0 solid transparent;
   box-shadow: 0 0 0.5rem 0.5rem green;
   height: 100%;
