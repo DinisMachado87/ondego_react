@@ -89,8 +89,10 @@ figure {
 .eventFormImage {
   max-width: 100%;
   max-height: 20vh;
-  /* width: 200px; */
-  /* height: 200px; */
   object-fit: contain;
   border-radius: 8px;
+}
+
+.YMargin {
+  margin: 5rem 5rem;
 }

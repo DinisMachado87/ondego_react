@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom";
 // React
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 // Axios
-import Card from "react-bootstrap/Card";
-import { Media } from "react-bootstrap";
+import { Card, Col, Media, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import styles from "../../styles/Event.module.css";
 import appStyles from "../../App.module.css";
+import Dropdown from "react-bootstrap/Dropdown";
+
 // styles
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Avatar from "../../components/Avatar";
+import EventPage from "./EventPage";
+import { MoreDropdown } from "../../components/MoreDropdown";
 // Components
 
 const Event = (props) => {
@@ -61,6 +64,25 @@ const Event = (props) => {
         return "";
     }
   };
+
+  const handleEdit = () => {
+    history
+      .push(`/event/${id}/edit`)
+  };
+
+const handleDelete = async () => {
+  if (window.confirm("Are you sure you want to delete this event?")) {
+    try {
+      await axiosReq.delete(`/events/${id}/`);
+      setEvents((prevEvents) => ({
+        ...prevEvents,
+        results: prevEvents.results.filter((event) => event.id !== id),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+};
 
   const handleJoiningChoice = async (choice) => {
     /** Handle the user's click to change their joining status
@@ -162,12 +184,12 @@ const Event = (props) => {
 
   return (
     <Card
-      onClick={() => history.push(`/events/${id}`)}
       style={{ backgroundImage: `url(${event_image})` }}
-      className={`${appStyles.Pointer} ${styles.StretchedImage} m-5`}>
-      <Media className={styles.Event}>
+      className={`${styles.StretchedImage} ${styles.YMargin}`}>
+      <Media className={`${styles.Event}`}>
         <Card.Body
-          className={`${styles.TextShadow} d-flex justify-content-between align-items-start`}>
+          onClick={() => history.push(`/events/${id}`)}
+          className={`${styles.TextShadow} ${appStyles.Pointer} d-flex justify-content-between align-items-start`}>
           <div className={`${styles.Container} ${styles.EventBody}`}>
             <Card.Link to={`/profiles/${profile_id}`}>
               <Avatar
@@ -187,16 +209,6 @@ const Event = (props) => {
             <div>created: {created_at}</div>
             <div>updated: {updated_at}</div>
 
-            {is_owner && (
-              <div>
-                <Link to={`/events/${id}/edit`}>Edit</Link>
-              </div>
-            )}
-            {is_owner && (
-              <div>
-                <Link to={`/events/${id}/delete`}>Delete</Link>
-              </div>
-            )}
             <div className={`${styles.flexEnd}`}>
               <img
                 alt='event'
@@ -208,26 +220,48 @@ const Event = (props) => {
         </Card.Body>
         <Card.Footer>
           <div className={styles.EventFooter}>
-            <div className={styles.EventFooter}>
-              <ChoiceButton
-                choice='2'
-                tooltipText='Joining'
-                count={joining_count}
-                handleJoiningChoice={handleJoiningChoice}
-              />
-              <ChoiceButton
-                choice='3'
-                tooltipText='Let me see'
-                count={let_me_see_count}
-                handleJoiningChoice={handleJoiningChoice}
-              />
-              <ChoiceButton
-                choice='1'
-                tooltipText='Cannot'
-                count={not_joining_count}
-                handleJoiningChoice={handleJoiningChoice}
-              />
-            </div>
+            <Row className={`${styles.EventFooter} `}>
+              {is_owner && EventPage && (
+                <Col className='col-1'>
+                  <MoreDropdown
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                  />
+                </Col>
+              )}
+              <Col className='col-11'>
+                <OverlayTrigger
+                  placement='top'
+                  overlay={<Tooltip>Tooltip on top</Tooltip>}>
+                  <ChoiceButton
+                    choice='2'
+                    tooltipText='Joining'
+                    count={`${joining_count} joining`}
+                    handleJoiningChoice={handleJoiningChoice}
+                  />
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement='top'
+                  overlay={<Tooltip>Tooltip on top</Tooltip>}>
+                  <ChoiceButton
+                    choice='3'
+                    tooltipText='Let me see'
+                    count={`${let_me_see_count} Maybe`}
+                    handleJoiningChoice={handleJoiningChoice}
+                  />
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement='top'
+                  overlay={<Tooltip>Tooltip on top</Tooltip>}>
+                  <ChoiceButton
+                    choice='1'
+                    tooltipText='Cannot'
+                    count={`${not_joining_count} Can't`}
+                    handleJoiningChoice={handleJoiningChoice}
+                  />
+                </OverlayTrigger>
+              </Col>
+            </Row>
           </div>
         </Card.Footer>
       </Media>

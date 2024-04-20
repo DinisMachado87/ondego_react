@@ -50,7 +50,6 @@
 }
 
 .Container {
-  width: 80vh;
   margin: 1rem;
 }
 
@@ -116,4 +115,15 @@
   font-family: "Mukta", sans-serif;
   font-weight: 700;
   color: black;
+  display: flex;
+  align-items: center;
+  justify-content: start; 
+}
+
+.YMargin {
+  margin: 1rem 5rem 5rem 5rem;
+}
+
+.Width {
+  width: 40vw;
 }

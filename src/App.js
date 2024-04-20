@@ -10,6 +10,7 @@ import EventCreateForm from "./pages/events/EventCreateForm";
 import EventPage from "./pages/events/EventPage";
 import EventsPage from "./pages/events/EventsPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
+import EventEditForm from "./pages/events/EventEditForm";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -59,10 +60,15 @@ function App() {
           />
           <Route
             exact
+            path='/events/:id/edit'
+            render={ () => <EventEditForm /> }
+          />
+          <Route
+            exact
             path='/events/:id'
             render={() => <EventPage />}
           />
-          <Route render={() => <h1>Page Not Found!</h1>} />
+          <Route render={ () => <h1>Page Not Found!</h1> } />
         </Switch>
       </Container>
     </div>
