@@ -40,15 +40,13 @@ const Event = (props) => {
     eventPage,
     setEvents,
   } = props;
-  
-  
+
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
   const [tooltip, setTooltip] = useState("");
-  const [currentPreviousUserChoice, setCurrentPreviousUserChoice] = useState(
-    joining_status
-  );
+  const [currentPreviousUserChoice, setCurrentPreviousUserChoice] =
+    useState(joining_status);
   // stores the previous user joining status choice and updates in State every time the user changes their choice
 
   const getTooltipText = (status) => {
@@ -138,11 +136,35 @@ const Event = (props) => {
     }));
   };
 
+  const ChoiceButton = ({
+    choice,
+    tooltipText,
+    count,
+    handleJoiningChoice,
+  }) => (
+    <span onClick={() => handleJoiningChoice(choice, tooltipText)}>
+      <i
+        className={
+          `fa fa-solid ${
+            choice === "1"
+              ? "fa-heart-circle-bolt"
+              : choice === "2"
+              ? "fa-rocket"
+              : "fa-dice"
+          } ` + (currentPreviousUserChoice === choice ? styles.Active : "")
+        }></i>{" "}
+      <p style={{ margin: 0, display: "inline-block" }}>{count}</p>
+      {tooltip === tooltipText && (
+        <div className={styles.Tooltip}>{tooltipText}</div>
+      )}
+    </span>
+  );
+
   return (
     <Card
       onClick={() => history.push(`/events/${id}`)}
       style={{ backgroundImage: `url(${event_image})` }}
-      className={`${appStyles.Pointer} ${styles.StretchedImage}`}>
+      className={`${appStyles.Pointer} ${styles.StretchedImage} m-5`}>
       <Media className={styles.Event}>
         <Card.Body
           className={`${styles.TextShadow} d-flex justify-content-between align-items-start`}>
@@ -187,47 +209,24 @@ const Event = (props) => {
         <Card.Footer>
           <div className={styles.EventFooter}>
             <div className={styles.EventFooter}>
-              <span onClick={() => handleJoiningChoice("2", "Joining")}>
-                <i
-                  className={
-                    "fa fa-solid fa-rocket " +
-                    (currentPreviousUserChoice === "2" ? styles.Active : "")
-                  }></i>{" "}
-                <p style={{ margin: 0, display: "inline-block" }}>
-                  {joining_count} going
-                </p>
-                {tooltip === "Joining" && (
-                  <div className={styles.Tooltip}>Joining</div>
-                )}
-              </span>
-              <span onClick={() => handleJoiningChoice("3", "Let me see")}>
-                <i
-                  className={
-                    "fa fa-solid fa-dice " +
-                    (currentPreviousUserChoice === "3" ? styles.Active : "")
-                  }></i>{" "}
-                <p style={{ margin: 0, display: "inline-block" }}>
-                  {let_me_see_count} maybe
-                </p>
-                {tooltip === "Let me see" && (
-                  <div className={styles.Tooltip}>Let me see</div>
-                )}
-              </span>
-              <span
-                className='font-weight-bold'
-                onClick={() => handleJoiningChoice("1", "bail")}>
-                <i
-                  className={
-                    "fa fa-solid fa-heart-circle-bolt " +
-                    (currentPreviousUserChoice === "1" ? styles.Active : "")
-                  }></i>{" "}
-                <p style={{ margin: 0, display: "inline-block" }}>
-                  {not_joining_count} can't
-                </p>{" "}
-                {tooltip === "Cannot" && (
-                  <div className={styles.Tooltip}>Cannot</div>
-                )}
-              </span>
+              <ChoiceButton
+                choice='2'
+                tooltipText='Joining'
+                count={joining_count}
+                handleJoiningChoice={handleJoiningChoice}
+              />
+              <ChoiceButton
+                choice='3'
+                tooltipText='Let me see'
+                count={let_me_see_count}
+                handleJoiningChoice={handleJoiningChoice}
+              />
+              <ChoiceButton
+                choice='1'
+                tooltipText='Cannot'
+                count={not_joining_count}
+                handleJoiningChoice={handleJoiningChoice}
+              />
             </div>
           </div>
         </Card.Footer>
