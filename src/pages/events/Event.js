@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 // React
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 // Axios
 import { Card, Col, Media, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import styles from "../../styles/Event.module.css";
 import appStyles from "../../App.module.css";
-import Dropdown from "react-bootstrap/Dropdown";
-
 // styles
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Avatar from "../../components/Avatar";
@@ -194,7 +192,7 @@ const handleDelete = async () => {
             <Card.Link to={`/profiles/${profile_id}`}>
               <Avatar
                 src={profile_image}
-                height={55}
+                height={ 55 }
               />
               {owner}
             </Card.Link>

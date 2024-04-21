@@ -60,7 +60,7 @@ function App() {
           />
           <Route
             exact
-            path='/events/:id/edit'
+            path='/event/:id/edit'
             render={ () => <EventEditForm /> }
           />
           <Route

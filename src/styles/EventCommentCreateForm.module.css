@@ -1,0 +1,15 @@
+.Form {
+  color: rgb(251, 255, 0);
+  border: none;
+  background: black;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border: none;
+  outline: none;
+  border-radius: 1.5rem;
+}
+
+.Button {
+  color: rgb(251, 255, 0);
+  border: none;
+}

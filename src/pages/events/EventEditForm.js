@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -14,12 +14,17 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
 import { Alert } from "react-bootstrap";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 
 function EventEditForm() {
-  const getTodayAt = (hours, minutes) => {
-    let date = new Date();
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
     date.setHours(hours);
     date.setMinutes(minutes);
     date.setSeconds(0);
@@ -27,15 +32,19 @@ function EventEditForm() {
     return date.toISOString().slice(0, 16);
   };
 
+  const { id } = useParams();
+  const imageInput = useRef(null);
+  const history = useHistory();
   const [errors, setErrors] = useState({});
 
   const [eventData, setEventData] = useState({
+    id: "",
     what_title: "",
     what_content: "",
     where_place: "",
     where_address: "",
-    when_start: getTodayAt(18, 0),
-    when_end: getTodayAt(23, 0),
+    when_start: "",
+    when_end: "",
     intention: "",
     event_image: Upload,
     link: "",
@@ -53,8 +62,41 @@ function EventEditForm() {
     link,
   } = eventData;
 
-  const imageInput = useRef(null);
-  const history = useHistory();
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axios.get(`/events/${id}`);
+        const {
+          is_owner,
+          what_title,
+          what_content,
+          where_place,
+          where_address,
+          when_start,
+          when_end,
+          intention,
+          event_image,
+          link,
+        } = data;
+        is_owner &&
+          setEventData({
+            what_title,
+            what_content,
+            where_place,
+            where_address,
+            when_start: formatDate(when_start),
+            when_end: formatDate(when_end),
+            intention,
+            event_image,
+            link,
+          });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    handleMount();
+  }, [history, id]);
 
   const handleChange = (event) => {
     setEventData({
@@ -64,13 +106,14 @@ function EventEditForm() {
   };
 
   const handleChangeImage = (event) => {
-    if (event.target.files.length) {
-      URL.revokeObjectURL(eventData.event_image);
+    // if there is a file, set the image to the file
+    if (event.target.files[0]) {
       setEventData({
         ...eventData,
         event_image: URL.createObjectURL(event.target.files[0]),
       });
     } else {
+      // if there is no file, set the image to the default image
       setEventData({
         ...eventData,
         event_image: Upload,
@@ -92,16 +135,10 @@ function EventEditForm() {
     formData.append("link", link);
     if (imageInput.current.files[0]) {
       formData.append("event_image", imageInput.current.files[0]);
-    } else {
-      const response = await fetch(Upload);
-      const blob = await response.blob();
-      const file = new File([blob], "upload.jpg", { type: "image/jpeg" });
-      formData.append("event_image", file);
     }
-
     try {
-      const { data } = await axios.post("/events/", formData);
-      history.push(`/events/${data.id}`);
+      await axios.put("/events/${id}", formData);
+      history.push(`/events/${id}`);
     } catch (err) {
       console.error(err);
       if (err.response?.status !== 401) {
@@ -285,7 +322,7 @@ function EventEditForm() {
       <Button
         className={`${btnStyles.Button} ${btnStyles.Orange} ${btnStyles.HalfWidth}`}
         type='submit'>
-        create
+        update
       </Button>
       {errors &&
         errors.non_field_errors?.map((message, idx) => (
@@ -311,26 +348,12 @@ function EventEditForm() {
           <Container
             className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}>
             <Form.Group className='text-center'>
-              {event_image ? (
-                <>
-                  <figure>
-                    <Image
-                      className={styles.Image}
-                      src={event_image}
-                    />
-                  </figure>
-                </>
-              ) : (
-                <Form.Label
-                  className='d-flex align-items-center'
-                  htmlFor='image-upload'>
-                  <Asset
-                    src={Upload}
-                    message='Click to Upload an Image'
-                  />
-                </Form.Label>
-              )}
-
+              <figure>
+                <Image
+                  className={styles.Image}
+                  src={event_image}
+                />
+              </figure>
               <Form.Label
                 className={`${btnStyles.Button} ${btnStyles.Orange}`}
                 htmlFor='image-upload'>
