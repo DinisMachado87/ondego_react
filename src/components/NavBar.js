@@ -86,33 +86,35 @@ const NavBar = () => {
   return (
     <Navbar
       expanded={expanded}
-      className={styles.NavBar}
-      text="purple"
-      border="blue"
-      expand="md"
-      fixed="top"
-    >
+      className={`${styles.NavBar} navbar-dark`} // Add navbar-dark class
+      text='darkviolet'
+      border='blue'
+      expand='md'
+      fixed='top'>
       <Container>
-        <NavLink to="/">
+        <NavLink to='/'>
           <Navbar.Brand>
-            <img src={logo} alt="logo" height="45" />
+            <img
+              src={logo}
+              alt='logo'
+              height='45'
+            />
           </Navbar.Brand>
         </NavLink>
         {currentUser && addEventIcon}
         <Navbar.Toggle
           ref={ref}
           onClick={() => setExpanded(!expanded)}
-          aria-controls="basic-navbar-nav"
+          aria-controls='basic-navbar-nav'
         />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto text-left">
+        <Navbar.Collapse id='basic-navbar-nav'>
+          <Nav className='ml-auto text-left'>
             <NavLink
               exact
               className={styles.NavLink}
               activeClassName={styles.Active}
-              to="/"
-            >
-              <i className="fa-solid fa-satellite"></i>Home
+              to='/'>
+              <i className='fa-solid fa-satellite'></i>Home
             </NavLink>
 
             {currentUser ? loggedInIcons : loggedOutIcons}

@@ -14,6 +14,7 @@ import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
+import LatestFriendsLogIn from "../friends/LatestFriendsLogIn";
 
 function EventsPage({message, filter = ''}) {
   const [events, setEvents] = useState({ results: [] });
@@ -47,7 +48,7 @@ function EventsPage({message, filter = ''}) {
     <Row className='h-100'>
       <Col
         className='py-2 p-0 p-lg-2'
-        lg={12}>
+        lg={8}>
         <p></p>
         <i className={ `fas fa-search ${styles.SearchIcon}` }></i>
         <Form className={ styles.SearchBar } onSubmit={ (e) => e.preventDefault() }>
@@ -89,6 +90,12 @@ function EventsPage({message, filter = ''}) {
             <Asset spinner />
           </Container>
         ) }
+      </Col>
+      <Col md={ 4 }>
+        <Container>
+          <h3>Last Logins:</h3>
+          <LatestFriendsLogIn />
+        </Container>
       </Col>
     </Row>
   );

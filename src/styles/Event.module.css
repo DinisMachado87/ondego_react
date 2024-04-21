@@ -24,8 +24,6 @@
   background-repeat: no-repeat;
   border: 0.0rem solid transparent;
   box-shadow: 0 0 0.5rem 0.5rem green;
-  max-width: 80vw;
-  min-width: 80vw;
   border-radius: 1rem;
 }
 
@@ -41,14 +39,6 @@
   width: auto;
 }
 
-.horizontalReference {
-  height: 100%;
-}
-
-.VerticalReference {
-    width: 100%;
-}
-
 .Container {
   margin: 1rem;
 }
@@ -59,7 +49,7 @@
   border-radius: 1rem;
   padding: 1rem;
 }
-
+.Front,
 .Container p,
 .Container h1,
 .Container h2,
@@ -67,7 +57,7 @@
 .Container h4,
 .Container h5 {
     position: relative;
-    z-index: 9999;
+    z-index: 30;
 }
 
 
@@ -78,7 +68,7 @@
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
-  z-index: 1;
+  z-index: 30;
   bottom: 100%;
   left: 50%;
   margin-left: -60px;
@@ -94,6 +84,8 @@
     -0.2rem -0.2rem 0.3rem orangered,
     -0.1rem -0.1rem 0.1rem orangered ;
   transition: text-shadow ease-in-out 0.3s;
+  position: relative;
+  z-index: 30;
 }
 
 .EventFooter i:hover,
@@ -121,9 +113,6 @@
 }
 
 .YMargin {
-  margin: 1rem 5rem 5rem 5rem;
+  margin: 1rem 1rem 5rem 1rem;
 }
 
-.Width {
-  width: 40vw;
-}

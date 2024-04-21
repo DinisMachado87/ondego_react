@@ -183,7 +183,7 @@ const handleDelete = async () => {
   return (
     <Card
       style={{ backgroundImage: `url(${event_image})` }}
-      className={`${styles.StretchedImage} ${styles.YMargin}`}>
+      className={ `${styles.StretchedImage} ${styles.YMargin}` }>
       <Media className={`${styles.Event}`}>
         <Card.Body
           onClick={() => history.push(`/events/${id}`)}
@@ -191,8 +191,9 @@ const handleDelete = async () => {
           <div className={`${styles.Container} ${styles.EventBody}`}>
             <Card.Link to={`/profiles/${profile_id}`}>
               <Avatar
+                className={styles.Front}
                 src={profile_image}
-                height={ 55 }
+                height={55}
               />
               {owner}
             </Card.Link>
@@ -204,8 +205,8 @@ const handleDelete = async () => {
             <p>{where_address && <span>{where_address}</span>}</p>
             <p>{when_start && <span>start: {when_start}</span>}</p>
             <p>{when_end && <span>end: {when_end}</span>}</p>
-            <div>created: {created_at}</div>
-            <div>updated: {updated_at}</div>
+            <div className={styles.Front}>created: {created_at}</div>
+            <div className={styles.Front}>updated: {updated_at}</div>
 
             <div className={`${styles.flexEnd}`}>
               <img

@@ -2,12 +2,12 @@
     margin: 1rem;
     background-color: rgb(0, 0, 0);
     color: darkviolet;
-    border-radius: 1rem;
+    border-radius: 2rem;
     font-size: 1.3rem;
     vertical-align: middle;
 
     border: 0.3rem solid transparent;
-    box-shadow: 0.0 0.0 0.5rem 0.5rem rgb(121, 7, 136)
+    box-shadow: 0.0 0.0 0.5rem 0.5rem darkviolet
 }
 
 .NavLink {
@@ -15,7 +15,7 @@
     font-size: 1rem;
     font-weight: bold;
     text-shadow: 0.05rem 0.05rem 0 blue;
-    padding: 0.5rem;
+    padding: 0.3rem;
 }
 
 .NavLink:hover {
@@ -27,4 +27,8 @@
 
 .Active {
     text-shadow: blue 1rem 0.5rem 1rem;
+}
+
+:global(.navbar-dark .navbar-toggler-icon) {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='darkviolet' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }

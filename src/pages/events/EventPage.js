@@ -4,7 +4,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-import appStyles from "../../App.module.css";
 import styles from "../../styles/EventsPage.module.css";
 import { useParams } from "react-router";
 
@@ -44,10 +43,8 @@ function EventPage() {
   }, [id]);
 
   return (
-    <Row className='h-100'>
-      <Col
-        className='py-2 p-0 p-lg-2'
-        lg={12}>
+    <Row>
+      <Col className='py-2 p-0 p-lg-2'>
         <Event
           {...event.results[0]}
           setEvents={setEvent}
@@ -64,9 +61,7 @@ function EventPage() {
               setComments={setComments}
             />
           )}
-          <div
-            style={{ height: "30vh", overflowY: "auto" }}
-            className={`${styles.CommentsScrollingContainer} p-2`}>
+          <div className={`${styles.CommentsScrollingContainer} p-2`}>
             <InfiniteScroll
               dataLength={comments.results.length}
               next={() => fetchMoreData(comments, setComments)}
