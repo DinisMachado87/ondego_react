@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from "../../styles/Comment.module.css";
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Avatar from '../../components/Avatar';
-import { Media } from 'react-bootstrap';
+import { Col, Media, Row } from 'react-bootstrap';
 import { MoreDropdown } from '../../components/MoreDropdown';
 import { axiosReq } from '../../api/axiosDefaults';
 import CommentEditForm from "./CommentEditForm";
@@ -41,23 +41,21 @@ const Comment = (props) => {
     }
   }
 
-    
-
   return (
     <div>
       <Media className={styles.Comment}>
-        <Media.Body className='align-self-center ml-2'>
+        <Media.Body className='m-1'>
           {owner ? (
-            <div className='row'>
-              <div className='col-1'>
+            <Row className='p-1'>
+              <Col className='col-1'>
                 <MoreDropdown
                   handleDelete={handleDelete}
                   handleEdit={() => setShowEditForm(true)}
                 />
-              </div>
+              </Col>
               <Link
                 to={`/profiles/${profile_id}`}
-                className='col-2'>
+                className='col-1'>
                 <Avatar src={profile_image} />
               </Link>
               {showEditForm ? (
@@ -70,7 +68,7 @@ const Comment = (props) => {
                   setShowEditForm={setShowEditForm}
                 />
               ) : (
-                <p className='col-9 p-2'>
+                <p className='col-10 mt-2'>
                   {owner}: {message}
                   <span className={styles.UpdatedAt}>
                     {"  "}
@@ -78,10 +76,10 @@ const Comment = (props) => {
                   </span>{" "}
                 </p>
               )}
-            </div>
+            </Row>
           ) : (
             <div className='row'>
-              <p className='col-9 p-2'>
+              <p className='col-10 mt-2'>
                 {message}
                 <span className={styles.UpdatedAt}>
                   {"  "}
@@ -90,7 +88,7 @@ const Comment = (props) => {
               </p>
               <Link
                 to={`/profiles/${profile_id}`}
-                className='col-2'>
+                className='col-1'>
                 <Avatar src={profile_image} />
               </Link>
             </div>
