@@ -4,10 +4,10 @@ import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import Profile from "./Profile";
 
-const LatestFriendsLogIn = () => {
+const LatestFriendsLogIn = ({mobile}) => {
   const [profileData, setProfileData] = useState({
-    // we will use the pageProfile later!
     pageProfile: { results: [] },
     latestFriendsLogIn: { results: [] },
   });
@@ -30,20 +30,39 @@ const LatestFriendsLogIn = () => {
     handleMount();
   }, [currentUser]);
 
-  return (
-    <Container className={appStyles.Content}>
-      {latestFriendsLogIn.results.length ? (
-        <>
-          <p>Most followed profiles.</p>
-          {latestFriendsLogIn.results.map((profile) => (
-            <p key={profile.id}>{profile.owner}</p>
-          ))}
-        </>
-      ) : (
-        <Asset spinner />
-      )}
-    </Container>
-  );
+return (
+  <Container
+    className={`${appStyles.Content} ${
+      mobile && "d-lg-none text-center mb-3"
+    }`}>
+    {latestFriendsLogIn.results.length ? (
+      <>
+        <h5>Recent Logins:</h5>
+        {mobile ? (
+          <div className='d-flex justify-content-around'>
+            {latestFriendsLogIn.results.slice(0, 4).map((profile) => (
+              <Profile
+                key={profile.id}
+                profile={profile}
+                mobile={mobile}
+              />
+            ))}
+          </div>
+        ) : (
+          latestFriendsLogIn.results.map((profile) => (
+            <Profile
+              key={profile.id}
+              profile={profile}
+              mobile={mobile}
+            />
+          ))
+        )}
+      </>
+    ) : (
+      <Asset spinner />
+    )}
+  </Container>
+);
 };
 
 export default LatestFriendsLogIn;

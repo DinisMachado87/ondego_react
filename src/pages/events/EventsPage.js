@@ -48,8 +48,8 @@ function EventsPage({message, filter = ''}) {
     <Row className='h-100'>
       <Col
         className='py-2 p-0 p-lg-2'
-        lg={8}>
-        <p></p>
+        lg={ 8 }>
+        <LatestFriendsLogIn mobile/>
         <i className={ `fas fa-search ${styles.SearchIcon}` }></i>
         <Form className={ styles.SearchBar } onSubmit={ (e) => e.preventDefault() }>
           <Form.Control

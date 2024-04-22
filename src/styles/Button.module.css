@@ -7,6 +7,14 @@
   font-weight: bold;
 }
 
+.ProfilesButton {
+  border-radius: 1rem;
+  text-align: center;
+  padding: 0 1rem 0 1rem;
+  margin: 0rem;
+  font-weight: bold;
+}
+
 .Button:hover {
   opacity: 0.8;
   border-color: transparent;
