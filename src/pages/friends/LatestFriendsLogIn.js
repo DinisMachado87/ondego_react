@@ -37,7 +37,6 @@ return (
     }`}>
     {latestFriendsLogIn.results.length ? (
       <>
-        <h5>Recent Logins:</h5>
         {mobile ? (
           <div className='d-flex justify-content-around'>
             {latestFriendsLogIn.results.slice(0, 4).map((profile) => (

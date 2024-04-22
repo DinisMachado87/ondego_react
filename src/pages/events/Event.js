@@ -183,7 +183,7 @@ const handleDelete = async () => {
   return (
     <Card
       style={{ backgroundImage: `url(${event_image})` }}
-      className={ `${styles.StretchedImage} ${styles.YMargin}` }>
+      className={`${styles.StretchedImage} ${styles.YMargin}`}>
       <Media className={`${styles.Event}`}>
         <Card.Body
           onClick={() => history.push(`/events/${id}`)}
@@ -231,7 +231,7 @@ const handleDelete = async () => {
               <Col className='col-11'>
                 <OverlayTrigger
                   placement='top'
-                  overlay={<Tooltip>Tooltip on top</Tooltip>}>
+                  overlay={<Tooltip>{getTooltipText("2")}</Tooltip>}>
                   <ChoiceButton
                     choice='2'
                     tooltipText='Joining'
@@ -241,7 +241,7 @@ const handleDelete = async () => {
                 </OverlayTrigger>
                 <OverlayTrigger
                   placement='top'
-                  overlay={<Tooltip>Tooltip on top</Tooltip>}>
+                  overlay={<Tooltip>{getTooltipText("3")}</Tooltip>}>
                   <ChoiceButton
                     choice='3'
                     tooltipText='Let me see'
@@ -251,7 +251,7 @@ const handleDelete = async () => {
                 </OverlayTrigger>
                 <OverlayTrigger
                   placement='top'
-                  overlay={<Tooltip>Tooltip on top</Tooltip>}>
+                  overlay={<Tooltip>{getTooltipText("1")}</Tooltip>}>
                   <ChoiceButton
                     choice='1'
                     tooltipText='Cannot'

@@ -24,6 +24,13 @@
   color: yellow;
 }
 
+.FixedSerchContainer {
+  position: fixed;
+  z-index: 2000;
+  top: 9rem;
+  right: 50%;
+}
+
 .SearchIcon {
   position: absolute;
   font-size: 1.2rem;
@@ -40,4 +47,17 @@
 .EventsContainer {
   overflow-y: auto;
   height: 100vh;
+}
+
+.ProfileList {
+  position: fixed;
+  top: 9rem;
+  right: 2rem;
+  z-index: 1999;
+}
+
+.GreenYellow {
+  color: rgb(6, 80, 6);
+  text-shadow: yellow 0.3rem 0.3rem 1rem, yellow -0.3rem -0.3rem 1rem;
+  padding-left: 1rem;
 }

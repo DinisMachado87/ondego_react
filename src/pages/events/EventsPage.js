@@ -45,59 +45,72 @@ function EventsPage({message, filter = ''}) {
 
 
   return (
-    <Row className='h-100'>
-      <Col
-        className='py-2 p-0 p-lg-2'
-        lg={ 8 }>
-        <LatestFriendsLogIn mobile/>
-        <i className={ `fas fa-search ${styles.SearchIcon}` }></i>
-        <Form className={ styles.SearchBar } onSubmit={ (e) => e.preventDefault() }>
-          <Form.Control
-            value={ query }
-            onChange={ (e) => setQuery(e.target.value) }
-            type='text'
-            className='mr-sm-2'
-            placeholder='type to search...'
-          />
-        </Form>
-
-        { hasLoaded ? (
-          <>
-            {events.results.length ? (
-              <InfiniteScroll
-                children={ events.results.map((event) => (
-                  <Event key={ event.id } { ...event } setEvents={ setEvents } />
-                ))}
-                dataLength={ events.results.length }
-                loader={ <Asset spinner /> }
-                hasMore={ !!events.next }
-                next={() => fetchMoreData(events, setEvents)}
-              />
-              ) : ( <Container
-              className="appStyles.Content"
-              >
-                <Asset
-                  src={ NoResults }
-                  message={ message }
+    <div>
+      <Row className='h-100'>
+        <Col
+          className='py-2 p-0 p-lg-2'
+          lg={8}>
+          <LatestFriendsLogIn mobile />
+          <div style={{ position: "relative" }}>
+            <div
+              className={styles.FixedSerchContainer}>
+              <i className={`fas fa-search ${styles.SearchIcon}`}></i>
+              <Form
+                className={styles.SearchBar}
+                onSubmit={(e) => e.preventDefault()}>
+                <Form.Control
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  type='text'
+                  className='mr-sm-2'
+                  placeholder='type to search...'
                 />
-            </Container> 
-            )}
-          </>
-        ): (
-          <Container
-            className={ appStyles.Content }
-          >
-            <Asset spinner />
+              </Form>
+            </div>
+          </div>
+          {hasLoaded ? (
+            <>
+              {events.results.length ? (
+                <InfiniteScroll
+                  children={events.results.map((event) => (
+                    <Event
+                      key={event.id}
+                      {...event}
+                      setEvents={setEvents}
+                    />
+                  ))}
+                  dataLength={events.results.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!events.next}
+                  next={() => fetchMoreData(events, setEvents)}
+                />
+              ) : (
+                <Container className='appStyles.Content'>
+                  <Asset
+                    src={NoResults}
+                    message={message}
+                  />
+                </Container>
+              )}
+            </>
+          ) : (
+            <Container className={appStyles.Content}>
+              <Asset spinner />
+            </Container>
+          )}
+        </Col>
+        <Col
+          className={styles.ProfileList}
+          md={4}>
+          <Container>
+            <h3
+            className={styles.GreenYellow}
+            >Last Logins:</h3>
+            <LatestFriendsLogIn />
           </Container>
-        ) }
-      </Col>
-      <Col md={ 4 }>
-        <Container>
-          <h3>Last Logins:</h3>
-          <LatestFriendsLogIn />
-        </Container>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
