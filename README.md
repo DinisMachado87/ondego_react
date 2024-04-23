@@ -158,6 +158,24 @@ By prepopulating these fields, I've reduced the number of clicks and typing requ
 
 ## Manual Testing
 
+## Development notes
+
+### Friends Functionality
+
+I developed the friends functionality capable of representing four distinct states: 'friends', 'requested friendship', 'has friend request', and 'not friends'. The functionality uses a set of two models, 'Friend' and 'FriendRequest', to manage the relationships between users effectively. The 'Friend' model stores the relationships between users who are friends, while the 'FriendRequest' model manages the requests for friendship between users. This separation allows for clear and efficient management of the different states of friendship. More info on this in the API README.
+
+In the frontend, I implemented the friends functionality using a series of conditional checks to determine the current user's relationship with the profile owner. Based on the relationship status, the app displays the appropriate button or message to the user, allowing them to interact with the profile owner accordingly. The functionality includes the ability to send friend requests, accept or decline friend requests, cancel friend requests, and unfriend users.
+
+I've employed a layered nested ternary operators to handle the various states of friendship between the current user and the profile owner. This approach allows me to handle multiple conditionsrather than a binary bollean.
+
+At the top level, I first check if the current user exists and is not the profile owner. If this condition is met, I then check if the current user is already friends with the profile owner using `profile?.is_friend`. Depending on the result, I render either an "Unfriend" or "Enquire Friendship" button. The "Enquire Friendship" button calls the `handleCreateFriendRequest` function, which sends a friend request to the profile owner.
+
+If the current user is the profile owner, we enter another layer of conditions. I first check if the profile owner has a friend request from the current user using `profile?.has_friend_request`. If true, I render "Consent", "Not right now", and "Block" buttons. The "Consent" button triggers the `handleConsentFriendRequest` function, which accepts the friend request. The "Not right now" button triggers the `handleNotRightNowFriendRequest` function, which declines the friend request.
+
+If the profile owner does not have a friend request from the current user, I check if the current user has requested friendship from the profile owner using `profile?.has_requested_friendship`. Depending on the result, I render either a "Cancel Request" or "Edit Profile" button. The "Cancel Request" button triggers the `handleCancelFriendRequest` function, which cancels the friend request.
+
+Finally, if none of the above conditions are met, I render a "Add Friend" button, which triggers the `handleCreateFriendRequest` function to send a friend request to the profile owner.
+
 ## Resolved bugs
 
 ### Debugging the Add Event Image Upload Button

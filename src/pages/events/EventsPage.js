@@ -14,7 +14,7 @@ import NoResults from "../../assets/no-results.png";
 import Asset from "../../components/Asset";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
-import LatestFriendsLogIn from "../friends/LatestFriendsLogIn";
+import LatestFriendsLogIn from "../profiles/LatestFriendsLogIn";
 
 function EventsPage({message, filter = ''}) {
   const [events, setEvents] = useState({ results: [] });

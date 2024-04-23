@@ -11,6 +11,7 @@ import EventPage from "./pages/events/EventPage";
 import EventsPage from "./pages/events/EventsPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import EventEditForm from "./pages/events/EventEditForm";
+import ProfilePage from "./pages/profiles/ProfilePage";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -67,6 +68,11 @@ function App() {
             exact
             path='/events/:id'
             render={() => <EventPage />}
+          />
+          <Route
+            exact
+            path='/profiles/:id'
+            render={ () => <ProfilePage /> }
           />
           <Route render={ () => <h1>Page Not Found!</h1> } />
         </Switch>

@@ -5,6 +5,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { Button, Col, Row } from "react-bootstrap";
+import { useSetProfileData } from "../../contexts/ProfileDataContext";
 
 const Profile = (props) => {
   const { profile, mobile, imageSize = 55 } = props;
@@ -23,6 +24,13 @@ const Profile = (props) => {
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+
+  const {
+    handleCancelFriendRequest,
+    handleConsentFriendRequest,
+    handleFriendRequest,
+    handleUnfriend,
+  } = useSetProfileData();
 
   return (
     <div className='py-1'>
@@ -86,37 +94,44 @@ const Profile = (props) => {
         <Row className={`text-center ${!mobile && "ml-auto"} `}>
           {!mobile &&
             currentUser &&
-            !is_owner &&
-            (friends_id ? (
+            (is_owner ? (
               <div>
                 <Button
                   className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
                   onClick={() => {}}>
-                  unfriend
+                  Edit profile
+                </Button>
+              </div>
+            ) : friends_id ? (
+              <div>
+                <Button
+                  className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
+                  onClick={() => handleUnfriend(profile)}>
+                  Unfriend
                 </Button>
               </div>
             ) : has_friend_request ? (
               <div>
                 <Button
                   className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
-                  onClick={() => {}}>
-                  accept friend request
+                  onClick={() => handleConsentFriendRequest(profile)}>
+                  Accept friend request
                 </Button>
               </div>
             ) : has_requested_friendship ? (
               <div>
                 <Button
                   className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
-                  onClick={() => {}}>
-                  cancel friend request
+                  onClick={() => handleCancelFriendRequest(profile)}>
+                  Cancel friend request
                 </Button>
               </div>
             ) : (
               <div>
                 <Button
                   className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
-                  onClick={() => {}}>
-                  request friendship
+                  onClick={() => handleFriendRequest(profile)}>
+                  Request friendship
                 </Button>
               </div>
             ))}
