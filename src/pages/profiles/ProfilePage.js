@@ -111,7 +111,7 @@ function ProfilePage() {
               profile?.is_friend ? (
                 // Checks if the user is a friend of the profile owner
                 <Button
-                  className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
+                  className={`${btnStyles.Button} ${btnStyles.Orange}`}
                   onClick={() => handleUnfriend(profile)}>
                   Unfriend
                 </Button>
@@ -119,12 +119,12 @@ function ProfilePage() {
                 // Checks if the user has a friend request from the profile owner
                 <>
                   <Button
-                    className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
+                    className={`${btnStyles.Button} ${btnStyles.Orange}`}
                     onClick={() => handleConsentFriendRequest(profile)}>
                     Consent
                   </Button>
                   <Button
-                    className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
+                    className={`${btnStyles.Button} ${btnStyles.Orange}`}
                     onClick={() => handleNotRightNowFriendRequest(profile)}>
                     Not right now
                   </Button>
@@ -132,22 +132,22 @@ function ProfilePage() {
               ) : profile?.has_requested_friendship ? (
                 // Checks if the user has requested friendship from the profile owner
                 <Button
-                  className={`${btnStyles.Button} ${btnStyles.BlackOutline}`}
+                  className={`${btnStyles.Button} ${btnStyles.Orange}`}
                   onClick={() => handleCancelFriendRequest(profile)}>
                   Cancel request
                 </Button>
               ) : (
                 // If none of the above, the user can request friendship
                 <Button
-                  className={`${btnStyles.Button} ${btnStyles.Black}`}
+                  className={`${btnStyles.Button} ${btnStyles.Orange}`}
                   onClick={() => handleCreateFriendRequest(profile)}>
-                  Enquire Friendship
+                  propose Friendship
                 </Button>
               )
             ) : currentUser ? (
               // If the user is logged in and the owner of the profile
               <Button
-                className={`${btnStyles.Button} ${btnStyles.Black}`}
+                className={`${btnStyles.Button} ${btnStyles.Orange}`}
                 onClick={() => {}}>
                 Edit profile
               </Button>

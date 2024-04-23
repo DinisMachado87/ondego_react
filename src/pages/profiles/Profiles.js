@@ -28,7 +28,8 @@ const Profile = (props) => {
   const {
     handleCancelFriendRequest,
     handleConsentFriendRequest,
-    handleFriendRequest,
+    handleCreateFriendRequest,
+    handleNotRightNowFriendRequest,
     handleUnfriend,
   } = useSetProfileData();
 
@@ -92,9 +93,57 @@ const Profile = (props) => {
           )}
         </Row>
         <Row className={`text-center ${!mobile && "ml-auto"} `}>
-          {!mobile &&
-            currentUser &&
-            (is_owner ? (
+          {
+            currentUser && !is_owner ? (
+              // Checks if the user is logged in and not the owner of the profile
+              profile?.is_friend ? (
+                // Checks if the user is a friend of the profile owner
+                <div>
+                  <Button
+                    className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
+                    onClick={() => handleUnfriend(profile)}>
+                    Unfriend
+                  </Button>
+                </div>
+              ) : profile?.has_friend_request ? (
+                // Checks if the user has a friend request from the profile owner
+                <>
+                  <div>
+                    <Button
+                      className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
+                      onClick={() => handleConsentFriendRequest(profile)}>
+                      Consent
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
+                      onClick={() => handleNotRightNowFriendRequest(profile)}>
+                      Not right now
+                    </Button>
+                  </div>
+                </>
+              ) : profile?.has_requested_friendship ? (
+                // Checks if the user has requested friendship from the profile owner
+                <div>
+                  <Button
+                    className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
+                    onClick={() => handleCancelFriendRequest(profile)}>
+                    Cancel request
+                  </Button>
+                </div>
+              ) : (
+                // If none of the above, the user can request friendship
+                <div>
+                  <Button
+                    className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
+                    onClick={() => handleCreateFriendRequest(profile)}>
+                    propose Friendship
+                  </Button>
+                </div>
+              )
+            ) : currentUser ? (
+              // If the user is logged in and the owner of the profile
               <div>
                 <Button
                   className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
@@ -102,39 +151,9 @@ const Profile = (props) => {
                   Edit profile
                 </Button>
               </div>
-            ) : friends_id ? (
-              <div>
-                <Button
-                  className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
-                  onClick={() => handleUnfriend(profile)}>
-                  Unfriend
-                </Button>
-              </div>
-            ) : has_friend_request ? (
-              <div>
-                <Button
-                  className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
-                  onClick={() => handleConsentFriendRequest(profile)}>
-                  Accept friend request
-                </Button>
-              </div>
-            ) : has_requested_friendship ? (
-              <div>
-                <Button
-                  className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
-                  onClick={() => handleCancelFriendRequest(profile)}>
-                  Cancel friend request
-                </Button>
-              </div>
-            ) : (
-              <div>
-                <Button
-                  className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
-                  onClick={() => handleFriendRequest(profile)}>
-                  Request friendship
-                </Button>
-              </div>
-            ))}
+            ) : null
+            // If the user is not logged in, no buttons are displayed
+          }
         </Row>
       </Col>
     </div>

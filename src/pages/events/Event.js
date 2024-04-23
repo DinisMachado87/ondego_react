@@ -37,7 +37,6 @@ const Event = (props) => {
     joining_count,
     let_me_see_count,
     not_joining_count,
-    comments_count,
     eventPage,
     setEvents,
   } = props;
@@ -229,36 +228,36 @@ const handleDelete = async () => {
                 </Col>
               )}
               <Col className='col-11'>
-                <OverlayTrigger
+                {/* <OverlayTrigger
                   placement='top'
-                  overlay={<Tooltip>{getTooltipText("2")}</Tooltip>}>
+                  overlay={<Tooltip>{getTooltipText("2")}</Tooltip>}> */}
                   <ChoiceButton
                     choice='2'
                     tooltipText='Joining'
                     count={`${joining_count} joining`}
                     handleJoiningChoice={handleJoiningChoice}
                   />
-                </OverlayTrigger>
+                {/* </OverlayTrigger>
                 <OverlayTrigger
                   placement='top'
-                  overlay={<Tooltip>{getTooltipText("3")}</Tooltip>}>
+                  overlay={<Tooltip>{getTooltipText("3")}</Tooltip>}> */}
                   <ChoiceButton
                     choice='3'
                     tooltipText='Let me see'
                     count={`${let_me_see_count} Maybe`}
                     handleJoiningChoice={handleJoiningChoice}
                   />
-                </OverlayTrigger>
+                {/* </OverlayTrigger>
                 <OverlayTrigger
                   placement='top'
-                  overlay={<Tooltip>{getTooltipText("1")}</Tooltip>}>
+                  overlay={<Tooltip>{getTooltipText("1")}</Tooltip>}> */}
                   <ChoiceButton
                     choice='1'
                     tooltipText='Cannot'
                     count={`${not_joining_count} Can't`}
                     handleJoiningChoice={handleJoiningChoice}
                   />
-                </OverlayTrigger>
+                {/* </OverlayTrigger> */}
               </Col>
             </Row>
           </div>
