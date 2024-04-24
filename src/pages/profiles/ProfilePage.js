@@ -18,7 +18,7 @@ import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
-import { Button, Image } from "react-bootstrap";
+import { Button, Form, Image } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Event from "../events/Event";
 import { fetchMoreData } from "../../utils/utils";
@@ -145,12 +145,23 @@ function ProfilePage() {
                 </Button>
               )
             ) : currentUser ? (
-              // If the user is logged in and the owner of the profile
-              <Button
-                className={`${btnStyles.Button} ${btnStyles.Orange}`}
-                onClick={() => {}}>
-                Edit profile
-              </Button>
+                /** If the user is logged in and the owner of the profile
+                  *  render a form to edit the profile
+                  */
+                <Form>
+                  <Form.Group>
+                    <Form.Control
+                      type='text'
+                      placeholder='Edit your profile'
+                    />
+                  </Form.Group>
+                  <Button
+                    className={`${btnStyles.Button} ${btnStyles.Orange}`}
+                    type='submit'>
+                    Edit profile
+                  </Button>
+              </Form>
+              
             ) : null
             // If the user is not logged in, no buttons are displayed
           }

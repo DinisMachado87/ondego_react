@@ -17,10 +17,8 @@ const Profile = (props) => {
     image,
     events_count,
     joined_events_count,
-    friends_id,
-    has_friend_request,
-    has_requested_friendship,
   } = profile;
+  console.log(profile);
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
@@ -71,9 +69,10 @@ const Profile = (props) => {
                 </Row>
               </Col>
             </>
-          )}
+          ) }
+          
           {!mobile && (
-            <>
+            <Row>
               <Col className={`${styles.WordBreak} ${!mobile && "col-9"}`}>
                 <h4>{owner}</h4>
                 {feeling && <p>feeling {feeling}</p>}
@@ -89,14 +88,14 @@ const Profile = (props) => {
                   />
                 </Link>
               </Col>
-            </>
+            </Row>
           )}
         </Row>
         <Row className={`text-center ${!mobile && "ml-auto"} `}>
           {
             currentUser && !is_owner ? (
               // Checks if the user is logged in and not the owner of the profile
-              profile?.is_friend ? (
+              profile?.friends_id ? (
                 // Checks if the user is a friend of the profile owner
                 <div>
                   <Button
@@ -151,7 +150,8 @@ const Profile = (props) => {
                   Edit profile
                 </Button>
               </div>
-            ) : null
+            )
+            : null
             // If the user is not logged in, no buttons are displayed
           }
         </Row>

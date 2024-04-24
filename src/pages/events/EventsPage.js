@@ -103,9 +103,6 @@ function EventsPage({message, filter = ''}) {
           className={styles.ProfileList}
           md={4}>
           <Container>
-            <h3
-            className={styles.GreenYellow}
-            >Last Logins:</h3>
             <LatestFriendsLogIn />
           </Container>
         </Col>
