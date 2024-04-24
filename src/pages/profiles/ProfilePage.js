@@ -8,7 +8,6 @@ import Asset from "../../components/Asset";
 
 import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
 
 import LatestFriendsLogIn from "./LatestFriendsLogIn";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -18,12 +17,14 @@ import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
-import { Button, Form, Image } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Event from "../events/Event";
 import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
-import EditProfileForm from "./EditProfileForm";
+import EditProfileForm from "./ProfileEditForm";
+import ProfileButtons from "./ProfileButtons";
+import { ProfileEditDropdown } from "../../components/MoreDropdown";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -81,87 +82,55 @@ function ProfilePage() {
             <h3 className='m-2'>{profile?.owner}</h3>
           </Col>
         </Row>
+
+        { is_owner && <EditProfileForm /> }
+        
+        { profile?.is_owner &&
+          <ProfileEditDropdown id={ profile?.id } />
+        }
+
         <Row className='justify-content-center no-gutters'>
           <Col
             xs={3}
             className='my-2 text-center'>
-            <div>{profile?.events_count}</div>
-            <div>events organized</div>
+            <div>{ profile?.events_count }</div>
+            <div>organized events</div>
           </Col>
           <Col
             xs={3}
             className='my-2 text-center'>
-            <div>{profile?.joined_events_count}</div>
+            <div>{ profile?.joined_events_count }</div>
             <div>joined events</div>
           </Col>
           <Col
             xs={3}
             className='my-2 text-center'>
-            <div>{profile?.friends_count}</div>
+            <div>{ profile?.friends_count }</div>
             <div>friends</div>
           </Col>
         </Row>
-        {
-          currentUser && !is_owner ? (
-            // Checks if the user is logged in and not the owner of the profile
-            profile?.is_friend ? (
-              // Checks if the user is a friend of the profile owner
-              <Row className='justify-content-center no-gutters'>
-                <Button
-                  className={`${btnStyles.Button} ${btnStyles.Orange}`}
-                  onClick={() => handleUnfriend(profile)}>
-                  Unfriend
-                </Button>
-              </Row>
-            ) : profile?.has_friend_request ? (
-              // Checks if the user has a friend request from the profile owner
-              <>
-                <Row>
-                  <Button
-                    className={`${btnStyles.Button} ${btnStyles.Orange}`}
-                    onClick={() => handleConsentFriendRequest(profile)}>
-                    Consent
-                  </Button>
-                  <Button
-                    className={`${btnStyles.Button} ${btnStyles.Orange}`}
-                    onClick={() => handleNotRightNowFriendRequest(profile)}>
-                    Not right now
-                  </Button>
-                </Row>
-              </>
-            ) : profile?.has_requested_friendship ? (
-              // Checks if the user has requested friendship from the profile owner
-              <Row>
-                <Button
-                  className={`${btnStyles.Button} ${btnStyles.Orange}`}
-                  onClick={() => handleCancelFriendRequest(profile)}>
-                  Cancel request
-                </Button>
-              </Row>
-            ) : (
-              // If none of the above, the user can request friendship
-              <Row>
-                <Button
-                  className={`${btnStyles.Button} ${btnStyles.Orange}`}
-                  onClick={() => handleCreateFriendRequest(profile)}>
-                  propose Friendship
-                </Button>
-              </Row>
-            )
-          ) : currentUser ? (
-            /** If the user is logged in and the owner of the profile
-             *  render a form to edit the profile
-             */
 
-            <EditProfileForm profile={currentUser} />
-          ) : null // If the user is not logged in, no buttons are displayed
-        }
+        <ProfileButtons
+          /** Profile buttons component renders diferent buttons
+           * depending on the user's relationship with the profile owner
+           */
+          is_owner={is_owner}
+          profile={profile}
+          handleCancelFriendRequest={handleCancelFriendRequest}
+          handleConsentFriendRequest={handleConsentFriendRequest}
+          handleCreateFriendRequest={handleCreateFriendRequest}
+          handleNotRightNowFriendRequest={handleNotRightNowFriendRequest}
+          handleUnfriend={handleUnfriend}
+        />
         {profile?.content && <Col className='p-3'>{profile.content}</Col>}
       </Container>
     </>
   );
 
   const mainProfileEvents = (
+    /** Main profile events component renders the events organized
+     * by the profile owner
+     */
     <>
       <hr />
       <p className='text-center'>{`${profile?.owner}' events`}</p>

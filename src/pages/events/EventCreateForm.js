@@ -16,8 +16,10 @@ import Asset from '../../components/Asset';
 import { Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
+import { useRedirect } from '../../hooks/useRedirect';
 
 function EventCreateForm() {
+	useRedirect('loggedOut');
 
 	const getTodayAt = (hours, minutes) => {
 		let date = new Date();

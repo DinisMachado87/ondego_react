@@ -9,10 +9,14 @@ import SignInForm from "./pages/auth/SignInForm";
 import EventCreateForm from "./pages/events/EventCreateForm";
 import EventPage from "./pages/events/EventPage";
 import EventsPage from "./pages/events/EventsPage";
-import { useCurrentUser } from "./contexts/CurrentUserContext";
-import EventEditForm from "./pages/events/EventEditForm";
 import ProfilePage from "./pages/profiles/ProfilePage";
-import EditProfileForm from "./pages/profiles/EditProfileForm";
+import EventEditForm from "./pages/events/EventEditForm";
+import { useCurrentUser } from "./contexts/CurrentUserContext";
+import UsernameForm from "./pages/profiles/UsernameForm";
+import UserPasswordForm from "./pages/profiles/UserPasswordForm";
+import ProfileEditForm from "./pages/profiles/ProfileEditForm";
+
+
 
 function App() {
   const currentUser = useCurrentUser();
@@ -83,17 +87,17 @@ function App() {
           <Route
             exact
             path='/profiles/:id/edit/username'
-            render={() => <EditProfileForm />}
+            render={() => <UsernameForm />}
           />
           <Route
             exact
             path='/profiles/:id/edit/password'
-            render={() => <EditProfileForm />}
+            render={() => <UserPasswordForm />}
           />
           <Route
             exact
             path='/profiles/:id/edit'
-            render={() => <EditProfileForm />}
+            render={() => <ProfileEditForm />}
           />
           <Route render={() => <h1>Page Not Found!</h1>} />
         </Switch>
