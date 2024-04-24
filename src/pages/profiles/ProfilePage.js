@@ -23,6 +23,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Event from "../events/Event";
 import { fetchMoreData } from "../../utils/utils";
 import NoResults from "../../assets/no-results.png";
+import EditProfileForm from "./EditProfileForm";
 
 function ProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -67,57 +68,55 @@ function ProfilePage() {
 
   const mainProfile = (
     <>
-      <Row
-        noGutters
-        className='px-3 text-center'>
-        <Col
-          lg={3}
-          className='text-lg-left'>
+      <Container>
+        <Row className='justify-content-center no-gutters text-center'>
           <Image
-            className={styles.ProfileImage}
+            className={`${styles.ProfileImage} mx-auto d-block`}
             roundedCircle
             src={profile?.image}
           />
-        </Col>
-        <Col lg={6}>
-          <h3 className='m-2'>{profile?.owner}</h3>
-          <Row className='justify-content-center no-gutters'>
-            <Col
-              xs={3}
-              className='my-2'>
-              <div>{profile?.events_count}</div>
-              <div>events organized</div>
-            </Col>
-            <Col
-              xs={3}
-              className='my-2'>
-              <div>{profile?.joined_events_count}</div>
-              <div>joined events</div>
-            </Col>
-            <Col
-              xs={3}
-              className='my-2'>
-              <div>{profile?.friends_count}</div>
-              <div>friends</div>
-            </Col>
-          </Row>
-        </Col>
-        <Col
-          lg={3}
-          className='text-lg-right'>
-          {
-            currentUser && !is_owner ? (
-              // Checks if the user is logged in and not the owner of the profile
-              profile?.is_friend ? (
-                // Checks if the user is a friend of the profile owner
+        </Row>
+        <Row className='justify-content-center no-gutters'>
+          <Col className='text-center'>
+            <h3 className='m-2'>{profile?.owner}</h3>
+          </Col>
+        </Row>
+        <Row className='justify-content-center no-gutters'>
+          <Col
+            xs={3}
+            className='my-2 text-center'>
+            <div>{profile?.events_count}</div>
+            <div>events organized</div>
+          </Col>
+          <Col
+            xs={3}
+            className='my-2 text-center'>
+            <div>{profile?.joined_events_count}</div>
+            <div>joined events</div>
+          </Col>
+          <Col
+            xs={3}
+            className='my-2 text-center'>
+            <div>{profile?.friends_count}</div>
+            <div>friends</div>
+          </Col>
+        </Row>
+        {
+          currentUser && !is_owner ? (
+            // Checks if the user is logged in and not the owner of the profile
+            profile?.is_friend ? (
+              // Checks if the user is a friend of the profile owner
+              <Row className='justify-content-center no-gutters'>
                 <Button
                   className={`${btnStyles.Button} ${btnStyles.Orange}`}
                   onClick={() => handleUnfriend(profile)}>
                   Unfriend
                 </Button>
-              ) : profile?.has_friend_request ? (
-                // Checks if the user has a friend request from the profile owner
-                <>
+              </Row>
+            ) : profile?.has_friend_request ? (
+              // Checks if the user has a friend request from the profile owner
+              <>
+                <Row>
                   <Button
                     className={`${btnStyles.Button} ${btnStyles.Orange}`}
                     onClick={() => handleConsentFriendRequest(profile)}>
@@ -128,46 +127,37 @@ function ProfilePage() {
                     onClick={() => handleNotRightNowFriendRequest(profile)}>
                     Not right now
                   </Button>
-                </>
-              ) : profile?.has_requested_friendship ? (
-                // Checks if the user has requested friendship from the profile owner
+                </Row>
+              </>
+            ) : profile?.has_requested_friendship ? (
+              // Checks if the user has requested friendship from the profile owner
+              <Row>
                 <Button
                   className={`${btnStyles.Button} ${btnStyles.Orange}`}
                   onClick={() => handleCancelFriendRequest(profile)}>
                   Cancel request
                 </Button>
-              ) : (
-                // If none of the above, the user can request friendship
+              </Row>
+            ) : (
+              // If none of the above, the user can request friendship
+              <Row>
                 <Button
                   className={`${btnStyles.Button} ${btnStyles.Orange}`}
                   onClick={() => handleCreateFriendRequest(profile)}>
                   propose Friendship
                 </Button>
-              )
-            ) : currentUser ? (
-                /** If the user is logged in and the owner of the profile
-                  *  render a form to edit the profile
-                  */
-                <Form>
-                  <Form.Group>
-                    <Form.Control
-                      type='text'
-                      placeholder='Edit your profile'
-                    />
-                  </Form.Group>
-                  <Button
-                    className={`${btnStyles.Button} ${btnStyles.Orange}`}
-                    type='submit'>
-                    Edit profile
-                  </Button>
-              </Form>
-              
-            ) : null
-            // If the user is not logged in, no buttons are displayed
-          }
-        </Col>
+              </Row>
+            )
+          ) : currentUser ? (
+            /** If the user is logged in and the owner of the profile
+             *  render a form to edit the profile
+             */
+
+            <EditProfileForm profile={currentUser} />
+          ) : null // If the user is not logged in, no buttons are displayed
+        }
         {profile?.content && <Col className='p-3'>{profile.content}</Col>}
-      </Row>
+      </Container>
     </>
   );
 

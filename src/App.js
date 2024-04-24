@@ -12,6 +12,7 @@ import EventsPage from "./pages/events/EventsPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import EventEditForm from "./pages/events/EventEditForm";
 import ProfilePage from "./pages/profiles/ProfilePage";
+import EditProfileForm from "./pages/profiles/EditProfileForm";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -42,7 +43,12 @@ function App() {
           <Route
             exact
             path='/joining'
-            render={() => <EventsPage message="Sorry, couldn't find anything göing ön here. Maybe you can start an event..?" filter={`Joining__owner__profile=${profile_id}&ordering=-likes__created_at&`} /> }
+            render={() => (
+              <EventsPage
+                message="Sorry, couldn't find anything göing ön here. Maybe you can start an event..?"
+                filter={`Joining__owner__profile=${profile_id}&ordering=-likes__created_at&`}
+              />
+            )}
           />
           <Route
             exact
@@ -62,7 +68,7 @@ function App() {
           <Route
             exact
             path='/event/:id/edit'
-            render={ () => <EventEditForm /> }
+            render={() => <EventEditForm />}
           />
           <Route
             exact
@@ -72,9 +78,24 @@ function App() {
           <Route
             exact
             path='/profiles/:id'
-            render={ () => <ProfilePage /> }
+            render={() => <ProfilePage />}
           />
-          <Route render={ () => <h1>Page Not Found!</h1> } />
+          <Route
+            exact
+            path='/profiles/:id/edit/username'
+            render={() => <EditProfileForm />}
+          />
+          <Route
+            exact
+            path='/profiles/:id/edit/password'
+            render={() => <EditProfileForm />}
+          />
+          <Route
+            exact
+            path='/profiles/:id/edit'
+            render={() => <EditProfileForm />}
+          />
+          <Route render={() => <h1>Page Not Found!</h1>} />
         </Switch>
       </Container>
     </div>
