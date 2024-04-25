@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import Asset from "../../components/Asset";
 
 import styles from "../../styles/ProfilePage.module.css";
+import formStyles from "../../styles/ProfileEditForm.module.css";
 import appStyles from "../../App.module.css";
 
 import LatestFriendsLogIn from "./LatestFriendsLogIn";
@@ -83,30 +84,22 @@ function ProfilePage() {
           </Col>
         </Row>
 
-        { is_owner && <EditProfileForm /> }
-        
-        { profile?.is_owner &&
-          <ProfileEditDropdown id={ profile?.id } />
-        }
+        {is_owner && <EditProfileForm />}
+
+        {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
 
         <Row className='justify-content-center no-gutters'>
           <Col
             xs={3}
-            className='my-2 text-center'>
-            <div>{ profile?.events_count }</div>
+            className={`${formStyles.Input} p-3 m-2 text-center`}>
+            <div>{profile?.events_count}</div>
             <div>organized events</div>
           </Col>
           <Col
             xs={3}
-            className='my-2 text-center'>
-            <div>{ profile?.joined_events_count }</div>
+            className={`${formStyles.Input} p-3 m-2 text-center`}>
+            <div>{profile?.joined_events_count}</div>
             <div>joined events</div>
-          </Col>
-          <Col
-            xs={3}
-            className='my-2 text-center'>
-            <div>{ profile?.friends_count }</div>
-            <div>friends</div>
           </Col>
         </Row>
 

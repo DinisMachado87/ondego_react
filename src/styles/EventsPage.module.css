@@ -50,9 +50,5 @@
 }
 
 .ProfileList {
-  position: fixed;
-  top: 9rem;
-  right: 2rem;
-  z-index: 1999;
 }
 

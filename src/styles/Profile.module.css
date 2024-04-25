@@ -6,7 +6,8 @@
 }
 
 .ProfileBar p,
-.ProfileBar h5 {
+.ProfileBar h5,
+.ProfileBar span {
   text-shadow:
   0.6rem -0.6rem 0.5rem darkorange,
   0.4rem -0.4rem 0.5rem darkorange,

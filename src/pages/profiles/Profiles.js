@@ -69,8 +69,8 @@ const Profile = (props) => {
                 </Row>
               </Col>
             </>
-          ) }
-          
+          )}
+
           {!mobile && (
             <Row>
               <Col className={`${styles.WordBreak} ${!mobile && "col-9"}`}>
@@ -150,8 +150,7 @@ const Profile = (props) => {
                   Edit profile
                 </Button>
               </div>
-            )
-            : null
+            ) : null
             // If the user is not logged in, no buttons are displayed
           }
         </Row>

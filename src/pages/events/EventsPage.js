@@ -16,44 +16,45 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 import LatestFriendsLogIn from "../profiles/LatestFriendsLogIn";
 
-function EventsPage({message, filter = ''}) {
+function EventsPage({ message, filter = "" }) {
   const [events, setEvents] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
-  const fetchEvents = async () => {
-    try {
-      const filterString = typeof filter === 'object' ? JSON.stringify(filter) : filter;
-      const { data } = await axiosReq.get(`/events/?${filterString}search=${query}`);
-      setEvents(data);
-      setHasLoaded(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    const fetchEvents = async () => {
+      try {
+        const filterString =
+          typeof filter === "object" ? JSON.stringify(filter) : filter;
+        const { data } = await axiosReq.get(
+          `/events/?${filterString}search=${query}`
+        );
+        setEvents(data);
+        setHasLoaded(true);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  setHasLoaded(false);
-  const timer = setTimeout(() => {
-    fetchEvents();
-  }, 500);
-  return () => {
-    clearTimeout(timer);
-  };
-}, [filter, query, pathname]);
-
+    setHasLoaded(false);
+    const timer = setTimeout(() => {
+      fetchEvents();
+    }, 500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [filter, query, pathname]);
 
   return (
     <div>
+        <LatestFriendsLogIn mobile />
       <Row className='h-100'>
         <Col
           className='py-2 p-0 p-lg-2'
           lg={8}>
-          <LatestFriendsLogIn mobile />
           <div style={{ position: "relative" }}>
-            <div
-              className={styles.FixedSerchContainer}>
+            <div className={styles.FixedSerchContainer}>
               <i className={`fas fa-search ${styles.SearchIcon}`}></i>
               <Form
                 className={styles.SearchBar}

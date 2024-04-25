@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Profile from "./Profiles";
@@ -26,81 +26,69 @@ const LatestFriendsLogIn = ({ mobile }) => {
         )
       : [];
 
-  return (
+  const currentUserProfileDeskTop = profiles.length
+    ? currentUserProfile.map((currentUser) => (
+        <>
+          <h3 className={styles.GreenYellow}>Your Profile</h3>
+          <Profile
+            key={currentUser.id}
+            profile={currentUser}
+          />
+        </>
+      ))
+    : null;
+
+  const otherProfilesSidebarMobile = (
     <>
-      <Container
-        // Current user profile
-        className={`${appStyles.Content} ${
-          mobile && "d-lg-none text-center mb-3"
-        }`}>
-        {currentUserProfile.length ? (
-          <>
-            {mobile ? (
-              <>
-                <h3 className={styles.GreenYellow}>Your Profile</h3>
-                <div className='d-flex justify-content-around'>
-                  {currentUserProfile.map((currentUser) => (
-                    <Profile
-                      key={currentUser.id}
-                      profile={currentUser}
-                      mobile={mobile}
-                    />
-                  ))}
-                </div>
-              </>
-            ) : (
-              currentUserProfile.map((currentUser) => (
-                <>
-                  <h3 className={styles.GreenYellow}>Your Profile</h3>
-                  <Profile
-                    key={currentUser.id}
-                    profile={currentUser}
-                    mobile={mobile}
-                  />
-                </>
-              ))
-            )}
-          </>
-        ) : null }
-      </Container>
-      <Container
-        // Friends' profiles last logged in
-        className={`${appStyles.Content} ${
-          mobile && "d-lg-none text-center mb-3"
-        }`}>
-        {profiles.length ? (
-          <>
-            {mobile ? (
-              <>
-                <h3 className={styles.GreenYellow}>Last Logins:</h3>
-                <div className='d-flex justify-content-around'>
-                  {profiles.slice(0, 4).map((profile) => (
-                    <Profile
-                      key={profile.id}
-                      profile={profile}
-                      mobile={mobile}
-                    />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <>
-                <h3 className={styles.GreenYellow}>Last Logins:</h3>
-                {profiles.map((profile) => (
-                  <Profile
-                    key={profile.id}
-                    profile={profile}
-                    mobile={mobile}
-                  />
-                ))}
-              </>
-            )}
-          </>
-        ) : (
-          <Asset spinner />
-        )}
-      </Container>
+      <h3 className={ styles.GreenYellow }>Last Logins:</h3>
+      <div
+      className="flex-row d-flex justify-content"
+      >
+      { profiles.slice(0, 3).map((profile) => (
+                <Profile
+                  key={profile.id}
+                  profile={profile}
+                  mobile={mobile}
+                />
+      )) }
+      </div>
     </>
+  );
+
+  const otherProfilesSidebarDeskTop = (
+    <>
+      <h3 className={styles.GreenYellow}>Last Logins:</h3>
+      {profiles.map((profile) => (
+        <Profile
+          key={profile.id}
+          profile={profile}
+          mobile={mobile}
+        />
+      ))}
+    </>
+  );
+
+  return (
+    <Container
+      className={`${appStyles.Content} ${
+        mobile && "d-lg-none text-center mb-3"
+      }`}>
+      {profiles.length ? (
+        mobile ? (
+          <>
+            {otherProfilesSidebarMobile}
+          </>
+
+        ) : (
+          <>
+            {currentUserProfileDeskTop}
+            {otherProfilesSidebarDeskTop}
+          </>
+        )
+      ) : (
+        <Asset spinner />
+      )}
+    </Container>
   );
 };
 

@@ -37,6 +37,7 @@
   box-shadow: 0 0 0.5rem 0.5rem green;
   height: 100%;
   width: auto;
+  max-width: 70%;
 }
 
 .Container {
@@ -49,7 +50,7 @@
   border-radius: 1rem;
   padding: 1rem;
 }
-.Front,
+.Front ,
 .Container p,
 .Container h1,
 .Container h2,

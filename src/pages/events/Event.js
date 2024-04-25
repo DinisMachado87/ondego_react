@@ -67,25 +67,25 @@ const Event = (props) => {
       .push(`/event/${id}/edit`)
   };
 
-const handleDelete = async () => {
-  if (window.confirm("Are you sure you want to delete this event?")) {
-    try {
-      await axiosReq.delete(`/events/${id}/`);
-      setEvents((prevEvents) => ({
-        ...prevEvents,
-        results: prevEvents.results.filter((event) => event.id !== id),
-      }));
-    } catch (err) {
-      console.log(err);
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this event?")) {
+      try {
+        await axiosReq.delete(`/events/${id}/`);
+        setEvents((prevEvents) => ({
+          ...prevEvents,
+          results: prevEvents.results.filter((event) => event.id !== id),
+        }));
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
-};
+  };
 
+  /** Handle the user's click to change their joining status
+   * by sending a POST or PUT request to the joinings instance in the API
+   * and updating the event joining counts on the state
+   */
   const handleJoiningChoice = async (choice) => {
-    /** Handle the user's click to change their joining status
-     * by sending a POST or PUT request to the joinings instance in the API
-     * and updating the event joining counts on the state
-     */
     try {
       const currentUserJoiningThisEvent = (
         await axiosRes.get("/joinings/")
@@ -127,11 +127,11 @@ const handleDelete = async () => {
     3: "let_me_see_count",
   };
 
+  /** Update the joining choice counts in the event object
+   * using the previous and new choice values
+   * stored in the handleJoiningChoice function
+   */
   const updateEventCounts = (currentPreviousUserChoice, newChoice) => {
-    /** Update the joining choice counts in the event object
-     * using the previous and new choice values
-     * stored in the handleJoiningChoice function
-     */
     setEvents((prevEvents) => ({
       ...prevEvents,
       results: prevEvents.results.map((event) => {
@@ -188,7 +188,7 @@ const handleDelete = async () => {
           onClick={() => history.push(`/events/${id}`)}
           className={`${styles.TextShadow} ${appStyles.Pointer} d-flex justify-content-between align-items-start`}>
           <div className={`${styles.Container} ${styles.EventBody}`}>
-            <Card.Link to={`/profiles/${profile_id}`}>
+            <Card.Link className={styles.Front} to={`/profiles/${profile_id}`}>
               <Avatar
                 className={styles.Front}
                 src={profile_image}

@@ -252,6 +252,24 @@ To resolve this issue, I added a check to ensure that currentUser was not null b
 
 This was a simple fix that required adding a check to prevent the component from crashing when currentUser was null. By updating the logic to handle this case correctly, I was able to resolve the issue and ensure that the component rendered correctly in all scenarios.
 
+### Debugging "Each child in a list should have a unique 'key' prop" Warning
+
+While working on LatestFriendsLogin profiles bar I encountered a warning in the console that said "Each child in a list should have a unique 'key' prop". 
+
+I realized that the warning was caused by the way I was rendering the list of friends' profiles in the LatestFriendsLogIn component. I was encapsulating each profile in a single shorthand fragment (<>...</>), which didn't have a key prop. This was causing React to warn that each child in the list should have a unique key prop.
+
+To resolve this issue, I replaced the shorthand fragment with a full React. Fragment element and added a key prop to it. This ensured that each child in the list had a unique key, resolving the warning.
+
+### Debugging Form Fields handling empty values
+
+While working on the ProfileEditForm, I encountered an error 'Warning: A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component.'
+
+I realized that the error was caused because I hadn't set a default value for the form fields in the backend. When the form was submitted with empty fields, the backend was returning null values, which were causing the error in the frontend when changing them to strings.
+
+To resolve this issue, I updated the backend to return empty strings instead of null values for the form fields. This ensured that the form fields always had a defined value, preventing the error from occurring.
+
+To deal with profiles that had empty fields, I updated the frontend to check for empty values and display an empty string instead of null. This resolved the error and ensured that the form fields were always controlled, preventing the error from occurring.
+
 ## Contributors
 
 Dinis Machado
