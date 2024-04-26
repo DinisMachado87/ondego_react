@@ -3,6 +3,7 @@ import { Form, Button, Row, Col, Alert, Container } from "react-bootstrap";
 import { useHistory } from "react-router";
 import btnStyles from "../../styles/Button.module.css";
 import styles from "../../styles/ProfileEditForm.module.css";
+import appStyles from "../../App.module.css";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {
@@ -54,7 +55,6 @@ const ProfileEditForm = () => {
     handleMount();
   }, [currentUser, id, history]);
 
-
   const handleChange = (event) => {
     setProfileData({
       ...profileData,
@@ -79,6 +79,8 @@ const ProfileEditForm = () => {
         ...currentUser,
         image: data.image,
       }));
+      // update the state with the new profile data
+      setProfileData(data);
       // Set the success message
       setSuccess("Profile updated successfully!");
       // Clear any previous errors
@@ -91,7 +93,6 @@ const ProfileEditForm = () => {
     }
   };
 
-
   return (
     <Container className={`${styles.Container}`}>
       <Form
@@ -100,6 +101,16 @@ const ProfileEditForm = () => {
         <Row>
           <Col className='my-2 mx-auto'>
             <Form.Group>
+              <Row
+                className={`d-flex justify-content-center`}>
+                <Col className='d-flex justify-content-center align-items-center'>
+                  <img
+                    className={styles.Image}
+                    src={profileData.image}
+                    alt='profile'
+                  />
+                </Col>
+              </Row>
               <Row>
                 <Form.Label
                   className={`${btnStyles.Button} ${btnStyles.Orange} mx-auto`}

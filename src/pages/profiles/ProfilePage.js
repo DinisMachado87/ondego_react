@@ -39,10 +39,14 @@ function ProfilePage() {
     handleNotRightNowFriendRequest,
     handleUnfriend,
   } = useSetProfileData();
+
   const { pageProfile } = useProfileData();
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
   const [profileEvents, setProfileEvents] = useState({ results: [] });
+
+  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,6 +71,7 @@ function ProfilePage() {
     };
     fetchData();
   }, [id, setProfileData]);
+
 
   const mainProfile = (
     <>
@@ -158,11 +163,13 @@ function ProfilePage() {
       <Col
         className='py-2 p-0 p-lg-2'
         lg={8}>
-        <LatestFriendsLogIn mobile />
         <Container className={appStyles.Content}>
           {hasLoaded ? (
             <>
-              {mainProfile}
+              { mainProfile }
+              <hr />
+              <LatestFriendsLogIn mobile />
+              <hr />
               {mainProfileEvents}
             </>
           ) : (
