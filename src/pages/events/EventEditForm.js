@@ -12,13 +12,12 @@ import Upload from "../../assets/upload.jpg";
 import styles from "../../styles/EventCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import Asset from "../../components/Asset";
 import { Alert } from "react-bootstrap";
 import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import axios from "axios";
+import { axiosReq } from "../../api/axiosDefaults";
 
 function EventEditForm() {
   const formatDate = (dateString) => {
@@ -32,24 +31,22 @@ function EventEditForm() {
     return date.toISOString().slice(0, 16);
   };
 
-  const { id } = useParams();
-  const imageInput = useRef(null);
-  const history = useHistory();
+  const initialDate = new Date().toISOString().slice(0, 16);
   const [errors, setErrors] = useState({});
-
+  
   const [eventData, setEventData] = useState({
     id: "",
     what_title: "",
     what_content: "",
     where_place: "",
     where_address: "",
-    when_start: "",
-    when_end: "",
+    when_start: initialDate,
+    when_end: initialDate,
     intention: "",
     event_image: Upload,
     link: "",
   });
-
+  
   const {
     what_title,
     what_content,
@@ -61,11 +58,15 @@ function EventEditForm() {
     event_image,
     link,
   } = eventData;
+  
+  const imageInput = useRef(null);
+  const history = useHistory();
+  const { id } = useParams();
 
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const { data } = await axios.get(`/events/${id}`);
+        const { data } = await axiosReq.get(`/events/${id}`);
         const {
           is_owner,
           what_title,
@@ -78,7 +79,7 @@ function EventEditForm() {
           event_image,
           link,
         } = data;
-        is_owner &&
+        is_owner ?
           setEventData({
             what_title,
             what_content,
@@ -89,7 +90,7 @@ function EventEditForm() {
             intention,
             event_image,
             link,
-          });
+          }) : history.push(`/events/${id}`);
       } catch (err) {
         console.error(err);
       }
@@ -137,7 +138,7 @@ function EventEditForm() {
       formData.append("event_image", imageInput.current.files[0]);
     }
     try {
-      await axios.put("/events/${id}", formData);
+      await axiosReq.put(`/events/${id}`, formData);
       history.push(`/events/${id}`);
     } catch (err) {
       console.error(err);
@@ -316,7 +317,8 @@ function EventEditForm() {
 
       <Button
         className={`${btnStyles.Button} ${btnStyles.Orange}`}
-        onClick={() => history.goBack()}>
+        onClick={ () => history.goBack() }
+      >
         cancel
       </Button>
       <Button

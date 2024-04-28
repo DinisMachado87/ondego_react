@@ -231,7 +231,7 @@ const handleCancelFriendRequest = async (clickedProfile) => {
        */
       try {
         const { data } = await axiosReq.get(
-          "/profiles/?ordering=-owner__last_login"
+          "/profiles/?ordering=-last_login"
         );
         setProfileData((prevState) => ({
           ...prevState,
@@ -243,7 +243,7 @@ const handleCancelFriendRequest = async (clickedProfile) => {
     };
 
     handleMount();
-  }, []);
+  }, [currentUser]);
 
   return (
     <ProfileDataContext.Provider value={profileData}>

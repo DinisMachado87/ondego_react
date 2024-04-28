@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import Profile from "./Profiles";
@@ -28,19 +28,19 @@ const LatestFriendsLogIn = ({ mobile }) => {
 
   const currentUserProfileDeskTop = profiles.length
     ? currentUserProfile.map((currentUser) => (
-        <>
+        <React.Fragment key={currentUser.id}>
           <h3 className={styles.GreenYellow}>Your Profile</h3>
           <Profile
             key={currentUser.id}
             profile={currentUser}
           />
-        </>
+        </React.Fragment>
       ))
     : null;
 
   const otherProfilesSidebarMobile = (
     <>
-      <h3 className={ styles.GreenYellow }>Last Logins:</h3>
+      <h3 className={ `${styles.GreenYellow} pt-5` }>Last Logins:</h3>
       <div
       className="flex-row d-flex justify-content"
       >
@@ -71,7 +71,7 @@ const LatestFriendsLogIn = ({ mobile }) => {
   return (
     <Container
       className={`${appStyles.Content} ${
-        mobile && "d-lg-none text-center mb-3"
+        mobile && "d-lg-none text-right mb-3"
       }`}>
       {profiles.length ? (
         mobile ? (

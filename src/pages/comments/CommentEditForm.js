@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { axiosRes } from "../../api/axiosDefaults";
 
-import styles from "../../styles/EventCreateEditForm.module.css";
+import styles from "../../styles/EventCommentCreateForm.module.css";
 
-
+import TextareaAutosize from "react-textarea-autosize";
+import { InputGroup } from "react-bootstrap";
 
 function CommentEditForm(props) {
   const { id, content, setShowEditForm, setComments } = props;
@@ -41,30 +42,33 @@ function CommentEditForm(props) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className='pr-1'>
-        <Form.Control
-          className={styles.Form}
-          as='textarea'
-          value={formContent}
-          onChange={handleChange}
-          rows={2}
-        />
+    <Form
+      className={`${styles.Form} m-3`}
+      onSubmit={handleSubmit}>
+      <Form.Group>
+        <InputGroup>
+          <TextareaAutosize
+            className={`${styles.Form} col-8 p-3`}
+            as='textarea'
+            value={formContent}
+            onChange={handleChange}
+            rows={2}
+          />
+          <button
+            className={`${styles.Button} btn col-1`}
+            disabled={!formContent.trim()}
+            onClick={() => setShowEditForm(false)}
+            type='button'>
+            cancel
+          </button>
+          <button
+            className={`${styles.Button} btn col-1`}
+            disabled={!formContent.trim()}
+            type='submit'>
+            save
+          </button>
+        </InputGroup>
       </Form.Group>
-      <div className='text-right'>
-        <button
-          className={styles.Button}
-          onClick={() => setShowEditForm(false)}
-          type='button'>
-          cancel
-        </button>
-        <button
-          className={styles.Button}
-          disabled={!content.trim()}
-          type='submit'>
-          save
-        </button>
-      </div>
     </Form>
   );
 }

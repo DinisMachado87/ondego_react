@@ -22,7 +22,6 @@ export const MoreDropdown = ({ handleEdit, handleDelete }) => {
       className='ml-auto '
       drop='left'>
       <Dropdown.Toggle as={ThreeDots} />
-
       <Dropdown.Menu
         className={`${styles.Backcolor} text-center`}
         popperConfig={{ strategy: "fixed" }}>

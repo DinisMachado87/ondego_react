@@ -4,23 +4,27 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Avatar from '../../components/Avatar';
 import { Col, Media, Row } from 'react-bootstrap';
 import { MoreDropdown } from '../../components/MoreDropdown';
-import { axiosReq } from '../../api/axiosDefaults';
 import CommentEditForm from "./CommentEditForm";
+import { axiosReq } from '../../api/axiosDefaults';
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 
 const Comment = (props) => {
   const {
     id,
-    setComments,
-    setEvent,
     owner,
     message,
     updated_at,
     profile_image,
     profile_id,
+    setComments,
+    setEvent,
   } = props;
-
-  const [showEditForm, setShowEditForm] = useState(false);
-
+  
+    const [showEditForm, setShowEditForm] = useState(false);
+    const currentUser = useCurrentUser();
+    const is_owner = currentUser?.username === owner;
+  
   const handleDelete = () => {
     try {
       axiosReq.delete(`/comments/${id}/`);
@@ -39,13 +43,14 @@ const Comment = (props) => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
+
 
   return (
     <div>
       <Media className={styles.Comment}>
         <Media.Body className='m-1'>
-          {owner ? (
+          {is_owner ? (
             <Row className='p-1'>
               <Col className='col-1'>
                 <MoreDropdown
@@ -68,30 +73,34 @@ const Comment = (props) => {
                   setShowEditForm={setShowEditForm}
                 />
               ) : (
-                <p className='col-10 mt-2'>
-                  {owner}: {message}
-                  <span className={styles.UpdatedAt}>
-                    {"  "}
-                    {updated_at}
-                  </span>{" "}
-                </p>
+                <Col className='col-10 mt-2'>
+                  <p className='mt-1'>
+                    {owner}: {message}
+                    <span className={styles.UpdatedAt}>
+                      {"  "}
+                      {updated_at}
+                    </span>{" "}
+                  </p>
+                </Col>
               )}
             </Row>
           ) : (
-            <div className='row'>
-              <p className='col-10 mt-2'>
-                {message}
-                <span className={styles.UpdatedAt}>
+            <Row className='p-2'>
+              <Col className='col-11 p-2 d-flex justify-content-end'>
+                <p className='text-right mt-1'>
+                  <span className={styles.UpdatedAt}>{updated_at}</span>
                   {"  "}
-                  {updated_at}
-                </span>
-              </p>
-              <Link
-                to={`/profiles/${profile_id}`}
-                className='col-1'>
-                <Avatar src={profile_image} />
-              </Link>
-            </div>
+                  {message}
+                </p>
+              </Col>
+              <Col className='col-1 d-flex justify-content-end'>
+                <Link
+                  to={`/profiles/${profile_id}`}
+                  className='conten-right'>
+                  <Avatar src={profile_image} />
+                </Link>
+              </Col>
+            </Row>
           )}
         </Media.Body>
       </Media>
