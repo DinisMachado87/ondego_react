@@ -33,7 +33,7 @@ function EventEditForm() {
 
   const initialDate = new Date().toISOString().slice(0, 16);
   const [errors, setErrors] = useState({});
-  
+
   const [eventData, setEventData] = useState({
     id: "",
     what_title: "",
@@ -46,7 +46,7 @@ function EventEditForm() {
     event_image: Upload,
     link: "",
   });
-  
+
   const {
     what_title,
     what_content,
@@ -58,7 +58,7 @@ function EventEditForm() {
     event_image,
     link,
   } = eventData;
-  
+
   const imageInput = useRef(null);
   const history = useHistory();
   const { id } = useParams();
@@ -79,18 +79,19 @@ function EventEditForm() {
           event_image,
           link,
         } = data;
-        is_owner ?
-          setEventData({
-            what_title,
-            what_content,
-            where_place,
-            where_address,
-            when_start: formatDate(when_start),
-            when_end: formatDate(when_end),
-            intention,
-            event_image,
-            link,
-          }) : history.push(`/events/${id}`);
+        is_owner
+          ? setEventData({
+              what_title: what_title || "",
+              what_content: what_content || "",
+              where_place: where_place || "",
+              where_address: where_address || "",
+              when_start: formatDate(when_start) || initialDate,
+              when_end: formatDate(when_end) || initialDate,
+              intention: intention || "",
+              event_image: event_image || Upload,
+              link: link || "",
+            })
+          : history.push(`/events/${id}`);
       } catch (err) {
         console.error(err);
       }
@@ -138,8 +139,8 @@ function EventEditForm() {
       formData.append("event_image", imageInput.current.files[0]);
     }
     try {
-      await axiosReq.put(`/events/${id}`, formData);
-      history.push(`/events/${id}`);
+      await axiosReq.put(`/events/${id}/`, formData);
+      history.push(`/events/${id}/`);
     } catch (err) {
       console.error(err);
       if (err.response?.status !== 401) {
@@ -317,8 +318,7 @@ function EventEditForm() {
 
       <Button
         className={`${btnStyles.Button} ${btnStyles.Orange}`}
-        onClick={ () => history.goBack() }
-      >
+        onClick={() => history.goBack()}>
         cancel
       </Button>
       <Button

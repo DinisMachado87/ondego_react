@@ -270,6 +270,12 @@ To resolve this issue, I updated the backend to return empty strings instead of 
 
 To deal with profiles that had empty fields, I updated the frontend to check for empty values and display an empty string instead of null. This resolved the error and ensured that the form fields were always controlled, preventing the error from occurring.
 
+### Debugging the EventDetailPage Component
+
+While working on the EventDetailPage component, I encountered an issue where eventData was raising about uncontrolled inputs becoming controlled. This was due to the way I was handling the form fields in the component. Non-obligatory fields were being passed as null when reopulating the edit form, which was causing the error.
+
+To resolve this issue, I updated the component to check for null values and set them to empty strings instead. This ensured that the form fields always had a defined value, preventing the error from occurring.
+
 ## Contributors
 
 Dinis Machado
