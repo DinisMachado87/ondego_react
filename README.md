@@ -158,6 +158,12 @@ By prepopulating these fields, I've reduced the number of clicks and typing requ
 
 ## Manual Testing
 
+### Searchbar
+
+    - The Feed responded with the correct filtering of events when the search title word was entered in the search bar.
+    - The Feed responded with the correct filtering of events when the search word for the user was entered in the search bar.
+
+
 ## Development notes
 
 ### Friends Functionality

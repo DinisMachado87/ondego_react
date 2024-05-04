@@ -26,7 +26,8 @@ const NavBar = () => {
     }
   };
 
-  const addEventIcon = (
+  const loggedInIcons = (
+    <>
     <NavLink
       className={styles.NavLink}
       activeClassName={styles.Active}
@@ -34,10 +35,6 @@ const NavBar = () => {
     >
       <i className="fa-solid fa-wand-magic-sparkles"></i>add evënt
     </NavLink>
-  );
-
-  const loggedInIcons = (
-    <>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
@@ -50,7 +47,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/joining"
       >
-        <i className="fa-solid fa-rocket"></i>things I'm jöining
+        <i className="fa-solid fa-rocket"></i>evënts I'm jöining
       </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
       <i className="fa-solid fa-lightbulb"></i>Sign out
@@ -59,7 +56,7 @@ const NavBar = () => {
         className={styles.NavLink}
         to={`/profiles/${currentUser?.profile_id}`}
       >
-        <Avatar src={ currentUser?.profile_image } text="Profile" height={ 40 } />
+        <Avatar src={ currentUser?.profile_image } height={ 40 } />Profile
       </NavLink>
     </>
   );
@@ -101,11 +98,11 @@ const NavBar = () => {
             />
           </Navbar.Brand>
         </NavLink>
-        {currentUser && addEventIcon}
         <Navbar.Toggle
           ref={ref}
           onClick={() => setExpanded(!expanded)}
           aria-controls='basic-navbar-nav'
+          style={{ borderRadius: "1rem", borderColor: "darkviolet" }}
         />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ml-auto'>
@@ -114,7 +111,7 @@ const NavBar = () => {
               className={styles.NavLink}
               activeClassName={styles.Active}
               to='/'>
-              <i className='fa-solid fa-satellite'></i>all meetings anounced 
+              <i className='fa-solid fa-satellite'></i>all evënts
             </NavLink>
 
             {currentUser ? loggedInIcons : loggedOutIcons}

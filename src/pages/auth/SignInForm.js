@@ -115,7 +115,7 @@ function SignInForm() {
                 className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}
             >
                 <Image
-                    className={`${appStyles.FillerImage}`}
+                    className={`${appStyles.FillerImage} mx-3`}
                     src={
                         "https://res.cloudinary.com/drgepxrpe/image/upload/v1712698055/ondego_event_placeholder/z0msdie5p0et18tsamnb.jpg"
                     }
