@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import logo from "../assets/logo.png";
+import logo from "../assets/ondego.svg";
 import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom";
 import {
@@ -35,6 +35,13 @@ const NavBar = () => {
         <i className='fa-solid fa-wand-magic-sparkles'></i>add evënt
       </NavLink>
       <NavLink
+        exact
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to='/'>
+        <i className='fa-solid fa-satellite'></i>all evënts
+      </NavLink>
+      <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to='/goingon'>
@@ -60,13 +67,6 @@ const NavBar = () => {
           height={40}
         />
         Profile
-      </NavLink>
-      <NavLink
-        exact
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to='/'>
-        <i className='fa-solid fa-satellite'></i>all evënts
       </NavLink>
     </>
   );
@@ -105,6 +105,7 @@ const NavBar = () => {
               src={logo}
               alt='logo'
               height='45'
+              className="p-1"
             />
           </Navbar.Brand>
         </NavLink>

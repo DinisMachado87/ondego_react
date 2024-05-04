@@ -47,7 +47,7 @@ function App() {
             render={() =>
               currentUser ? (
                 <EventsPage
-                  message="Sorry, couldn't find anything going on here. Maybe you can start an event..?"
+                  message="Sorry, couldn't find anything going on here. This page shows you events happening now or in the comming 2 h. Maybe you can start an event..?"
                   filter={`going_on=true`}
                 />
               ) : (
@@ -72,12 +72,12 @@ function App() {
           <Route
             exact
             path='/signin'
-            render={() => <SignInForm />}
+            render={() => (currentUser ? <Redirect to='/' /> : <SignInForm />)}
           />
           <Route
             exact
             path='/signup'
-            render={() => <SignUpForm />}
+            render={() => (currentUser ? <Redirect to='/' /> : <SignUpForm />)}
           />
           <Route
             exact

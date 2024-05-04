@@ -45,7 +45,7 @@ function EventCommentCreateForm(props) {
 
   return (
     <Form
-      className={`${styles.Form} m-3`}
+      className={`${styles.Form} p-2 m-3`}
       onSubmit={handleSubmit}>
       <Form.Group>
         <InputGroup>
