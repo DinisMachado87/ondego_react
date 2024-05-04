@@ -15,8 +15,11 @@ import Asset from "../../components/Asset";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 import LatestFriendsLogIn from "../profiles/LatestFriendsLogIn";
+import { useRedirect } from "../../hooks/useRedirect";
 
 function EventsPage({ message, filter = "" }) {
+  useRedirect("loggedOut");
+
   const [events, setEvents] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();

@@ -15,7 +15,8 @@ import { useCurrentUser } from "./contexts/CurrentUserContext";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-import Asset from "./components/Asset";
+import { Redirect } from 'react-router-dom';
+
 
 
 
@@ -32,31 +33,39 @@ function App() {
           <Route
             exact
             path='/'
-            render={() => (
-              <EventsPage message="sorry, couldn't find anything göing ön here. Maybe you can can start an ëvent..? or maybe a book in the sofa?" />
-            )}
+            render={() =>
+              currentUser ? (
+                <EventsPage message="sorry, couldn't find anything göing ön here. Maybe you can can start an ëvent..? or maybe a book in the sofa?" />
+              ) : (
+                <Redirect to='/signin' />
+              )
+            }
           />
           <Route
             exact
             path='/goingon'
-            render={() => (
-              <EventsPage
-                message="Sorry, couldn't find anything going on here. Maybe you can start an event..?"
-                filter={`going_on=true`}
-              />
-            )}
+            render={() =>
+              currentUser ? (
+                <EventsPage
+                  message="Sorry, couldn't find anything going on here. Maybe you can start an event..?"
+                  filter={`going_on=true`}
+                />
+              ) : (
+                <Redirect to='/signin' />
+              )
+            }
           />
           <Route
             exact
             path='/joining'
             render={() =>
-              currentUser && currentUser.profile_id ? (
+              currentUser ? (
                 <EventsPage
                   message="Sorry, couldn't find anything göing ön here. Maybe you can start an event..?"
                   filter={`joining_owner=${profile_id}&joining_status=2`}
                 />
               ) : (
-                <Asset spinner={true} />
+                <Redirect to='/signin' />
               )
             }
           />

@@ -28,35 +28,45 @@ const NavBar = () => {
 
   const loggedInIcons = (
     <>
-    <NavLink
-      className={styles.NavLink}
-      activeClassName={styles.Active}
-      to="/event/create"
-    >
-      <i className="fa-solid fa-wand-magic-sparkles"></i>add evënt
-    </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/goingon"
-      >
-        <i className="fa-solid fa-fire"></i> evënts göing on
+        to='/event/create'>
+        <i className='fa-solid fa-wand-magic-sparkles'></i>add evënt
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/joining"
-      >
-        <i className="fa-solid fa-rocket"></i>evënts I'm jöining
-      </NavLink>
-      <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
-      <i className="fa-solid fa-lightbulb"></i>Sign out
+        to='/goingon'>
+        <i className='fa-solid fa-fire'></i> evënts göing on
       </NavLink>
       <NavLink
         className={styles.NavLink}
-        to={`/profiles/${currentUser?.profile_id}`}
-      >
-        <Avatar src={ currentUser?.profile_image } height={ 40 } />Profile
+        activeClassName={styles.Active}
+        to='/joining'>
+        <i className='fa-solid fa-rocket'></i>evënts I'm jöining
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        to='/'
+        onClick={handleSignOut}>
+        <i className='fa-solid fa-lightbulb'></i>Sign out
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        to={`/profiles/${currentUser?.profile_id}`}>
+        <Avatar
+          src={currentUser?.profile_image}
+          height={40}
+        />
+        Profile
+      </NavLink>
+      <NavLink
+        exact
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to='/'>
+        <i className='fa-solid fa-satellite'></i>all evënts
       </NavLink>
     </>
   );
@@ -106,14 +116,6 @@ const NavBar = () => {
         />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ml-auto'>
-            <NavLink
-              exact
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-              to='/'>
-              <i className='fa-solid fa-satellite'></i>all evënts
-            </NavLink>
-
             {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
         </Navbar.Collapse>
