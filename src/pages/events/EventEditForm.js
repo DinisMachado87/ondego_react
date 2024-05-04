@@ -31,7 +31,6 @@ function EventEditForm() {
     return date.toISOString().slice(0, 16);
   };
 
-  const initialDate = new Date().toISOString().slice(0, 16);
   const [errors, setErrors] = useState({});
 
   const [eventData, setEventData] = useState({
@@ -40,8 +39,8 @@ function EventEditForm() {
     what_content: "",
     where_place: "",
     where_address: "",
-    when_start: initialDate,
-    when_end: initialDate,
+    when_start: "",
+    when_end: "",
     intention: "",
     event_image: Upload,
     link: "",
@@ -85,8 +84,8 @@ function EventEditForm() {
               what_content: what_content || "",
               where_place: where_place || "",
               where_address: where_address || "",
-              when_start: formatDate(when_start) || initialDate,
-              when_end: formatDate(when_end) || initialDate,
+              when_start: formatDate(when_start),
+              when_end: formatDate(when_end),
               intention: intention || "",
               event_image: event_image || Upload,
               link: link || "",

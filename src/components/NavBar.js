@@ -43,14 +43,14 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/goingon"
       >
-        <i className="fa-solid fa-fire"></i>göing on
+        <i className="fa-solid fa-fire"></i> things göing on today
       </NavLink>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/joining"
       >
-        <i className="fa-solid fa-rocket"></i>I'm jöining
+        <i className="fa-solid fa-rocket"></i>things I'm jöining
       </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
       <i className="fa-solid fa-lightbulb"></i>Sign out
@@ -86,7 +86,7 @@ const NavBar = () => {
   return (
     <Navbar
       expanded={expanded}
-      className={`${styles.NavBar} navbar-dark`} // Add navbar-dark class
+      className={`${styles.NavBar} navbar-dark`}
       text='darkviolet'
       border='blue'
       expand='md'
@@ -114,7 +114,7 @@ const NavBar = () => {
               className={styles.NavLink}
               activeClassName={styles.Active}
               to='/'>
-              <i className='fa-solid fa-satellite'></i>Home
+              <i className='fa-solid fa-satellite'></i>all meetings anounced 
             </NavLink>
 
             {currentUser ? loggedInIcons : loggedOutIcons}

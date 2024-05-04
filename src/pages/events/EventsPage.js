@@ -25,10 +25,8 @@ function EventsPage({ message, filter = "" }) {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const filterString =
-          typeof filter === "object" ? JSON.stringify(filter) : filter;
         const { data } = await axiosReq.get(
-          `/events/?${filterString}search=${query}`
+          `/events/?${filter}&search=${query}`
         );
         setEvents(data);
         setHasLoaded(true);
@@ -48,7 +46,7 @@ function EventsPage({ message, filter = "" }) {
 
   return (
     <div>
-        <LatestFriendsLogIn mobile />
+      <LatestFriendsLogIn mobile />
       <Row className='h-100'>
         <Col
           className='py-2 p-0 p-lg-2'
@@ -70,7 +68,7 @@ function EventsPage({ message, filter = "" }) {
             </div>
           </div>
           {hasLoaded ? (
-            <>
+            <div>
               {events.results.length ? (
                 <InfiniteScroll
                   children={events.results.map((event) => (
@@ -93,7 +91,7 @@ function EventsPage({ message, filter = "" }) {
                   />
                 </Container>
               )}
-            </>
+            </div>
           ) : (
             <Container className={appStyles.Content}>
               <Asset spinner />
@@ -102,7 +100,7 @@ function EventsPage({ message, filter = "" }) {
         </Col>
         <Col
           className={styles.ProfileList}
-          md={4}>
+          lg={4}>
           <Container>
             <LatestFriendsLogIn />
           </Container>

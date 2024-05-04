@@ -101,7 +101,7 @@ const Event = (props) => {
           // if the user clicks on a different joining status update the choice with PUT
           await axiosReq.put(`/joinings/${currentUserJoiningThisEvent.id}/`, {
             event: id,
-            status: choice,
+            joining_status: choice,
           });
           updateEventCounts(currentPreviousUserChoice, choice);
           setCurrentPreviousUserChoice(choice);

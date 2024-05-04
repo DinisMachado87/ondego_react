@@ -27,8 +27,8 @@
 .FixedSerchContainer {
   position: fixed;
   z-index: 2000;
-  top: 9rem;
-  right: 50%;
+  top: 11rem;
+  right: 50%
 }
 
 .SearchIcon {
@@ -49,6 +49,4 @@
   height: 100vh;
 }
 
-.ProfileList {
-}
 

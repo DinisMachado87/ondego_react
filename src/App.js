@@ -15,6 +15,8 @@ import { useCurrentUser } from "./contexts/CurrentUserContext";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
+import Asset from "./components/Asset";
+
 
 
 
@@ -39,20 +41,24 @@ function App() {
             path='/goingon'
             render={() => (
               <EventsPage
-                message="Sorry, couldn't find anything göing ön here. Maybe you can start an event..?"
-                filter={`owner__befriended__owner__profile=${profile_id}&`}
+                message="Sorry, couldn't find anything going on here. Maybe you can start an event..?"
+                filter={`going_on=true`}
               />
             )}
           />
           <Route
             exact
             path='/joining'
-            render={() => (
-              <EventsPage
-                message="Sorry, couldn't find anything göing ön here. Maybe you can start an event..?"
-                filter={`Joining__owner__profile=${profile_id}&ordering=-likes__created_at&`}
-              />
-            )}
+            render={() =>
+              currentUser && currentUser.profile_id ? (
+                <EventsPage
+                  message="Sorry, couldn't find anything göing ön here. Maybe you can start an event..?"
+                  filter={`joining_owner=${profile_id}&joining_status=2`}
+                />
+              ) : (
+                <Asset spinner={true} />
+              )
+            }
           />
           <Route
             exact
