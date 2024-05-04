@@ -115,7 +115,7 @@ const ProfileEditForm = () => {
                 <Form.Label
                   className={`${btnStyles.Button} ${btnStyles.Orange} mx-auto`}
                   htmlFor='image'>
-                  Change profile image{" "}
+                  Change profile image
                   <Form.File
                     hidden
                     id='image'

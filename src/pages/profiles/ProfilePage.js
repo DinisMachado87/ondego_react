@@ -76,22 +76,32 @@ function ProfilePage() {
   const mainProfile = (
     <>
       <Container>
-        <Row className='justify-content-center no-gutters text-center'>
-          <Image
-            className={`${styles.ProfileImage} mx-auto d-block`}
-            roundedCircle
-            src={profile?.image}
-          />
+        {!is_owner && (
+          <Row className='justify-content-center no-gutters text-center'>
+            <Image
+              className={`${styles.ProfileImage} mx-auto d-block`}
+              roundedCircle
+              src={profile?.image}
+            />
+          </Row>
+        )}
+        <Row className='justify-content-center no-gutters'>
+          <Col className='text-center'>
+            <h3 className={`m-2 ${styles.ProfileName}`}>
+              {profile?.name || profile?.owner}
+            </h3>
+            {profile?.name && (
+              <h2 className={styles.ProfileUsername}>({profile?.owner})</h2>
+            )}
+          </Col>
         </Row>
         <Row className='justify-content-center no-gutters'>
           <Col className='text-center'>
-            <h3 className='m-2'>{profile?.owner}</h3>
+            {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
           </Col>
         </Row>
 
         {is_owner && <EditProfileForm />}
-
-        {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
 
         <Row className='justify-content-center no-gutters'>
           <Col
@@ -131,7 +141,8 @@ function ProfilePage() {
      */
     <>
       <hr />
-      <p className='text-center'>{`${profile?.owner}' events`}</p>
+      <p
+        className={`m-2 text-center ${styles.ProfileName}`}>{`${profile?.owner}' events`}</p>
       <hr />
       <Row>
         {profileEvents ? (

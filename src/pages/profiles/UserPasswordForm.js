@@ -13,6 +13,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
+import styles from "../../styles/SignInUpForm.module.css";
 
 const UserPasswordForm = () => {
   const history = useHistory();
@@ -53,50 +54,60 @@ const UserPasswordForm = () => {
   };
 
   return (
-    <Row>
-      <Col className="py-2 mx-auto text-center" md={6}>
+    <Row className={styles.Row}>
+      <Col className='my-auto p-0 p-md-2'>
         <Container className={appStyles.Content}>
-          <Form onSubmit={handleSubmit}>
+          <Form
+            onSubmit={handleSubmit}
+            className='my-2'>
             <Form.Group>
-              <Form.Label>New password</Form.Label>
+              <Form.Label className={`${styles.Header} w-100`}>
+                New password
+              </Form.Label>
               <Form.Control
-                placeholder="new password"
-                type="password"
+                placeholder='new password'
+                type='password'
                 value={new_password1}
+                className={styles.Input}
                 onChange={handleChange}
-                name="new_password1"
+                name='new_password1'
               />
             </Form.Group>
             {errors?.new_password1?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
+              <Alert
+                key={idx}
+                variant='warning'>
                 {message}
               </Alert>
             ))}
             <Form.Group>
-              <Form.Label>Confirm password</Form.Label>
+              <Form.Label className={`${styles.Header} w-100`}>
+                Confirm password
+              </Form.Label>
               <Form.Control
-                placeholder="confirm new password"
-                type="password"
+                placeholder='confirm new password'
+                type='password'
                 value={new_password2}
+                className={styles.Input}
                 onChange={handleChange}
-                name="new_password2"
+                name='new_password2'
               />
             </Form.Group>
             {errors?.new_password2?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
+              <Alert
+                key={idx}
+                variant='warning'>
                 {message}
               </Alert>
             ))}
             <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              onClick={() => history.goBack()}
-            >
+              className={`${btnStyles.Button} ${btnStyles.Green} ${btnStyles.FullWidth}`}
+              onClick={() => history.goBack()}>
               cancel
             </Button>
             <Button
-              type="submit"
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-            >
+              type='submit'
+              className={`${btnStyles.Button} ${btnStyles.Green} ${btnStyles.FullWidth}`}>
               save
             </Button>
           </Form>

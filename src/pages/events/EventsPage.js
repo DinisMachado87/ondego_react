@@ -50,9 +50,11 @@ function EventsPage({ message, filter = "" }) {
       <Row className='h-100'>
         <Col
           className='py-2 p-0 p-lg-2'
+          style={{ position: "relative" }}
           lg={8}>
-          <div style={{ position: "relative" }}>
-            <div className={styles.FixedSerchContainer}>
+          <div>
+            <div className={`${styles.FixedSearchContainer} mt-lg-0 mt-md-5`}>
+              {" "}
               <i className={`fas fa-search ${styles.SearchIcon}`}></i>
               <Form
                 className={styles.SearchBar}

@@ -1,3 +1,28 @@
+.ProfileName {
+  text-shadow:
+  0.6rem -0.6rem 0.5rem orangered,
+  0.4rem -0.4rem 0.5rem orangered,
+  0.2rem -0.2rem 0.5rem orangered,
+  -0.2rem 0.2rem 0.5rem orangered,
+  -0.4rem 0.4rem 0.5rem orangered,
+  -0.6rem 0.6rem 0.5rem orangered,
+  -0.6rem -0.6rem 0.5rem orangered,
+  -0.4rem -0.4rem 0.5rem orangered,
+  -0.2rem -0.2rem 0.5rem orangered,
+  0.2rem 0.2rem 0.5rem orangered,
+  0.4rem 0.4rem 0.5rem orangered,
+  0.6rem 0.6rem 0.5rem orangered;
+  color: yellow;
+  font-family: "Mukta", sans-serif;
+  font-size: 2.5rem;
+}
+
+.ProfileUsername {
+  color: darkorange;
+  font-weight: 100;
+  font-size: 1.5rem;
+}
+
 .ProfileImage {
   object-fit: cover;
   height: 120px;

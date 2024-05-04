@@ -16,6 +16,7 @@ import {
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
+import styles from "../../styles/SignInUpForm.module.css";
 
 const UsernameForm = () => {
   const [username, setUsername] = useState("");
@@ -53,34 +54,40 @@ const UsernameForm = () => {
   };
 
   return (
-    <Row>
-      <Col className="py-2 mx-auto text-center" md={6}>
+    <Row className={styles.Row}>
+      <Col
+        className='my-auto p-0 p-md-2'>
         <Container className={appStyles.Content}>
-          <Form onSubmit={handleSubmit} className="my-2">
+          <Form
+            onSubmit={handleSubmit}
+            className='my-2'>
             <Form.Group>
-              <Form.Label>Change username</Form.Label>
+              <Form.Label
+                className={`${styles.Header} w-100`}
+              >Change username</Form.Label>
               <Form.Control
-                placeholder="username"
-                type="text"
+                placeholder='username'
+                type='text'
                 value={username}
+                className={styles.Input}
                 onChange={(event) => setUsername(event.target.value)}
               />
             </Form.Group>
             {errors?.username?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
+              <Alert
+                key={idx}
+                variant='warning'>
                 {message}
               </Alert>
             ))}
             <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              onClick={() => history.goBack()}
-            >
+              className={`${btnStyles.Button} ${btnStyles.Green} ${btnStyles.FullWidth}`}
+              onClick={() => history.goBack()}>
               cancel
             </Button>
             <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              type="submit"
-            >
+              className={`${btnStyles.Button} ${btnStyles.Green} ${btnStyles.FullWidth}`}
+              type='submit'>
               save
             </Button>
           </Form>

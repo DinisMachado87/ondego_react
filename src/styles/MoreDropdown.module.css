@@ -24,8 +24,8 @@
 
 .DropdownItem:hover,
 .DropdownItem:focus,
-.DropdownItem:hover i,
-.DropdownItem:focus i {
+.DropdownItem:hover span,
+.DropdownItem:focus span {
   background-color: green;
   box-shadow: 0 0 1rem 1rem purple;
   border-radius: 2rem;

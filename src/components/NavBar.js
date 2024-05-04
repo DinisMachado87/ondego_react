@@ -43,7 +43,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/goingon"
       >
-        <i className="fa-solid fa-fire"></i> things göing on today
+        <i className="fa-solid fa-fire"></i> evënts göing on
       </NavLink>
       <NavLink
         className={styles.NavLink}
@@ -108,7 +108,7 @@ const NavBar = () => {
           aria-controls='basic-navbar-nav'
         />
         <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='ml-auto text-left'>
+          <Nav className='ml-auto'>
             <NavLink
               exact
               className={styles.NavLink}

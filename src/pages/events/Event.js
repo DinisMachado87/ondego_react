@@ -146,7 +146,6 @@ const Event = (props) => {
           if (newChoice) {
             updatedEvent[choiceToCountMap[newChoice]] += 1;
           }
-          console.log(updatedEvent);
           return updatedEvent;
         } else {
           return event;

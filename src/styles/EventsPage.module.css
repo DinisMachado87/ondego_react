@@ -24,11 +24,11 @@
   color: yellow;
 }
 
-.FixedSerchContainer {
+.FixedSearchContainer {
+  margin-left: 20vw;
   position: fixed;
   z-index: 2000;
   top: 11rem;
-  right: 50%
 }
 
 .SearchIcon {
