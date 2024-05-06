@@ -257,10 +257,110 @@ By prepopulating these fields, I've reduced the number of clicks and typing requ
 
 ## Manual Testing
 
+### User Authentication
+
+#### Sign Up
+
+- The user was able to sign up successfully using a valid email address and password.
+- The user received a verification email after signing up.
+- The user was able to verify their account by clicking the verification link in the email.
+
+#### Sign In
+
+- The user was able to sign in successfully using their email address and password.
+- The user was redirected to the homepage after signing in.
+
+#### Log Out
+
+- The user was able to log out successfully.
+- The user was redirected to the sign-in page after logging out.
+
+### Profile
+
+#### View Profile
+
+- The user was able to view their profile details, including their profile picture, custom name, and additional fields.
+- The user's profile picture, custom name, and additional fields were displayed correctly.
+
+#### Edit Profile
+
+- The user was able to edit their profile details, including their profile picture, custom name, and additional fields.
+- The user's profile details were updated successfully after editing.
+
+### Events
+
+#### Create Event
+
+- The user was able to create a new event with relevant details such as title, date, time, location, and description.
+- The event was displayed correctly on the homepage after creation.
+- A picture was uploaded correctly and the default picture was displayed correctly when no picture was uploaded.
+- The event was created with the correct date and time prepopulated for the same day 'after work' hours.
+
+#### Edit Event
+
+- The event owner was able to edit event details like title, date, time, location, and description after creation.
+- The event details were prepopulated correctly in the edit form.
+- The event image was prepopulated correctly in the edit form.
+- The event details were updated successfully after editing.
+
+#### Join Event
+
+- The user was able to join an event to indicate their participation.
+- The user's choice was displayed correctly on the event detail page.
+
+#### Leave Event
+
+- The user was able to leave an event if their plans changed.
+- The user's choice was updated correctly on the event detail page.
+
+#### View Event List
+
+- The user was able to view a list of most recent events on the homepage.
+- The events were displayed in descending order of creation date, with the most recent events appearing at the top.
+- The events displayed joinings buttons and countings correctly.
+
+#### View Event Detail Page
+
+- The user was able to view detailed information about an event, including its title, date, time, location, description, creator, and intentions.
+- The event detail page displayed the number of users who had joined the event and the number of users who were still thinking about it.
+
+
 ### Searchbar
 
-    - The Feed responded with the correct filtering of events when the search title word was entered in the search bar.
-    - The Feed responded with the correct filtering of events when the search word for the user was entered in the search bar.
+#### Search Events
+
+- The user was able to search for events using author user and title keywords.
+- The events were filtered based on the search query, displaying only the events that matched the search criteria.
+
+### Friends
+
+#### Send Friend Request
+
+- The user was able to send a friend request to connect with another user.
+- The recipient received a notification through a change in the friend request button.
+
+#### Accept Friend Request
+
+- The user was able to accept a friend request to connect with another user.
+- The users became friends and could view each other's events and profiles.
+- The friend request button changed to an unfriend button.
+
+#### Reject Friend Request
+
+- The user was able to reject a friend request to remain unconnected with another user.
+- The users remained unconnected and could not view each other's events but could renovate the friend request.
+
+#### Unfriend User
+
+- The user was able to unfriend another user.
+- The users were no longer connected and could not view each other's events but could renovate the friend request.
+
+#### View users latest logins
+
+- The user was able to view a list of the users latest logins.
+- The list displayed the users' profile pictures and custom names correctly.
+- the list displayed the correct buttons for friend, unfriend and manage friend requests.
+
 
 
 ## Development notes
