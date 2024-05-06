@@ -15,25 +15,53 @@
 
 ### 1. Profile
 
-- **User Profile**: When a user is created through the Django Allauth registration process, a complementary profile is created that allows the user to add a profile picture, a custom name and additional fields such as 'feeling' and 'would like to' to help friends understand their mood and intentions.
+- **User Profile**: When a user is created through the Django Allauth registration process, a complementary profile is created that allows the user to add a profile picture, a custom name and additional fields such as 'feeling' and 'would like to' to help friends understand their mood and intentions. Profiles are created with a default alien avatar image, and empty fields for 'feeling' and 'would like to'. Empty fields are optional and are not displayed if the user does not fill them in.
 
-- **Edit Profile**: Users can update their profile information, including their profile picture, custom name, and additional fields.
+- **Edit Profile**: Users can update their profile information, including their profile picture which substitutes the default alien avatar image, custom name, and additional fields such as 'feeling' and 'would like to' to better represent their mood and intentions.
 
-### 2. Events
 
-- **Event Creation**: Users can create events by providing a title, description, location, start and end date and time, and an image. The application prepopulates the date and time for the same day 'after work' hours, since those are the most common after work hours, potentially diminishing the effort of creating an event and encouraging users to meet their friends more often. When a user doesn't have time to upload a picture, the application provides a default image.
+### 2. Friends
 
-- **Edit and Delete Events**: Event owners can edit and delete their events.
+- **Friend Requests**: Users can send friend requests to connect with other users. When a user sends a friend request, the recipient receives a notification and can choose to accept or decline the request. If the request is accepted, the users become friends and can view each other's events and profiles. If the request is declined, the users remain unconnected.
 
-### 3. Friends
+- **Friends**: When a friend request is accepted, two instances of the 'Friend' model are created to represent the relationship between the users. Users can see all profiles to be able to send friend requests and view their friends' profiles to see their latest logins, but users can only see the events of their friends for privacy reasons.
 
-- **Friend Requests**: Users can send and receive friend requests. When a user receives a friend request, they can approve or reject it. Users can also cancel friend requests they have sent.
+- **Latest Friends' Logins**: Users can view a list of their friends' latest logins. This feature allows users to stay updated on their friends' activity and availability, making it easier to plan and coordinate events as well as friend, unfriend and manage friend requests.
 
-- **Friends**: When the requested user approves a friend request, the api creates a friend instance for both users. Users can view their friends and unfriend them.
+- **Unfriending**: Users can unfriend other users to manage their social connections. When a user unfriends another user, the 'Friend' instances representing the relationship between the users are deleted, and the users are no longer connected.
 
-## Features
+### 3. Events
 
-### 1.
+- **Event Creation**: Users can create events by providing a title, description, location, start and end date and time, and an image. The application prepopulates the date and time for the same day 'after work' hours, since those are the most common after work hours, potentially diminishing the effort of creating an event and encouraging users to meet their friends more often. When a user doesn't have time to upload a picture, the application provides a default image. The event creation form also includes an 'intentions' field to help friends understand the user's expectations for the event, as well as the possibility to add a link in case the event is happening in a different platform or more information can be found for example in a ticketing website.
+
+- **Edit and Delete Events**: Event owners can edit and delete their events. When editing an event, the form is prepopulated with the event's current details, allowing the owner to make changes as needed. The owner can also delete the event if they no longer wish to host it. 
+
+- **Event Joining**: The application also includes three choices for the user to express their intentions for the event: 'Joining', 'let_me_think', and 'not_joining'. Users can select one of these choices to indicate their attendance status. The application displays the number of users who have joined the event, as well as the number of users who are still thinking about it. This feature helps friends understand each other's intentions and expectations for the event, making it easier to plan and coordinate.
+
+- **Event Detail Page**: Users can view detailed information about an event, including the title, description, location, start and end date and time, image, creator, and intentions. The event detail page also includes a comments section where users can add comments to share thoughts or ask questions about the event. The application displays the number of users who have joined the event, as well as the number of users who are still thinking about it. This feature helps friends understand each other's intentions and expectations for the event, making it easier to plan and coordinate.
+
+- **Comments**: Users can add comments to events to share thoughts or ask questions about the event. The comments section allows users to interact with each other and engage in conversations related to the event. This feature helps friends communicate and coordinate their plans more effectively.
+
+### 4. Search
+
+- **Search Events**: Users can search for events using user and title keywords. The application filters the events based on the search query, displaying only the events that match the search criteria. This feature helps users find events of interest quickly and easily.
+
+### 5. All events homepage and Going on and Joining Events filtered list
+
+- **All Events Feed**: Users can view a list of the most recent events on the homepage. The feed displays the events in descending order of creation date, with the most recent events appearing at the top. The feed includes a search bar where users can search for events using keywords. This feature helps users discover new events and stay updated on the latest activities.
+
+- **Going on and Joining Events Feed**: Users can view a list of events they are joining as well as events going on or starting in the upcoming two hours. This feature helps users stay updated on their plans and coordinate with friends more effectively allowying for quick decisions and last minute plans.
+
+### 6. User Authentication
+
+- **User Registration**: Users can sign up for a new account by providing an email address and password. The application sends a verification email to the user to confirm their account.
+
+- **User Login**: Users can sign in to the application using their email address and password. The application verifies the user's credentials and logs them in if they are correct.
+
+- **User Logout**: Users can log out of the application to end their session and protect their account from unauthorized access.
+
+- **User Session Management**: The application maintains the user's logged-in status until they choose to log out explicitly. The application also refreshes access tokens automatically to ensure the user's session remains active.
+
 
 ## Design
 
@@ -75,6 +103,8 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 ## Development User Stories
 
+![Agile Board](documentation/agile_board.png)
+
 ### Authentication
 
 #### As a user, I can sign up, sign in, and maintain my logged-in status so that I can access the app's features seamlessly.
@@ -100,10 +130,10 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 ### Viewing Other Profiles
 
-#### As a user, I can view other users' profiles and follow/unfollow them to stay connected and discover interesting events.
+#### As a user, I can view other users' profiles and request to friend them to connect and see their events.
 
-- **AC1:** Users can view other users' profiles details.
-- **AC2:** Users can follow or unfollow other users to customize their event feed.
+- **AC1:** Users can view other users' profiles.
+- **AC2:** Users can send friend requests to connect with other users.
 
 ### Viewing Event List
 
@@ -133,6 +163,48 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 - **AC1:** Users can set their intentions and expectations for an event through profile fields like 'would like to' and 'feeling ...'.
 - **AC2:** Users can view other users' intentions and expectations for an event through profile details and event information.
+
+### Managing Friend Requests
+
+#### As a user, I can send, accept, and reject friend requests to connect with others and build a social network.
+
+- **AC1:** Users can send friend requests to connect with other users.
+- **AC2:** Users can accept or reject friend requests to manage their social network.
+
+### Managing Friends
+
+#### As a user, I can view my friends list and unfriend users to maintain my social connections.
+
+- **AC1:** Users can view a list of their friends.
+- **AC2:** Users can unfriend other users to manage their social connections.
+
+### Viewing Latest Friends' Logins
+
+#### As a user, I can view a list of my friends' latest logins to stay updated on their activity and availability.
+
+- **AC1:** Users can view a list of their friends' latest logins.
+- **AC2:** Users can stay updated on their friends' activity and availability through the latest logins list.
+
+### Viewing and Editing Profile
+
+#### As a user, I can view and edit my profile details to customize my social presence and share relevant information with others.
+
+- **AC1:** Users can view their profile details, including their profile picture, custom name, and additional fields.
+- **AC2:** Users can edit their profile details, including their profile picture, custom name, and additional fields.
+
+### Viewing and Editing Event
+
+#### As a user, I can view and edit event details to manage my plans effectively and share relevant information with others.
+
+- **AC1:** Users can view event details, including the title, date, time, location, description, and owner.
+- **AC2:** Event owner can edit event details, including the title, date, time, location, and description.
+
+### Viewing and Editing Choices
+
+#### As a user, I can view and edit my choices for an event to indicate my intentions and expectations and manage my social interactions effectively.
+
+- **AC1:** Users can view their choices for an event, including 'joining', 'let_me_think', and 'not_joining'.
+- **AC2:** Users can edit their choices for an event to update their intentions and expectations.
 
 
 
