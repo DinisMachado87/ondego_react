@@ -105,7 +105,7 @@ const NavBar = () => {
               src={logo}
               alt='logo'
               height='45'
-              className="p-1"
+              className="p-2"
             />
           </Navbar.Brand>
         </NavLink>

@@ -187,7 +187,9 @@ const Event = (props) => {
           onClick={() => history.push(`/events/${id}`)}
           className={`${styles.TextShadow} ${appStyles.Pointer} d-flex justify-content-between align-items-start`}>
           <div className={`${styles.Container} ${styles.EventBody}`}>
-            <Card.Link className={styles.Front} to={`/profiles/${profile_id}`}>
+            <Card.Link
+              className={styles.Front}
+              to={`/profiles/${profile_id}`}>
               <Avatar
                 className={styles.Front}
                 src={profile_image}
@@ -227,36 +229,39 @@ const Event = (props) => {
                 </Col>
               )}
               <Col className='col-11'>
-                {/* <OverlayTrigger
-                  placement='top'
-                  overlay={<Tooltip>{getTooltipText("2")}</Tooltip>}> */}
+                <OverlayTrigger
+                  placement='bottom'
+                  overlay={
+                    <Tooltip id={`tooltip-top`}>{getTooltipText("2")}</Tooltip>
+                  }>
                   <ChoiceButton
                     choice='2'
-                    tooltipText='Joining'
                     count={`${joining_count} joining`}
                     handleJoiningChoice={handleJoiningChoice}
                   />
-                {/* </OverlayTrigger>
+                </OverlayTrigger>
                 <OverlayTrigger
                   placement='top'
-                  overlay={<Tooltip>{getTooltipText("3")}</Tooltip>}> */}
+                  overlay={
+                    <Tooltip id={`tooltip-top`}>{getTooltipText("3")}</Tooltip>
+                  }>
                   <ChoiceButton
                     choice='3'
-                    tooltipText='Let me see'
                     count={`${let_me_see_count} Maybe`}
                     handleJoiningChoice={handleJoiningChoice}
                   />
-                {/* </OverlayTrigger>
+                </OverlayTrigger>
                 <OverlayTrigger
                   placement='top'
-                  overlay={<Tooltip>{getTooltipText("1")}</Tooltip>}> */}
+                  overlay={
+                    <Tooltip id={`tooltip-top`}>{getTooltipText("1")}</Tooltip>
+                  }>
                   <ChoiceButton
                     choice='1'
-                    tooltipText='Cannot'
                     count={`${not_joining_count} Can't`}
                     handleJoiningChoice={handleJoiningChoice}
                   />
-                {/* </OverlayTrigger> */}
+                </OverlayTrigger>
               </Col>
             </Row>
           </div>

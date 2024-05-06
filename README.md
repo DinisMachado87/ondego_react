@@ -4,6 +4,33 @@
 
 ## Overview
 
+**öndëgö** is a spontaneous event planning application that allows users to create and join events with friends **on the go**. The application allows users to create events anytime in the future but we designed optimizing it with a simple and intuitive interface to encourage users to create an event with typing just a few fields. **öndëgö** prepopulates the date and time for the same day 'after work' hours and in case you didn't have time for a picture, we have a funky default image for you. Encouraging you to meet your friends more often through making the effort of creating an event as minimal as possible.
+  - You have just left work and wouldn't mind company to that concert tonight? Create an event
+
+**öndëgö** includes a set of micro-consent simple stratagies with a 'feeling' and 'would like to' fields in the user profile, as well as an 'ending time' expectation  and 'intentions' field in the event creation. Like this, we aim to help friends understand each other's mood and intentions and balance it with the ones of the others in the group. If you are tired from work you can still invite your friends to a concert but have a frame to hint that you might not have the energy to have that extra drink after the concert. We believe that this will help friends to understand each other better and make the experience more enjoyable for everyone. And help you dare to meet your friends more often without being afraid of commiting to something bigger than you can handle. 
+
+**öndëgö** is a full-stack application built with Django REST Framework and React. It features user authentication, event creation, event joining, and friend requests. The application is deployed on Heroku and uses ElephantSQL for the PostgreSQL database.
+
+## Features
+
+### 1. Profile
+
+- **User Profile**: When a user is created through the Django Allauth registration process, a complementary profile is created that allows the user to add a profile picture, a custom name and additional fields such as 'feeling' and 'would like to' to help friends understand their mood and intentions.
+
+- **Edit Profile**: Users can update their profile information, including their profile picture, custom name, and additional fields.
+
+### 2. Events
+
+- **Event Creation**: Users can create events by providing a title, description, location, start and end date and time, and an image. The application prepopulates the date and time for the same day 'after work' hours, since those are the most common after work hours, potentially diminishing the effort of creating an event and encouraging users to meet their friends more often. When a user doesn't have time to upload a picture, the application provides a default image.
+
+- **Edit and Delete Events**: Event owners can edit and delete their events.
+
+### 3. Friends
+
+- **Friend Requests**: Users can send and receive friend requests. When a user receives a friend request, they can approve or reject it. Users can also cancel friend requests they have sent.
+
+- **Friends**: When the requested user approves a friend request, the api creates a friend instance for both users. Users can view their friends and unfriend them.
+
 ## Features
 
 ### 1.

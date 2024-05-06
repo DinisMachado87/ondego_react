@@ -4,3 +4,7 @@
   object-fit: cover;
   z-index: 30;
 }
+
+.Text {
+  font-size: 3rem;
+}
