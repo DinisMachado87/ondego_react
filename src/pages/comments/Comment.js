@@ -60,7 +60,7 @@ const Comment = (props) => {
               </Col>
               <Link
                 to={`/profiles/${profile_id}`}
-                className='col-1'>
+                className='col-2'>
                 <Avatar src={profile_image} />
               </Link>
               {showEditForm ? (
@@ -73,7 +73,7 @@ const Comment = (props) => {
                   setShowEditForm={setShowEditForm}
                 />
               ) : (
-                <Col className='col-10 mt-2'>
+                <Col className='col-9 mt-2'>
                   <p className='mt-1'>
                     {owner}: {message}
                     <span className={styles.UpdatedAt}>
@@ -86,14 +86,14 @@ const Comment = (props) => {
             </Row>
           ) : (
             <Row className='p-2'>
-              <Col className='col-11 p-2 d-flex justify-content-end'>
+              <Col className='col-9 p-2 d-flex justify-content-end'>
                 <p className='text-right mt-1'>
                   <span className={styles.UpdatedAt}>{updated_at}</span>
                   {"  "}
                   {message}
                 </p>
               </Col>
-              <Col className='col-1 d-flex justify-content-end'>
+              <Col className='col-2 d-flex justify-content-end'>
                 <Link
                   to={`/profiles/${profile_id}`}
                   className='conten-right'>

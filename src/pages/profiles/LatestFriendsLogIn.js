@@ -40,7 +40,8 @@ const LatestFriendsLogIn = ({ mobile }) => {
   const otherProfilesSidebarMobile = (
     <>
       <Row className='pt-5'>
-        <h3 className={`${styles.GreenYellow} pt-5`}>Last Logins:</h3>
+        <h3 className={ `${styles.GreenYellow} pt-5` }>Last Logins:</h3>
+        <h4 className={ `${styles.GreenYellow} pt-5` }>(scroll down to see more profiles after events)</h4>
       </Row>
       <div className='flex-row d-flex justify-content'>
         {profiles.slice(0, 2).map((profile) => (
