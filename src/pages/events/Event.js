@@ -32,7 +32,6 @@ const Event = (props) => {
     event_image,
     profile_id,
     profile_image,
-    joining_id,
     joining_status,
     joining_count,
     let_me_see_count,
@@ -198,7 +197,7 @@ const Event = (props) => {
               {owner}
             </Card.Link>
 
-            <h3>{what_title && <div className='fw-bold'>{what_title}</div>}</h3>
+            <h2>{what_title && <div className='fw-bold'>{what_title}</div>}</h2>
             <h4>{intention && <span>{intention}</span>}</h4>
             <p>{what_content && <span>{what_content}</span>}</p>
             <p>{where_place && <span>{where_place}</span>}</p>

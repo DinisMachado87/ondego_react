@@ -13,7 +13,7 @@ const Avatar = ({ src, height = 45, text }) => {
       />
       {text && (
         <span className={styles.Text}>
-          <h3>{text}</h3>
+          <p>{text}</p>
         </span>
       )}
     </span>

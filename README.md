@@ -99,7 +99,37 @@ For body text and content, **Padauk** was selected as the tertiary font. Its lig
 
 ## How to Use
 
-### 1.
+### 1. Creating an Account
+
+To get started with **öndëgö**, users can sign up for a new account by providing an username and a password. A profile is automatically created for the user, allowing them to customize their social presence and share relevant information with others. The user can also upload a profile picture, set a custom name, and add additional fields such as 'feeling' and 'would like to' to communicate their mood and intentions to friends.
+
+### 2. Creating an Event
+
+To create an event, users can provide relevant details such as title, description, location, start and end date and time, and an image. The application prepopulates the date and time for the same day 'after work' hours, since those are the most common after work hours, potentially diminishing the effort of creating an event and encouraging users to meet their friends more often. When a user doesn't have time to upload a picture, the application provides a default image. The event creation form also includes an 'intentions' field to help friends understand the user's expectations for the event, as well as the possibility to add a link in case the event is happening in a different platform or more information can be found for example in a ticketing website.
+
+### 3. Joining an Event
+
+To join an event, users can select one of three choices: 'Joining', 'let_me_think', and 'not_joining'. These choices allow users to express their intentions for the event and help friends understand their attendance status. The application displays the number of users who have joined the event, as well as the number of users who are still thinking about it. This feature helps friends understand each other's intentions and expectations for the event, making it easier to plan and coordinate.
+
+### 4. Viewing Events
+
+To view events, users can navigate to the homepage to see a list of the most recent events. The feed displays the events in descending order of creation date, with the most recent events appearing at the top. Users can also search for events using keywords to find events of interest. The application also includes a list of events the user is joining as well as events going on or starting in the upcoming two hours. This feature helps users stay updated on their plans and coordinate with friends more effectively, namely allowing for quick decisions and last minute plans with the going on events list, or to check quickly which events the user is joining.
+
+### 5. Managing Friends
+
+To send friend requests, users can view all profiles to be able to send friend requests and view their friends' profiles to see their latest logins. Users can send friend requests to connect with other users and accept or reject friend requests to manage their social network. When a friend request is accepted, the users become friends and can view each other's events and profiles. Users can also unfriend other users to manage their social connections. When a user unfriends another user, the 'Friend' instances representing the relationship between the users are deleted, and the users are no longer connected. The application also includes a list of the users' friends' latest logins, allowing users to stay updated on their friends' activity and availability. Users can see all profiles to be able to send friend requests and view their friends' profiles to see their latest logins, but users can only see the events of their friends for privacy reasons.
+
+### 6. Viewing and Editing Profile
+
+To view and edit their profile, users can navigate to the profile page to see detailed information about their profile, including their profile picture, custom name, and additional fields. Users can edit their profile details, including their profile picture, custom name, and additional fields, to customize their social presence and share relevant information with others. Users can also communicate their intentions and expectations for an event through profile fields like 'would like to' and 'feeling ...' to enhance social consent and understanding. This feature allows users to create a more inclusive and enjoyable social experience for everyone involved.
+
+### 7. Viewing and Editing Event
+
+To view and edit an event, users can navigate to the event detail page to see detailed information about the event, including the title, description, location, start and end date and time, image, creator, and intentions. The event detail page also includes a comments section where users can add comments to share thoughts or ask questions about the event. Users can edit the event details, including the title, description, location, start and end date and time, and image, to manage their plans effectively and share relevant information with others. Users can also communicate their intentions and expectations for an event through the event field 'intention' to enhance social consent and understanding.
+
+### 8. Communicating Intentions and Expectations
+
+To communicate intentions and expectations for an event, users can set their intentions and expectations for an event through profile fields like 'would like to' and 'feeling ...'. Users can view other users' intentions and expectations for an event through profile details and event information. This feature helps friends understand each other's mood and intentions, making it easier to plan and coordinate events effectively.
 
 ## Development User Stories
 
@@ -500,6 +530,10 @@ All emojis were designed by OpenMoji – the open-source emoji and icon project.
 [React-Bootstrap5 documentation]()
 
 [Django Rest Framework documentation](https://www.django-rest-framework.org/)
+
+[Bro Code - Python Full Course](https://www.youtube.com/watch?v=XKHEtdqhLK8)
+
+[Code with Mosh](https://codewithmosh.com)
 
 Code Institute React and Rest Framework Walkthrough Tutorial Projects - access restricted to students
 

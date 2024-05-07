@@ -43,7 +43,7 @@ const LatestFriendsLogIn = ({ mobile }) => {
         <h3 className={`${styles.GreenYellow} pt-5`}>Last Logins:</h3>
       </Row>
       <div className='flex-row d-flex justify-content'>
-        {profiles.slice(0, 3).map((profile) => (
+        {profiles.slice(0, 2).map((profile) => (
           <Profile
             key={profile.id}
             profile={profile}
