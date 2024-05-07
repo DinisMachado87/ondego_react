@@ -55,7 +55,7 @@ function ProfilePage() {
           await Promise.all([
             // Fetches the profile data and the events organized by the profile owner
             axiosReq.get(`/profiles/${id}/`),
-            axiosReq.get(`/events/?owner__profile=${id}`),
+            axiosReq.get(`/events/?owner=${id}`),
           ]);
         setProfileData((prevState) => ({
           // Sets the profile data and the events organized by the profile owner
