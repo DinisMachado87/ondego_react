@@ -93,9 +93,22 @@ Overall, your version effectively communicates your process. These suggestions a
 
 **Mukta** serves as the secondary font, utilized for titles and navigation elements across Öndëgö. Balancing casualness with clarity, Mukta adds depth to the visual hierarchy while maintaining coherence with Platypi's playful demeanor. Its versatility complements the project's laid-back aesthetic, ensuring a cohesive and enjoyable user experience.
 
+## Language
+
+Aiming at an sense of playfull informality, as in it's title and logo, **öndëgö** uses '¨' in certain titles and key words to give a sense of playfullness and informality. This is a common practice in some languages, like Swedish and Finnish where the nasal sound is represented by the '¨' symbol. We use it to punctuate a certain informal rounding of words bettween friends, as if you were talking to a friend and you would say "Hey, let's go to the concert tonight" instead of "Hey, let us go to the concert tonight". This is a way to make the app more friendly and informal, as if you were talking to a friend.
+
 ## Tertiary Font: Padauk
 
 For body text and content, **Padauk** was selected as the tertiary font. Its light and airy design prioritizes readability and simplicity, allowing the focus to remain on the content while providing a comfortable reading experience. Padauk seamlessly integrates with the playful energy of Platypi and the relaxed tone of Mukta, completing Öndëgö's font palette.
+
+## Color Palette
+
+Öndëgö's color palette uses secondary vibrant colors — orange, purple, and green — to separate Nav, event, and profile sections. The primary color, black, is used for the background and text, creating a stark contrast that enhances readability and visual appeal. The secondary colors add vibrancy and character to the interface, infusing Öndëgö with a sense of energy and excitement. The color palette strikes a balance between playfulness and sophistication, reflecting the app's mission to facilitate spontaneous social interactions in a fun and engaging way.
+
+## Shadows as backgrounds
+
+The use of shadows as backgrounds in Öndëgö's design adds an organic depth to the interface, creating a sense of immersion and visual interest. By layering shadows behind elements, the design achieves a subtle three-dimensional effect that enhances the overall aesthetic. The shadows provide a soft contrast against the vibrant colors and text, adding texture and dimension to the interface. This design choice contributes to Öndëgö's playful and dynamic visual identity, inviting users to explore and engage with the app in a lively and engaging way.
+
 
 ## How to Use
 
@@ -285,113 +298,82 @@ By prepopulating these fields, I've reduced the number of clicks and typing requ
 
 ## Deployment
 
+1. Clone the repository to your local machine.
+
+2. Navigate to the project directory.
+
+3. Install the required dependencies.
+
+4. Set up the environment variables. This includes the Django secret key, database credentials, and any other necessary settings.
+
+5. Create a new PostgreSQL database and configure the database settings in the settings.py file.
+
+6. Configure the Django settings for deployment. This includes setting the allowed hosts, static files, and media files settings.
+
+7. Run the Django migrations to create the necessary database tables.
+
+8. Create a superuser account to access the Django admin interface.
+
+9. Run the Django development server to test the application locally.
+
+10. Create a new Heroku app and configure the necessary settings.
+
+11. Set up the Heroku PostgreSQL add-on to host the database.
+
+12. Deploy the application to Heroku using Git.
+
+13. Run the Django migrations on the Heroku server to create the necessary database tables.
+
+14. Create a superuser account on the Heroku server to access the Django admin interface.
+
+15. Test the deployed application on Heroku to ensure it is working correctly.
+
 ## Manual Testing
 
-### User Authentication
-
-#### Sign Up
-
-- The user was able to sign up successfully using a valid email address and password.
-- The user received a verification email after signing up.
-- The user was able to verify their account by clicking the verification link in the email.
-
-#### Sign In
-
-- The user was able to sign in successfully using their email address and password.
-- The user was redirected to the homepage after signing in.
-
-#### Log Out
-
-- The user was able to log out successfully.
-- The user was redirected to the sign-in page after logging out.
-
-### Profile
-
-#### View Profile
-
-- The user was able to view their profile details, including their profile picture, custom name, and additional fields.
-- The user's profile picture, custom name, and additional fields were displayed correctly.
-
-#### Edit Profile
-
-- The user was able to edit their profile details, including their profile picture, custom name, and additional fields.
-- The user's profile details were updated successfully after editing.
-
-### Events
-
-#### Create Event
-
-- The user was able to create a new event with relevant details such as title, date, time, location, and description.
-- The event was displayed correctly on the homepage after creation.
-- A picture was uploaded correctly and the default picture was displayed correctly when no picture was uploaded.
-- The event was created with the correct date and time prepopulated for the same day 'after work' hours.
-
-#### Edit Event
-
-- The event owner was able to edit event details like title, date, time, location, and description after creation.
-- The event details were prepopulated correctly in the edit form.
-- The event image was prepopulated correctly in the edit form.
-- The event details were updated successfully after editing.
-
-#### Join Event
-
-- The user was able to join an event to indicate their participation.
-- The user's choice was displayed correctly on the event detail page.
-
-#### Leave Event
-
-- The user was able to leave an event if their plans changed.
-- The user's choice was updated correctly on the event detail page.
-
-#### View Event List
-
-- The user was able to view a list of most recent events on the homepage.
-- The events were displayed in descending order of creation date, with the most recent events appearing at the top.
-- The events displayed joinings buttons and countings correctly.
-
-#### View Event Detail Page
-
-- The user was able to view detailed information about an event, including its title, date, time, location, description, creator, and intentions.
-- The event detail page displayed the number of users who had joined the event and the number of users who were still thinking about it.
-
-
-### Searchbar
-
-#### Search Events
-
-- The user was able to search for events using author user and title keywords.
-- The events were filtered based on the search query, displaying only the events that matched the search criteria.
-
-### Friends
-
-#### Send Friend Request
-
-- The user was able to send a friend request to connect with another user.
-- The recipient received a notification through a change in the friend request button.
-
-#### Accept Friend Request
-
-- The user was able to accept a friend request to connect with another user.
-- The users became friends and could view each other's events and profiles.
-- The friend request button changed to an unfriend button.
-
-#### Reject Friend Request
-
-- The user was able to reject a friend request to remain unconnected with another user.
-- The users remained unconnected and could not view each other's events but could renovate the friend request.
-
-#### Unfriend User
-
-- The user was able to unfriend another user.
-- The users were no longer connected and could not view each other's events but could renovate the friend request.
-
-#### View users latest logins
-
-- The user was able to view a list of the users latest logins.
-- The list displayed the users' profile pictures and custom names correctly.
-- the list displayed the correct buttons for friend, unfriend and manage friend requests.
-
-
+| Test Case Description                                       | Expected Outcome                                    | Pass/Fail |
+|-------------------------------------------------------------|-----------------------------------------------------|-----------|
+| User Registration                                           | User able to sign up successfully using a valid email address and password. |    Pass   |
+| User Receives Verification Email                            | User receives a verification email after signing up. |    Pass   |
+| User Verifies Account                                       | User able to verify their account by clicking the verification link in the email. |    Pass   |
+| User Login                                                  | User able to login to the app using their email address and password. |    Pass   |
+| User Redirected to Homepage                                 | User redirected to the homepage after signing in. |    Pass   |
+| User Logout                                                 | User able to logout from the app. |    Pass   |
+| User Redirected to Sign-in Page                             | User redirected to the sign-in page after logging out. |    Pass   |
+| View Profile                                                | User able to view their profile details, including their profile picture, custom name, and additional fields. |    Pass   |
+| Profile Details Displayed Correctly                         | User's profile picture, custom name, and additional fields displayed correctly. |    Pass   |
+| Edit Profile                                                | User able to edit their profile details, including their profile picture, custom name, and additional fields. |    Pass   |
+| Profile Details Updated Successfully                        | User's profile details updated successfully after editing. |    Pass   |
+| Create Event                                                | User able to create a new event with relevant details such as title, date, time, location, and description. |    Pass   |
+| Event Displayed on Homepage                                 | Event displayed correctly on the homepage after creation. |    Pass   |
+| Picture Uploaded Correctly                                  | A picture was uploaded correctly and the default picture was displayed correctly when no picture was uploaded. |    Pass   |
+| Event Created with Correct Date and Time                    | The event was created with the correct date and time prepopulated for the same day 'after work' hours. |    Pass   |
+| Edit Event                                                  | Event owner able to edit event details like title, date, time, location, and description after creation. |    Pass   |
+| Event Details Prepopulated Correctly                        | Event details prepopulated correctly in the edit form. |    Pass   |
+| Event Image Prepopulated Correctly                          | Event image prepopulated correctly in the edit form. |    Pass   |
+| Event Details Updated Successfully                          | Event details updated successfully after editing. |    Pass   |
+| Join Event                                                  | User able to join an event to indicate their participation. |    Pass   |
+| User's Choice Displayed Correctly                           | User's choice displayed correctly on the event detail page. |    Pass   |
+| Leave Event                                                 | User able to leave an event if their plans changed. |    Pass   |
+| User's Choice Updated Correctly                             | User's choice updated correctly on the event detail page. |    Pass   |
+| View Event List                                             | User able to view a list of most recent events on the homepage. |    Pass   |
+| Events Displayed in Descending Order                        | Events displayed in descending order of creation date, with the most recent events appearing at the top. |    Pass   |
+| Events Display Joinings Buttons and Countings Correctly     | Events displayed joinings buttons and countings correctly. |    Pass   |
+| View Event Detail Page                                      | User able to view detailed information about an event, including its title, date, time, location, description, creator, and intentions. |    Pass   |
+| Event Detail Page Displayed User Joinings Correctly         | Event detail page displayed the number of users who had joined the event and the number of users who were still thinking about it. |    Pass   |
+| Search Events                                               | User able to search for events using author user and title keywords. |    Pass   |
+| Events Filtered Based on Search Query                       | Events filtered based on the search query, displaying only the events that matched the search criteria. |    Pass   |
+| Send Friend Request                                         | User able to send a friend request to connect with another user. |    Pass   |
+| Recipient Receives Notification                             | Recipient received a notification through a change in the friend request button. |    Pass   |
+| Accept Friend Request                                       | User able to accept a friend request to connect with another user. |    Pass   |
+| Users Become Friends                                        | Users became friends and could view each other's events and profiles. |    Pass   |
+| Friend Request Button Changes to Unfriend Button            | Friend request button changed to an unfriend button. |    Pass   |
+| Reject Friend Request                                       | User able to reject a friend request to remain unconnected with another user. |    Pass   |
+| Users Remain Unconnected                                    | Users remained unconnected and could not view each other's events but could renovate the friend request. |    Pass   |
+| Unfriend User                                               | User able to unfriend another user. |    Pass   |
+| Users No Longer Connected                                   | Users were no longer connected and could not view each other's events but could renovate the friend request. |    Pass   |
+| View Users Latest Logins                                    | User able to view a list of the users latest logins. |    Pass   |
+| List Displayed Users' Profile Pictures and Custom Names     | List displayed the users' profile pictures and custom names correctly. |    Pass   |
+| List Displayed Correct Buttons for Friend, Unfriend, and Manage Friend Requests | List displayed the correct buttons for friend, unfriend and manage friend requests. |    Pass   |
 
 ## Development notes
 

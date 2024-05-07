@@ -53,7 +53,6 @@ function EventsPage({ message, filter = "" }) {
         <h3 className={`${styles.GreenYellow} pt-5`}>
           öndëgö about and instructions:
         </h3>
-        <h4>Create evënt:</h4>
         <p>
           öndëgö (pronounced "on the go" but cosy) is your helper for
           spontaneous meets with your friends.
