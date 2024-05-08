@@ -49,18 +49,18 @@ function EventCommentCreateForm(props) {
       onSubmit={handleSubmit}>
       <Form.Group>
         <InputGroup>
-          <Link to={`/profiles/${profile_id} col`}>
+          <Link to={`/profiles/${profile_id} col2`}>
             <Avatar src={profileImage} />
           </Link>
           <TextareaAutosize
-            className={`${styles.Form} col p-3`}
+            className={`${styles.Form} col-8 p-3`}
             placeholder='my comment...'
             value={message}
             onChange={ handleChange }
             minRows={ 1 }
           />
           <button
-            className={`${styles.Button} btn col-1`}
+            className={`${styles.Button} btn col-2`}
             disabled={!message.trim()}
             type='submit'>
             Post
