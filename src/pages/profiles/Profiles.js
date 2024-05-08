@@ -180,11 +180,15 @@ const Profile = (props) => {
             ) : currentUser ? (
               // If the user is logged in and the owner of the profile
               <div>
-                <Button
-                  className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
-                  onClick={() => {}}>
-                  Edit profile
-                </Button>
+                <Link
+                  className='align-self-center'
+                  to={`/profiles/${id}`}>
+                  <Button
+                    className={`${btnStyles.ProfilesButton} ${btnStyles.Orange}`}
+                    onClick={() => {}}>
+                    Edit profile
+                  </Button>
+                </Link>
               </div>
             ) : null
             // If the user is not logged in, no buttons are displayed
