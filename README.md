@@ -1,8 +1,12 @@
-![Presentation image](path/path)
+![Presentation image](documentation/responsive.png)
 
 # öndëgö | README
 
-## Overview
+Visit the deployed app [here](https://ondego-app-e1e330a40999.herokuapp.com)
+
+## Project Description
+
+### Overview
 
 **öndëgö** is a spontaneous event planning application that allows users to create and join events with friends **on the go**. The application allows users to create events anytime in the future but we designed optimizing it with a simple and intuitive interface to encourage users to create an event with typing just a few fields. **öndëgö** prepopulates the date and time for the same day 'after work' hours and in case you didn't have time for a picture, we have a funky default image for you. Encouraging you to meet your friends more often through making the effort of creating an event as minimal as possible.
   - You have just left work and wouldn't mind company to that concert tonight? Create an event
@@ -12,6 +16,8 @@
 **öndëgö** is a full-stack application built with Django REST Framework and React. It features user authentication, event creation, event joining, and friend requests. The application is deployed on Heroku and uses ElephantSQL for the PostgreSQL database.
 
 ## Features
+
+![Profiles image](documentation/profiles.png)
 
 ### 1. Profile
 
@@ -30,6 +36,11 @@
 
 - **Unfriending**: Users can unfriend other users to manage their social connections. When a user unfriends another user, the 'Friend' instances representing the relationship between the users are deleted, and the users are no longer connected.
 
+![Event List image](documentation/event_list.png)
+![Event Edit Form image](documentation/edit_event.png)
+![Event Detail image](documentation/event_detail.png)
+
+
 ### 3. Events
 
 - **Event Creation**: Users can create events by providing a title, description, location, start and end date and time, and an image. The application prepopulates the date and time for the same day 'after work' hours, since those are the most common after work hours, potentially diminishing the effort of creating an event and encouraging users to meet their friends more often. When a user doesn't have time to upload a picture, the application provides a default image. The event creation form also includes an 'intentions' field to help friends understand the user's expectations for the event, as well as the possibility to add a link in case the event is happening in a different platform or more information can be found for example in a ticketing website.
@@ -42,6 +53,8 @@
 
 - **Comments**: Users can add comments to events to share thoughts or ask questions about the event. The comments section allows users to interact with each other and engage in conversations related to the event. This feature helps friends communicate and coordinate their plans more effectively.
 
+![Searchbar image](documentation/search.png)
+
 ### 4. Search
 
 - **Search Events**: Users can search for events using user and title keywords. The application filters the events based on the search query, displaying only the events that match the search criteria. This feature helps users find events of interest quickly and easily.
@@ -51,6 +64,9 @@
 - **All Events Feed**: Users can view a list of the most recent events on the homepage. The feed displays the events in descending order of creation date, with the most recent events appearing at the top. The feed includes a search bar where users can search for events using keywords. This feature helps users discover new events and stay updated on the latest activities.
 
 - **Going on and Joining Events Feed**: Users can view a list of events they are joining as well as events going on or starting in the upcoming two hours. This feature helps users stay updated on their plans and coordinate with friends more effectively allowying for quick decisions and last minute plans.
+
+
+![Log in image](documentation/login.png)
 
 ### 6. User Authentication
 
