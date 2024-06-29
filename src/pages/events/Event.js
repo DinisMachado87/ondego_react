@@ -74,6 +74,7 @@ const Event = (props) => {
           ...prevEvents,
           results: prevEvents.results.filter((event) => event.id !== id),
         }));
+        history.push("/");
       } catch (err) {
         console.log(err);
       }
