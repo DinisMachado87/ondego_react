@@ -17,6 +17,7 @@ import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import { Redirect } from 'react-router-dom';
 import LatestFriendsLogIn from "./pages/profiles/LatestFriendsLogIn";
+import Instructions from "./pages/intructions/Instructions";
 
 
 
@@ -119,6 +120,11 @@ function App() {
             exact
             path='/profiles/:id/edit'
             render={() => <ProfileEditForm />}
+          />
+          <Route
+            exact
+            path='/instructions'
+            render={ () => <Instructions /> }
           />
           <Route render={() => <h1>Page Not Found!</h1>} />
         </Switch>
