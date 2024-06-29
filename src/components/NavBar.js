@@ -61,12 +61,18 @@ const NavBar = () => {
       </NavLink>
       <NavLink
         className={styles.NavLink}
+        activeClassName={styles.Active}
+        to={`/latestfriendslogin/${currentUser?.profile_id}`}>
+        <i className='fa-solid fa-user'></i> friends and users
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
         to={`/profiles/${currentUser?.profile_id}`}>
         <Avatar
           src={currentUser?.profile_image}
           height={40}
         />
-        Profile
+        my profile
       </NavLink>
     </>
   );
@@ -76,16 +82,14 @@ const NavBar = () => {
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/signin"
-      >
-        <i className="fa-solid fa-plug"></i>Sign in
+        to='/signin'>
+        <i className='fa-solid fa-plug'></i>Sign in
       </NavLink>
       <NavLink
-        to="/signup"
+        to='/signup'
         className={styles.NavLink}
-        activeClassName={styles.Active}
-      >
-        <i className="fa-solid fa-user-astronaut"></i>register
+        activeClassName={styles.Active}>
+        <i className='fa-solid fa-user-astronaut'></i>register
       </NavLink>
     </>
   );
@@ -105,7 +109,7 @@ const NavBar = () => {
               src={logo}
               alt='logo'
               height='45'
-              className="p-2"
+              className='p-2'
             />
           </Navbar.Brand>
         </NavLink>
@@ -118,6 +122,12 @@ const NavBar = () => {
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ml-auto'>
             {currentUser ? loggedInIcons : loggedOutIcons}
+            <NavLink
+              className={styles.NavLink}
+              activeClassName={styles.Active}
+              to='/instructions'>
+              <i className='fa-solid fa-book'></i>Instructions
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>

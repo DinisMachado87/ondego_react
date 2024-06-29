@@ -16,6 +16,7 @@ import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import { Redirect } from 'react-router-dom';
+import LatestFriendsLogIn from "./pages/profiles/LatestFriendsLogIn";
 
 
 
@@ -98,6 +99,11 @@ function App() {
             exact
             path='/profiles/:id'
             render={() => <ProfilePage />}
+          />
+          <Route
+            exact
+            path='/latestfriendslogin/:id'
+            render={() => <LatestFriendsLogIn />}
           />
           <Route
             exact
