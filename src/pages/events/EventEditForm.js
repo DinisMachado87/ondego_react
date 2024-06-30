@@ -99,11 +99,28 @@ function EventEditForm() {
     handleMount();
   }, [history, id]);
 
+  const calculateNewEndDate = (startDate) => {
+    const start = new Date(startDate);
+    start.setHours(start.getHours() + 5);
+    return start.toISOString().slice(0, 16);
+  };
+
   const handleChange = (event) => {
-    setEventData({
+    const { name, value } = event.target;
+    let newEventData = {
       ...eventData,
-      [event.target.name]: event.target.value,
-    });
+      [name]: value,
+    };
+
+    if (name === "when_start") {
+      const newEndDate = calculateNewEndDate(value);
+      newEventData = {
+        ...newEventData,
+        when_end: newEndDate,
+      };
+    }
+
+    setEventData(newEventData);
   };
 
   const handleChangeImage = (event) => {
@@ -124,27 +141,52 @@ function EventEditForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData();
-    formData.append("what_title", what_title);
-    formData.append("what_content", what_content);
-    formData.append("where_place", where_place);
-    formData.append("where_address", where_address);
-    formData.append("when_start", when_start);
-    formData.append("when_end", when_end);
-    formData.append("intention", intention);
-    formData.append("link", link);
-    if (imageInput.current.files[0]) {
-      formData.append("event_image", imageInput.current.files[0]);
+    if (
+      !what_title.trim() ||
+      !what_content.trim() ||
+      !where_place.trim() ||
+      !when_start.trim()
+    ) {
+      setErrors({
+        non_field_errors: [
+          "Tite, Description, Place and Start Date are required",
+        ],
+      });
+      return;
     }
+
+    if (new Date(when_end) < new Date(when_start)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        when_end: ["End date cannot be before the start date"],
+      }));
+      return;
+    }
+
     try {
-      await axiosReq.put(`/events/${id}/`, formData);
-      history.push(`/events/${id}/`);
+      const formData = new FormData();
+      formData.append("what_title", what_title);
+      formData.append("what_content", what_content);
+      formData.append("where_place", where_place);
+      formData.append("where_address", where_address);
+      formData.append("when_start", when_start);
+      formData.append("when_end", when_end);
+      formData.append("intention", intention);
+      formData.append("link", link);
+      if (imageInput.current.files[0]) {
+        formData.append("event_image", imageInput.current.files[0]);
+      }
+      try {
+        await axiosReq.put(`/events/${id}/`, formData);
+        history.push(`/events/${id}/`);
+      } catch (err) {
+        console.error(err);
+        if (err.response?.status !== 401) {
+          setErrors(err.response?.data);
+        }
+      }
     } catch (err) {
       console.error(err);
-      if (err.response?.status !== 401) {
-        setErrors(err.response?.data);
-      }
     }
   };
 
