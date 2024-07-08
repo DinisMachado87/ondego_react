@@ -84,47 +84,65 @@ function App() {
           <Route
             exact
             path='/event/create'
-            render={() => <EventCreateForm />}
+            render={() =>
+              (currentUser ? <EventCreateForm /> : <Redirect to='/signin' />)
+            }
           />
           <Route
             exact
             path='/event/:id/edit'
-            render={() => <EventEditForm />}
+            render={() =>
+              (currentUser ? <EventEditForm /> : <Redirect to='/signin' />)
+            }
           />
           <Route
             exact
             path='/events/:id'
-            render={() => <EventPage />}
+            render={() =>
+              currentUser ? <EventPage /> : <Redirect to='/signin' />
+            }
           />
           <Route
             exact
             path='/profiles/:id'
-            render={() => <ProfilePage />}
+            render={() =>
+              (currentUser ? <ProfilePage /> : <Redirect to='/signin' />)
+            }
           />
           <Route
             exact
             path='/latestfriendslogin/:id'
-            render={() => <LatestFriendsLogIn />}
+            render={() =>
+              (currentUser ? <LatestFriendsLogIn /> : <Redirect to='/signin' />)
+            }
           />
           <Route
             exact
             path='/profiles/:id/edit/username'
-            render={() => <UsernameForm />}
+            render={() =>
+              (currentUser ? <UsernameForm /> : <Redirect to='/signin' />)
+            }
           />
           <Route
             exact
             path='/profiles/:id/edit/password'
-            render={() => <UserPasswordForm />}
+            render={() =>
+              (currentUser ? <UserPasswordForm /> : <Redirect to='/signin' />)
+            }
           />
           <Route
             exact
             path='/profiles/:id/edit'
-            render={() => <ProfileEditForm />}
+            render={() =>
+              (currentUser ? <ProfileEditForm /> : <Redirect to='/signin' />)
+            }
           />
           <Route
             exact
             path='/instructions'
-            render={ () => <Instructions /> }
+            render={() =>
+              (currentUser ? <Instructions /> : <Redirect to='/signin' />)
+            }
           />
           <Route render={() => <h1>Page Not Found!</h1>} />
         </Switch>
