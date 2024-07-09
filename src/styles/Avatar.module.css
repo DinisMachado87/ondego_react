@@ -3,6 +3,7 @@
   margin: 0.5rem;
   object-fit: cover;
   z-index: 30;
+  position: relative;
 }
 
 .Text {

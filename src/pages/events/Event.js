@@ -193,15 +193,15 @@ const Event = (props) => {
           onClick={() => history.push(`/events/${id}`)}
           className={`${styles.TextShadow} ${appStyles.Pointer} d-flex justify-content-between align-items-start`}>
           <div className={`${styles.Container} ${styles.EventBody}`}>
-
-              <Avatar
-                className={styles.Front}
-                src={profile_image}
-                height={55}
-                profile_id={profile_id}
-              />
-              {owner}
-
+            <div className={ `${styles.flexStart}` }>
+                          <Avatar
+              className={styles.Front}
+              src={profile_image}
+              height={55}
+              profile_id={profile_id}
+            />
+              <div style={ { position: 'relative', zIndex: 30, padding: '1rem', fontSize: '1.5rem' } }>{ owner }</div>
+            </div>
             <h2>{what_title && <div className='fw-bold'>{what_title}</div>}</h2>
             <h4>{intention && <span>{intention}</span>}</h4>
             <p>{what_content && <span>{what_content}</span>}</p>
