@@ -16,6 +16,7 @@ import Comment from "../comments/Comment";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 import Asset from "../../components/Asset";
+import LatestFriendsLogIn from "../profiles/LatestFriendsLogIn";
 
 function EventPage() {
   const { id } = useParams();
@@ -57,36 +58,43 @@ function EventPage() {
           ) : (
             <Asset spinner />
           )}
-        {currentUser && (
-          <EventCommentCreateForm
-            event={event.results[0]}
-            profile_id={currentUser.profile_id}
-            profileImage={profile_image}
-            post={id}
-            setEvent={setEvent}
-            setComments={setComments}
-          />
-        )}
-        <div className={`${styles.CommentsScrollingContainer} p-2`}>
-          <InfiniteScroll
-            dataLength={comments.results.length}
-            next={() => fetchMoreData(comments, setComments)}
-            hasMore={!!comments.next}
-            loader={<span>Loading more comments...</span>}>
-            {comments.results.length ? (
-              comments.results.map((comment) => (
-                <Comment
-                  key={comment.id}
-                  {...comment}
-                  setEvent={setEvent}
-                  setComments={setComments}
-                />
-              ))
-            ) : (
-              <span>No comments yet. Be the first to comment!</span>
-            )}
-          </InfiniteScroll>
-        </div>
+          {currentUser && (
+            <EventCommentCreateForm
+              event={event.results[0]}
+              profile_id={currentUser.profile_id}
+              profileImage={profile_image}
+              post={id}
+              setEvent={setEvent}
+              setComments={setComments}
+            />
+          )}
+          <div className={`${styles.CommentsScrollingContainer} p-2`}>
+            <InfiniteScroll
+              dataLength={comments.results.length}
+              next={() => fetchMoreData(comments, setComments)}
+              hasMore={!!comments.next}
+              loader={<span>Loading more comments...</span>}>
+              {comments.results.length ? (
+                comments.results.map((comment) => (
+                  <Comment
+                    key={comment.id}
+                    {...comment}
+                    setEvent={setEvent}
+                    setComments={setComments}
+                  />
+                ))
+              ) : (
+                <span>No comments yet. Be the first to comment!</span>
+              )}
+            </InfiniteScroll>
+          </div>
+        </Container>
+      </Col>
+      <Col
+        className={styles.ProfileList}
+        lg={4}>
+        <Container>
+          <LatestFriendsLogIn />
         </Container>
       </Col>
     </Row>
