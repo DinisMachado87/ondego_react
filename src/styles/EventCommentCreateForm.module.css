@@ -13,3 +13,11 @@
   color: rgb(251, 255, 0);
   border: none;
 }
+
+.Button:hover
+.Button:active {
+  cursor: pointer;
+  text-decoration: none;
+  text-shadow: green 1rem 0.5rem 1rem;
+  transition: text-shadow ease-in-out 0.3s;
+}

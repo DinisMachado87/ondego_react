@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 // React
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 // Axios
-import { Card, Col, Media, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import {
+  Card,
+  Col,
+  Media,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+} from "react-bootstrap";
 import styles from "../../styles/Event.module.css";
 import appStyles from "../../App.module.css";
 // styles
@@ -62,8 +69,7 @@ const Event = (props) => {
   };
 
   const handleEdit = () => {
-    history
-      .push(`/event/${id}/edit`)
+    history.push(`/event/${id}/edit`);
   };
 
   const handleDelete = async () => {
@@ -190,12 +196,16 @@ const Event = (props) => {
             <Card.Link
               className={styles.Front}
               to={`/profiles/${profile_id}`}>
-              <Avatar
-                className={styles.Front}
-                src={profile_image}
-                height={55}
-              />
-              {owner}
+              <Link
+                to={`/profiles/${profile_id}`}
+                onClick={(e) => e.stopPropagation()}>
+                <Avatar
+                  className={styles.Front}
+                  src={profile_image}
+                  height={55}
+                />
+                {owner}
+              </Link>
             </Card.Link>
 
             <h2>{what_title && <div className='fw-bold'>{what_title}</div>}</h2>

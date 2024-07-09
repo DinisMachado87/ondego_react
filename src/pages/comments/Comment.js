@@ -96,7 +96,7 @@ const Comment = (props) => {
               <Col className='col-2 d-flex justify-content-end'>
                 <Link
                   to={`/profiles/${profile_id}`}
-                  className='conten-right'>
+                  className='content-right'>
                   <Avatar src={profile_image} />
                 </Link>
               </Col>
