@@ -98,9 +98,7 @@ function EventsPage({ message, filter = "" }) {
               )}
             </div>
           ) : (
-            <Container className={appStyles.Content}>
               <Asset spinner />
-            </Container>
           )}
         </Col>
         <Col

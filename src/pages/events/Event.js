@@ -196,16 +196,12 @@ const Event = (props) => {
             <Card.Link
               className={styles.Front}
               to={`/profiles/${profile_id}`}>
-              <Link
-                to={`/profiles/${profile_id}`}
-                onClick={(e) => e.stopPropagation()}>
                 <Avatar
                   className={styles.Front}
                   src={profile_image}
                   height={55}
                 />
                 {owner}
-              </Link>
             </Card.Link>
 
             <h2>{what_title && <div className='fw-bold'>{what_title}</div>}</h2>
