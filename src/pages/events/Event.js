@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 // React
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 // Axios
@@ -193,16 +193,14 @@ const Event = (props) => {
           onClick={() => history.push(`/events/${id}`)}
           className={`${styles.TextShadow} ${appStyles.Pointer} d-flex justify-content-between align-items-start`}>
           <div className={`${styles.Container} ${styles.EventBody}`}>
-            <Card.Link
-              className={styles.Front}
-              to={`/profiles/${profile_id}`}>
-                <Avatar
-                  className={styles.Front}
-                  src={profile_image}
-                  height={55}
-                />
-                {owner}
-            </Card.Link>
+
+              <Avatar
+                className={styles.Front}
+                src={profile_image}
+                height={55}
+                profile_id={profile_id}
+              />
+              {owner}
 
             <h2>{what_title && <div className='fw-bold'>{what_title}</div>}</h2>
             <h4>{intention && <span>{intention}</span>}</h4>

@@ -39,24 +39,25 @@ const Profile = (props) => {
             <>
               <Col>
                 <Row className='p-3 text-center'>
-                  <Avatar
-                    src={image}
-                    height={imageSize}
-                    text={
-                      <>
-                        {name ? (
-                          <Row>
-                            <h4>{name}</h4>
-                            <span>
-                              <p>( {owner} )</p>
-                            </span>
-                          </Row>
-                        ) : (
-                          <h4>{owner}</h4>
-                        )}
-                      </>
-                    }
-                  />
+                    <Avatar
+                      src={image}
+                      height={imageSize}
+                      profile_id={id}
+                      text={
+                        <>
+                          {name ? (
+                            <Row>
+                              <h4>{name}</h4>
+                              <span>
+                                <p>( {owner} )</p>
+                              </span>
+                            </Row>
+                          ) : (
+                            <h4>{owner}</h4>
+                          )}
+                        </>
+                      }
+                    />
                 </Row>
                 <Row>
                   <Link
@@ -87,7 +88,8 @@ const Profile = (props) => {
                 <Col className='text-center'>
                   <Avatar
                     src={image}
-                    height={imageSize}
+                    height={ imageSize }
+                    profile_id={id}
                     text={
                       <>
                         {name ? (
