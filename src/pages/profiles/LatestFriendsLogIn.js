@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
@@ -10,6 +10,7 @@ import styles from "../../styles/LatestFriendsLogIn.module.css";
 const LatestFriendsLogIn = ({ mobile }) => {
   const currentUser = useCurrentUser();
   const { latestFriendsLogIn } = useProfileData();
+  const [hasLoaded, setHasLoaded] = useState(false);
   const profiles = latestFriendsLogIn.results
     ? currentUser
       ? latestFriendsLogIn.results.filter(
@@ -18,6 +19,12 @@ const LatestFriendsLogIn = ({ mobile }) => {
       : latestFriendsLogIn.results
     : [];
 
+  useEffect(() => {
+    if (profiles.length > 0 || !latestFriendsLogIn.results) {
+      setHasLoaded(true); // Set hasLoaded to true when profiles are ready or if there are no results
+    }
+  }, [profiles, latestFriendsLogIn.results]);
+  
   const currentUserProfile =
     currentUser && latestFriendsLogIn.results
       ? latestFriendsLogIn.results.filter(
@@ -69,24 +76,22 @@ const LatestFriendsLogIn = ({ mobile }) => {
   );
 
   return (
-    <Container
-      className={`${appStyles.Content} pt-5 ${
-        mobile && "d-lg-none text-right mb-3"
-      }`}>
-      {profiles.length ? (
-        mobile ? (
-          <>{otherProfilesSidebarMobile}</>
-        ) : (
+    mobile ? null : (
+      <Container
+        className={`${appStyles.Content} pt-5 ${mobile && "d-lg-none text-right mb-3"}`}>
+        {!hasLoaded ? (
+          <Asset spinner />
+        ) : profiles.length ? (
           <>
             {currentUserProfileDeskTop}
             {otherProfilesSidebarDeskTop}
           </>
-        )
-      ) : (
-        <Asset spinner />
-      )}
-    </Container>
+        ) : (
+          <div>No profiles found.</div>
+        )}
+      </Container>
+    )
   );
-};
+}
 
 export default LatestFriendsLogIn;
