@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./App.module.css";
 import NavBar from "./components/NavBar";
 import Container from "react-bootstrap/Container";
@@ -15,13 +16,9 @@ import { useCurrentUser } from "./contexts/CurrentUserContext";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import LatestFriendsLogIn from "./pages/profiles/LatestFriendsLogIn";
 import Instructions from "./pages/intructions/Instructions";
-
-
-
-
 
 function App() {
   const currentUser = useCurrentUser();
@@ -85,14 +82,14 @@ function App() {
             exact
             path='/event/create'
             render={() =>
-              (currentUser ? <EventCreateForm /> : <Redirect to='/signin' />)
+              currentUser ? <EventCreateForm /> : <Redirect to='/signin' />
             }
           />
           <Route
             exact
             path='/event/:id/edit'
             render={() =>
-              (currentUser ? <EventEditForm /> : <Redirect to='/signin' />)
+              currentUser ? <EventEditForm /> : <Redirect to='/signin' />
             }
           />
           <Route
@@ -106,42 +103,42 @@ function App() {
             exact
             path='/profiles/:id'
             render={() =>
-              (currentUser ? <ProfilePage /> : <Redirect to='/signin' />)
+              currentUser ? <ProfilePage /> : <Redirect to='/signin' />
             }
           />
           <Route
             exact
             path='/latestfriendslogin/:id'
             render={() =>
-              (currentUser ? <LatestFriendsLogIn /> : <Redirect to='/signin' />)
+              currentUser ? <LatestFriendsLogIn /> : <Redirect to='/signin' />
             }
           />
           <Route
             exact
             path='/profiles/:id/edit/username'
             render={() =>
-              (currentUser ? <UsernameForm /> : <Redirect to='/signin' />)
+              currentUser ? <UsernameForm /> : <Redirect to='/signin' />
             }
           />
           <Route
             exact
             path='/profiles/:id/edit/password'
             render={() =>
-              (currentUser ? <UserPasswordForm /> : <Redirect to='/signin' />)
+              currentUser ? <UserPasswordForm /> : <Redirect to='/signin' />
             }
           />
           <Route
             exact
             path='/profiles/:id/edit'
             render={() =>
-              (currentUser ? <ProfileEditForm /> : <Redirect to='/signin' />)
+              currentUser ? <ProfileEditForm /> : <Redirect to='/signin' />
             }
           />
           <Route
             exact
             path='/instructions'
             render={() =>
-              (currentUser ? <Instructions /> : <Redirect to='/signin' />)
+              currentUser ? <Instructions /> : <Redirect to='/signin' />
             }
           />
           <Route render={() => <h1>Page Not Found!</h1>} />

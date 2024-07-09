@@ -305,57 +305,67 @@ function EventCreateForm() {
 	);
 
 	return (
-		<Form onSubmit={ handleSubmit } className={ `${styles.Form}` }>
-			<Row>
-				<Col className='py-2 p-0 p-md-2' md={ 7 } lg={ 8 }>
-					<Container
-						className={ `${appStyles.Content} ${styles.Container}
-						d-flex flex-column justify-content-center` }
-					>
-						<Form.Group className='text-center'>
-							{ event_image ? (
-								<>
-									<figure>
-										<Image className={ styles.Image } src={ event_image } />
-									</figure>
-								</>
-							) : (
-								<Form.Label
-									className='d-flex align-items-center'
-									htmlFor='image-upload'
-								>
-									<Asset src={ Upload } message='Click to Upload an Image' />
-								</Form.Label>
-							) }
+    <Form
+      onSubmit={handleSubmit}
+      className={`${styles.Form}`}>
+      <Row>
+        <Col
+          className='py-2 p-0 p-md-2'
+          md={7}
+          lg={8}>
+          <Container
+            className={`${appStyles.Content} ${styles.Container}
+						d-flex flex-column justify-content-center`}>
+            <Form.Group className='text-center'>
+              {event_image ? (
+                <>
+                  <figure>
+                    <Image
+                      className={styles.Image}
+                      src={event_image}
+                    />
+                  </figure>
+                </>
+              ) : (
+                <Form.Label
+                  className='d-flex align-items-center'
+                  htmlFor='image-upload'>
+                  <Asset
+                    src={Upload}
+                    message='Click to Upload an Image'
+                  />
+                </Form.Label>
+              )}
 
-							<Form.Label
-								className={ `${btnStyles.Button} ${btnStyles.Orange}` }
-								htmlFor='image-upload'
-							>
-								{ event_image ? 'Change the image' : 'Click to add an image' }
-								<i className='fa-solid fa-cloud-arrow-up'></i>
-								<Form.File
-									id='image-upload'
-									accept='image/*'
-									onChange={ handleChangeImage }
-									hidden
-									ref={ imageInput }
-								/>
-							</Form.Label>
-						</Form.Group>
-						<div className='d-md-none'>{ textFields }</div>
-					</Container>
-				</Col>
-				<Col md={ 5 } lg={ 4 } className='d-none d-md-block p-0 p-md-2'>
-					<Container
-						className={ `${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center` }
-					>
-						{ textFields }
-					</Container>
-				</Col>
-			</Row>
-		</Form>
-	);
+              <Form.Label
+                className={`${btnStyles.Button} ${btnStyles.Orange}`}
+                htmlFor='image-upload'>
+                {event_image ? "Change the image" : "Click to add an image"}
+                <i className='fa-solid fa-cloud-arrow-up'></i>
+                <Form.File
+                  id='image-upload'
+                  accept='image/*'
+                  onChange={handleChangeImage}
+                  hidden
+                  ref={imageInput}
+                />
+              </Form.Label>
+            </Form.Group>
+            <div className='d-md-none'>{textFields}</div>
+          </Container>
+        </Col>
+        <Col
+          md={5}
+          lg={4}
+          className='d-none d-md-block p-0 p-md-2'>
+          <Container
+            className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}>
+            {textFields}
+          </Container>
+        </Col>
+      </Row>
+    </Form>
+  );
 }
 
 export default EventCreateForm;

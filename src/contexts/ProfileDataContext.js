@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { useCurrentUser } from "./CurrentUserContext";
@@ -45,18 +46,22 @@ export const ProfileDataProvider = ({ children }) => {
       console.log(err);
     }
   };
-        
 
   const handleConsentFriendRequest = async (clickedProfile) => {
     try {
-      const currentFriendRequest = await axiosReq.get(`/friends_requests/${clickedProfile.has_friend_request.pk}/`);
+      const currentFriendRequest = await axiosReq.get(
+        `/friends_requests/${clickedProfile.has_friend_request.pk}/`
+      );
 
       const updatedFriendRequest = {
         ...currentFriendRequest.data,
         is_approved: true,
       };
 
-      await axiosRes.put(`/friends_requests/${clickedProfile.has_friend_request.pk}/`, updatedFriendRequest);
+      await axiosRes.put(
+        `/friends_requests/${clickedProfile.has_friend_request.pk}/`,
+        updatedFriendRequest
+      );
 
       setProfileData((prevState) => {
         return {
@@ -75,8 +80,8 @@ export const ProfileDataProvider = ({ children }) => {
                     has_friend_request: null,
                   }
                 : profile.id === currentUser.id
-                  // If the profile is the one that received the friend request
-                ? {
+                ? // If the profile is the one that received the friend request
+                  {
                     ...profile,
                     friends_id: {
                       friend_id: clickedProfile.id,
@@ -100,8 +105,8 @@ export const ProfileDataProvider = ({ children }) => {
                     has_friend_request: null,
                   }
                 : profile.id === currentUser.id
-                  // If the profile is the one that received the friend request
-                ? {
+                ? // If the profile is the one that received the friend request
+                  {
                     ...profile,
                     friends_id: {
                       friend_id: clickedProfile.id,
@@ -121,14 +126,16 @@ export const ProfileDataProvider = ({ children }) => {
 
   const handleNotRightNowFriendRequest = async (clickedProfile) => {
     try {
-      await axiosReq.delete(`/friends_requests/${clickedProfile.has_friend_request.pk}/`);
+      await axiosReq.delete(
+        `/friends_requests/${clickedProfile.has_friend_request.pk}/`
+      );
       setProfileData((prevState) => ({
         ...prevState,
         pageProfile: {
           results: prevState.latestFriendsLogIn.results.map((profile) =>
             profile.id === clickedProfile.id
               ? { ...profile, has_friend_request: null }
-                : profile
+              : profile
           ),
         },
         latestFriendsLogIn: {
@@ -144,43 +151,43 @@ export const ProfileDataProvider = ({ children }) => {
     }
   };
 
-const handleCancelFriendRequest = async (clickedProfile) => {
-  try {
-    await axiosReq.delete(
-      `/friends_requests/${clickedProfile.has_requested_friendship.pk}/`
-    );
-
-    setProfileData((prevState) => {
-      const updatedPageProfileResults = prevState.pageProfile.results.map(
-        (profile) =>
-          profile.id === clickedProfile.id
-            ? { ...profile, has_requested_friendship: null }
-            : profile
+  const handleCancelFriendRequest = async (clickedProfile) => {
+    try {
+      await axiosReq.delete(
+        `/friends_requests/${clickedProfile.has_requested_friendship.pk}/`
       );
 
-      const updatedLatestFriendsLogInResults =
-        prevState.latestFriendsLogIn.results.map((profile) =>
-          profile.id === clickedProfile.id
-            ? { ...profile, has_requested_friendship: null }
-            : profile
+      setProfileData((prevState) => {
+        const updatedPageProfileResults = prevState.pageProfile.results.map(
+          (profile) =>
+            profile.id === clickedProfile.id
+              ? { ...profile, has_requested_friendship: null }
+              : profile
         );
 
-      return {
-        ...prevState,
-        pageProfile: {
-          ...prevState.pageProfile,
-          results: updatedPageProfileResults,
-        },
-        latestFriendsLogIn: {
-          ...prevState.latestFriendsLogIn,
-          results: updatedLatestFriendsLogInResults,
-        },
-      };
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+        const updatedLatestFriendsLogInResults =
+          prevState.latestFriendsLogIn.results.map((profile) =>
+            profile.id === clickedProfile.id
+              ? { ...profile, has_requested_friendship: null }
+              : profile
+          );
+
+        return {
+          ...prevState,
+          pageProfile: {
+            ...prevState.pageProfile,
+            results: updatedPageProfileResults,
+          },
+          latestFriendsLogIn: {
+            ...prevState.latestFriendsLogIn,
+            results: updatedLatestFriendsLogInResults,
+          },
+        };
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleCreateFriendRequest = async (clickedProfile) => {
     try {
@@ -230,9 +237,7 @@ const handleCancelFriendRequest = async (clickedProfile) => {
        * then sets the profile data
        */
       try {
-        const { data } = await axiosReq.get(
-          "/profiles/?ordering=-last_login"
-        );
+        const { data } = await axiosReq.get("/profiles/?ordering=-last_login");
         setProfileData((prevState) => ({
           ...prevState,
           latestFriendsLogIn: data,

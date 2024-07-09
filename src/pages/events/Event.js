@@ -200,7 +200,7 @@ const Event = (props) => {
               height={55}
               profile_id={profile_id}
             />
-              <div style={ { position: 'relative', zIndex: 30, padding: '1rem', fontSize: '1.5rem' } }>{ owner }</div>
+              <div style={ { position: 'relative', zIndex: 30, padding: '1.5rem 1rem', fontSize: '1.3rem' } }>{ owner }</div>
             </div>
             <h2>{what_title && <div className='fw-bold'>{what_title}</div>}</h2>
             <h4>{intention && <span>{intention}</span>}</h4>
