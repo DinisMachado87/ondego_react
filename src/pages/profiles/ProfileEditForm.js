@@ -3,7 +3,6 @@ import { Form, Button, Row, Col, Alert, Container } from "react-bootstrap";
 import { useHistory } from "react-router";
 import btnStyles from "../../styles/Button.module.css";
 import styles from "../../styles/ProfileEditForm.module.css";
-import appStyles from "../../App.module.css";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {

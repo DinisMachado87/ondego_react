@@ -45,9 +45,6 @@ function ProfilePage() {
   const is_owner = currentUser?.username === profile?.owner;
   const [profileEvents, setProfileEvents] = useState({ results: [] });
 
-  
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -141,28 +138,34 @@ function ProfilePage() {
      */
     <>
       <hr />
-      <p
-        className={`m-2 text-center ${styles.ProfileName}`}>{`${profile?.owner}' events`}</p>
-      <hr />
       <Row>
-        {profileEvents ? (
-          <InfiniteScroll
-            children={profileEvents.results.map((event) => (
-              <Event
-                key={event.id}
-                {...event}
-                setEvents={setProfileEvents}
-              />
-            ))}
-            dataLength={profileEvents.results.length}
-            loader={<Asset spinner />}
-            hasMore={!!profileEvents.next}
-            next={() => fetchMoreData(profileEvents, setProfileEvents)}
-          />
+        {profileEvents?.length ? (
+          <>
+            <p
+              className={`m-2 text-center ${styles.ProfileName}`}>{`${profile?.owner}'s events`}</p>
+            <hr />
+            <InfiniteScroll
+              children={profileEvents.results.map((event) => (
+                <Event
+                  key={event.id}
+                  {...event}
+                  setEvents={setProfileEvents}
+                />
+              ))}
+              dataLength={profileEvents.results.length}
+              loader={<Asset spinner />}
+              hasMore={!!profileEvents.next}
+              next={() => fetchMoreData(profileEvents, setProfileEvents)}
+            />
+          </>
         ) : (
           <Asset
             src={NoResults}
-            message={`No results found, ${profile?.owner} did not arrange events yet.`}
+            message={
+              profile?.friends_id
+                ? `No events found, ${profile?.owner} doesn't have events up at the moment.`
+                : `To see ${profile?.owner} events propose friendship.`
+            }
           />
         )}
       </Row>

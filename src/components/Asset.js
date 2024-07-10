@@ -5,6 +5,7 @@ import styles from "../styles/Asset.module.css";
 const Asset = ({ spinner, src, message }) => {
   return (
     <div className={`${styles.Asset} p-4`}>
+      {message && <p className='mt-4'>{message}</p>}{" "}
       {spinner && <Spinner animation='border' />}
       {src && (
         <img
@@ -13,7 +14,6 @@ const Asset = ({ spinner, src, message }) => {
           alt='placeholder'
         />
       )}
-      {message && <p className='mt-4'>{message}</p>}{" "}
     </div>
   );
 };
