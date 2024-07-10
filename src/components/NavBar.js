@@ -97,12 +97,11 @@ const NavBar = () => {
   return (
     <Navbar
       expanded={expanded}
-      className={`${styles.NavBar} navbar-dark`}
+      className={`${styles.NavBar} navbar-dark px-3`}
       text='darkviolet'
       border='blue'
       expand='md'
       fixed='top'>
-      <Container>
         <NavLink to='/'>
           <Navbar.Brand>
             <img
@@ -130,7 +129,6 @@ const NavBar = () => {
             </NavLink>
           </Nav>
         </Navbar.Collapse>
-      </Container>
     </Navbar>
   );
 };
