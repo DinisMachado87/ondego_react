@@ -137,9 +137,7 @@ function App() {
           <Route
             exact
             path='/instructions'
-            render={() =>
-              currentUser ? <Instructions /> : <Redirect to='/signin' />
-            }
+            render={() => <Instructions />}
           />
           <Route render={() => <h1>Page Not Found!</h1>} />
         </Switch>

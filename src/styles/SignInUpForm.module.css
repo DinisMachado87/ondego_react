@@ -1,5 +1,4 @@
 .Row {
-  height: calc(100vh - 81px);
 }
 .Input {
   background: black;
@@ -53,9 +52,5 @@
 }
 
 .SignInCol {
-  height: 320px;
-}
-
-.SignUpCol {
-  height: 375px;
+  height: 40rem;
 }
