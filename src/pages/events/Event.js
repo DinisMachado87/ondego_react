@@ -43,30 +43,15 @@ const Event = (props) => {
     joining_count,
     let_me_see_count,
     not_joining_count,
-    eventPage,
     setEvents,
   } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
-  const [tooltip, setTooltip] = useState("");
   const [currentPreviousUserChoice, setCurrentPreviousUserChoice] =
     useState(joining_status);
   // stores the previous user joining status choice and updates in State every time the user changes their choice
-
-  const getTooltipText = (status) => {
-    switch (status) {
-      case "1":
-        return "baïl";
-      case "2":
-        return "ön dë gö";
-      case "3":
-        return "Let me thïnk";
-      default:
-        return "";
-    }
-  };
 
   const handleEdit = () => {
     history.push(`/event/${id}/edit`);
@@ -160,13 +145,8 @@ const Event = (props) => {
     }));
   };
 
-  const ChoiceButton = ({
-    choice,
-    tooltipText,
-    count,
-    handleJoiningChoice,
-  }) => (
-    <span onClick={() => handleJoiningChoice(choice, tooltipText)}>
+  const ChoiceButton = ({ choice, count, handleJoiningChoice }) => (
+    <span onClick={() => handleJoiningChoice(choice)}>
       <i
         className={
           `fa fa-solid ${
@@ -178,9 +158,6 @@ const Event = (props) => {
           } ` + (currentPreviousUserChoice === choice ? styles.Active : "")
         }></i>{" "}
       <p style={{ margin: 0, display: "inline-block" }}>{count}</p>
-      {tooltip === tooltipText && (
-        <div className={styles.Tooltip}>{tooltipText}</div>
-      )}
     </span>
   );
 
@@ -193,14 +170,22 @@ const Event = (props) => {
           onClick={() => history.push(`/events/${id}`)}
           className={`${styles.TextShadow} ${appStyles.Pointer} d-flex justify-content-between align-items-start`}>
           <div className={`${styles.Container} ${styles.EventBody}`}>
-            <div className={ `${styles.flexStart}` }>
-                          <Avatar
-              className={styles.Front}
-              src={profile_image}
-              height={55}
-              profile_id={profile_id}
-            />
-              <div style={ { position: 'relative', zIndex: 30, padding: '1.5rem 1rem', fontSize: '1.3rem' } }>{ owner }</div>
+            <div className={`${styles.flexStart}`}>
+              <Avatar
+                className={styles.Front}
+                src={profile_image}
+                height={55}
+                profile_id={profile_id}
+              />
+              <div
+                style={{
+                  position: "relative",
+                  zIndex: 30,
+                  padding: "1.5rem 1rem",
+                  fontSize: "1.3rem",
+                }}>
+                {owner}
+              </div>
             </div>
             <h2>{what_title && <div className='fw-bold'>{what_title}</div>}</h2>
             <h4>{intention && <span>{intention}</span>}</h4>
@@ -232,40 +217,29 @@ const Event = (props) => {
                   />
                 </Col>
               )}
-              <Col className='col-11'>
-                <OverlayTrigger
-                  placement='bottom'
-                  overlay={
-                    <Tooltip id={`tooltip-top`}>{getTooltipText("2")}</Tooltip>
-                  }>
-                  <ChoiceButton
-                    choice='2'
-                    count={`${joining_count} joining`}
-                    handleJoiningChoice={handleJoiningChoice}
-                  />
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement='top'
-                  overlay={
-                    <Tooltip id={`tooltip-top`}>{getTooltipText("3")}</Tooltip>
-                  }>
-                  <ChoiceButton
-                    choice='3'
-                    count={`${let_me_see_count} Maybe`}
-                    handleJoiningChoice={handleJoiningChoice}
-                  />
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement='top'
-                  overlay={
-                    <Tooltip id={`tooltip-top`}>{getTooltipText("1")}</Tooltip>
-                  }>
-                  <ChoiceButton
-                    choice='1'
-                    count={`${not_joining_count} Can't`}
-                    handleJoiningChoice={handleJoiningChoice}
-                  />
-                </OverlayTrigger>
+              <Col className={`${styles.choiceButton}`}>
+                <ChoiceButton
+                  choice='2'
+                  count={`${joining_count} joining`}
+                  handleJoiningChoice={handleJoiningChoice}
+                />
+              </Col>
+              <Col className={`${styles.choiceButton}`}>
+                {" "}
+                <ChoiceButton
+                  className={styles.choiceButton}
+                  choice='3'
+                  count={`${let_me_see_count} Maybe`}
+                  handleJoiningChoice={handleJoiningChoice}
+                />
+              </Col>
+              <Col className={`${styles.choiceButton}`}>
+                <ChoiceButton
+                  className={styles.choiceButton}
+                  choice='1'
+                  count={`${not_joining_count} Can't`}
+                  handleJoiningChoice={handleJoiningChoice}
+                />
               </Col>
             </Row>
           </div>
