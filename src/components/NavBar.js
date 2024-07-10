@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import logo from "../assets/ondego.svg";
 import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom";
@@ -14,6 +14,7 @@ import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
+  console.log(currentUser);
 
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
@@ -70,7 +71,8 @@ const NavBar = () => {
         to={`/profiles/${currentUser?.profile_id}`}>
         <Avatar
           src={currentUser?.profile_image}
-          height={40}
+          height={ 40 }
+          profile_id={currentUser?.profile_id}
         />
         my profile
       </NavLink>

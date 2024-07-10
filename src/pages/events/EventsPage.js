@@ -6,7 +6,6 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Event from "./Event";
 
-import appStyles from "../../App.module.css";
 import styles from "../../styles/EventsPage.module.css";
 import { useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
@@ -72,7 +71,9 @@ function EventsPage({ message, filter = "" }) {
             </div>
           </div>
           {hasLoaded ? (
-            <div>
+            <div
+              className={`px-3`}
+            >
               {events.results.length ? (
                 <InfiniteScroll
                   children={events.results.map((event) => (
@@ -97,11 +98,11 @@ function EventsPage({ message, filter = "" }) {
               )}
             </div>
           ) : (
-              <Asset spinner />
+            <Asset spinner />
           )}
         </Col>
         <Col
-          className={styles.ProfileList}
+          className={`${styles.ProfileList} d-none d-lg-block`}
           lg={4}>
           <Container>
             <LatestFriendsLogIn />
