@@ -28,7 +28,6 @@ function EventCommentCreateForm(props) {
         message,
         event: event.id,
       });
-      console.log(data);
       setComments((prevComments) => ({
         ...prevComments,
         results: [data, ...prevComments.results],

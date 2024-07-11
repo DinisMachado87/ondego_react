@@ -58,6 +58,9 @@ function EventEditForm() {
     link,
   } = eventData;
 
+  const [startInputValue, setStartInputValue] = useState(when_start);
+  const [endInputValue, setEndInputValue] = useState(when_end);
+
   const imageInput = useRef(null);
   const history = useHistory();
   const { id } = useParams();
@@ -78,19 +81,23 @@ function EventEditForm() {
           event_image,
           link,
         } = data;
-        is_owner
-          ? setEventData({
-              what_title: what_title || "",
-              what_content: what_content || "",
-              where_place: where_place || "",
-              where_address: where_address || "",
-              when_start: formatDate(when_start),
-              when_end: formatDate(when_end),
-              intention: intention || "",
-              event_image: event_image || Upload,
-              link: link || "",
-            })
-          : history.push(`/events/${id}`);
+        if (is_owner) {
+          setEventData({
+            what_title: what_title || "",
+            what_content: what_content || "",
+            where_place: where_place || "",
+            where_address: where_address || "",
+            when_start: formatDate(when_start),
+            when_end: formatDate(when_end),
+            intention: intention || "",
+            event_image: event_image || Upload,
+            link: link || "",
+          });
+          setStartInputValue(formatDate(when_start));
+          setEndInputValue(formatDate(when_end));
+        } else {
+          history.push(`/events/${id}`);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -107,20 +114,16 @@ function EventEditForm() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    let newEventData = {
-      ...eventData,
-      [name]: value,
-    };
-
     if (name === "when_start") {
-      const newEndDate = calculateNewEndDate(value);
-      newEventData = {
-        ...newEventData,
-        when_end: newEndDate,
-      };
+      setStartInputValue(value);
+    } else if (name === "when_end") {
+      setEndInputValue(value);
+    } else {
+      setEventData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
     }
-
-    setEventData(newEventData);
   };
 
   const handleChangeImage = (event) => {
@@ -149,18 +152,15 @@ function EventEditForm() {
     ) {
       setErrors({
         non_field_errors: [
-          "Tite, Description, Place and Start Date are required",
+          "Title, Description, Place, and Start Date are required",
         ],
       });
       return;
     }
 
-    if (new Date(when_end) < new Date(when_start)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        when_end: ["End date cannot be before the start date"],
-      }));
-      return;
+    let updatedEndDate = when_end;
+    if (new Date(endInputValue) < new Date(startInputValue)) {
+      updatedEndDate = calculateNewEndDate(startInputValue);
     }
 
     try {
@@ -169,8 +169,8 @@ function EventEditForm() {
       formData.append("what_content", what_content);
       formData.append("where_place", where_place);
       formData.append("where_address", where_address);
-      formData.append("when_start", when_start);
-      formData.append("when_end", when_end);
+      formData.append("when_start", startInputValue);
+      formData.append("when_end", updatedEndDate);
       formData.append("intention", intention);
       formData.append("link", link);
       if (imageInput.current.files[0]) {
@@ -283,7 +283,7 @@ function EventEditForm() {
           className={styles.Input}
           type='datetime-local'
           name='when_start'
-          value={when_start}
+          value={startInputValue}
           onChange={handleChange}
         />
       </Form.Group>
@@ -304,7 +304,7 @@ function EventEditForm() {
           className={styles.Input}
           type='datetime-local'
           name='when_end'
-          value={when_end}
+          value={endInputValue}
           onChange={handleChange}
         />
       </Form.Group>
