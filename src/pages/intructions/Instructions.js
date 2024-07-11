@@ -4,6 +4,18 @@ import styles from "../../styles/LatestFriendsLogIn.module.css";
 import appStyles from "../../App.module.css";
 
 function Instructions() {
+
+  const instructionsPicture = (
+    <Image
+      className={`mx-3`}
+      src={
+        "https://res.cloudinary.com/drgepxrpe/image/upload/v1712698055/ondego_event_placeholder/ppumyfwefatzziuko1ru"
+      }
+      width='100%'
+      rounded
+    />
+  );
+
   return (
     <div>
       <Row>
@@ -51,25 +63,13 @@ function Instructions() {
         </Col>
         <Col className={` d-none d-md-block `}>
           <Container className={`mt-3 ${appStyles.Content}`}>
-            <Image
-              className={`mx-3`}
-              src={
-                "https://res.cloudinary.com/drgepxrpe/image/upload/v1712698055/ondego_event_placeholder/ppumyfwefatzziuko1ru"
-              }
-              width='100%'
-              rounded
-            />
+            { instructionsPicture }
           </Container>
         </Col>
       </Row>
       <Row className='d-md-none'>
         <Container className={`mt-3 ${appStyles.Content}`}>
-          <Image
-            className='mx-3'
-            src='https://res.cloudinary.com/drgepxrpe/image/upload/v1712698055/ondego_event_placeholder/ppumyfwefatzziuko1ru'
-            width='100%'
-            rounded
-          />
+          { instructionsPicture }
         </Container>
       </Row>
     </div>

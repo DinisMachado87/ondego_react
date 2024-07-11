@@ -65,6 +65,16 @@ const NavBar = () => {
         to={`/latestfriendslogin/${currentUser?.profile_id}`}>
         <i className='fa-solid fa-user'></i> friends and users
       </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        to={`/profiles/${currentUser?.profile_id}`}>
+        <Avatar
+          src={currentUser?.profile_image}
+          height={40}
+          profile_id={currentUser?.profile_id}
+        />
+        my profile
+      </NavLink>
     </>
   );
 
@@ -102,16 +112,6 @@ const NavBar = () => {
             className='p-2'
           />
         </Navbar.Brand>
-      </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        to={`/profiles/${currentUser?.profile_id}`}>
-        <Avatar
-          src={currentUser?.profile_image}
-          height={40}
-          profile_id={currentUser?.profile_id}
-        />
-        my profile
       </NavLink>
       <Navbar.Toggle
         ref={ref}

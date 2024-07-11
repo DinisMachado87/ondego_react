@@ -3,14 +3,7 @@ import { useHistory } from "react-router-dom";
 // React
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 // Axios
-import {
-  Card,
-  Col,
-  Media,
-  OverlayTrigger,
-  Row,
-  Tooltip,
-} from "react-bootstrap";
+import { Card, Col, Media, Row } from "react-bootstrap";
 import styles from "../../styles/Event.module.css";
 import appStyles from "../../App.module.css";
 // styles
@@ -51,8 +44,9 @@ const Event = (props) => {
   const history = useHistory();
   const [currentPreviousUserChoice, setCurrentPreviousUserChoice] =
     useState(joining_status);
-  // stores the previous user joining status choice and updates in State every time the user changes their choice
-
+  /** stores the previous user joining status choice
+   *  and updates in State every time the user changes their choice
+   */
   const handleEdit = () => {
     history.push(`/event/${id}/edit`);
   };
