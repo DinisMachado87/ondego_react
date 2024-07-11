@@ -68,7 +68,7 @@ function ProfilePage() {
     };
     fetchData();
   }, [id, setProfileData]);
-
+  console.log(profileEvents);
 
   const mainProfile = (
     <>
@@ -114,7 +114,6 @@ function ProfilePage() {
             <div>joined events</div>
           </Col>
         </Row>
-
         <ProfileButtons
           /** Profile buttons component renders diferent buttons
            * depending on the user's relationship with the profile owner
@@ -139,7 +138,7 @@ function ProfilePage() {
     <>
       <hr />
       <Row>
-        {profileEvents?.length ? (
+        {profileEvents?.count>0? (
           <>
             <p
               className={`m-2 text-center ${styles.ProfileName}`}>{`${profile?.owner}'s events`}</p>
@@ -180,7 +179,7 @@ function ProfilePage() {
         <Container className={appStyles.Content}>
           {hasLoaded ? (
             <>
-              { mainProfile }
+              {mainProfile}
               <hr />
               <LatestFriendsLogIn mobile />
               <hr />

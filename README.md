@@ -509,6 +509,16 @@ While working on the EventDetailPage component, I encountered an issue where eve
 
 To resolve this issue, I updated the component to check for null values and set them to empty strings instead. This ensured that the form fields always had a defined value, preventing the error from occurring.
 
+### Debugging the ProfileDetailPage Button conditional rendering
+
+### Substitution of useEffect by useMemo in the profile detail page 
+
+Alerted by the React DevTools Profiler that the ProfileDetailPage component was rendering too often, I decided to investigate the issue. I realized that the component was re-rendering every time the user's profile was updated, even if the profile details hadn't changed. This was due to the useEffect hook that was fetching the user's profile data every time the component was rendered.
+
+To resolve this issue, I researched and found that I could use the useMemo hook to memoize the user's profile data. Memoization is a programming technique used to optimize expensive function calls by caching the results of these calls based on their input parameters. When a memoized function is called with the same parameters as a previous call, it returns the cached result instead of recalculating it. This can help reduce unnecessary re-renders in React components by preventing the component from re-rendering when the input data hasn't changed.
+
+I updated the ProfileDetailPage component to use the useMemo hook to memoize the user's profile data. This ensured that the profile data was only fetched when it changed, preventing unnecessary re-renders of the component. This optimization helped improve the performance of the ProfileDetailPage component and reduced the number of re-renders in the application.
+
 ## Contributors
 
 Dinis Machado
