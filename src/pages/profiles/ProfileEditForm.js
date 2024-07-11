@@ -16,7 +16,6 @@ const ProfileEditForm = () => {
   const { id } = useParams();
   const history = useHistory();
   const [success, setSuccess] = useState("");
-  const [imageSuccess, setImageSuccess] = useState("");
 
   const imageFile = useRef();
 
@@ -27,7 +26,7 @@ const ProfileEditForm = () => {
     image: "",
   });
 
-  const { name, feeling, would_like_to, image } = profileData;
+  const { name, feeling, would_like_to } = profileData;
 
   const [errors, setErrors] = useState({});
 

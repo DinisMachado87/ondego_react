@@ -1,12 +1,8 @@
 import React from "react";
 import styles from "../styles/Avatar.module.css";
-import { Link } from "react-router-dom";
 
 const Avatar = ({ src, height = 45, text, profile_id }) => {
   return (
-    <Link
-      to={`/profiles/${profile_id}`}
-      onClick={(e) => e.stopPropagation()}>
       <span>
         <img
           className={styles.Avatar}
@@ -17,11 +13,10 @@ const Avatar = ({ src, height = 45, text, profile_id }) => {
         />
         {text && (
           <span className={styles.Text}>
-            <p>{text}</p>
+            <span>{text}</span>
           </span>
         )}
       </span>
-    </Link>
   );
 };
 
