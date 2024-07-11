@@ -14,6 +14,7 @@ import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
+
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
   const handleSignOut = async () => {
@@ -64,16 +65,6 @@ const NavBar = () => {
         to={`/latestfriendslogin/${currentUser?.profile_id}`}>
         <i className='fa-solid fa-user'></i> friends and users
       </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        to={`/profiles/${currentUser?.profile_id}`}>
-        <Avatar
-          src={currentUser?.profile_image}
-          height={ 40 }
-          profile_id={currentUser?.profile_id}
-        />
-        my profile
-      </NavLink>
     </>
   );
 
@@ -102,33 +93,43 @@ const NavBar = () => {
       border='blue'
       expand='md'
       fixed='top'>
-        <NavLink to='/'>
-          <Navbar.Brand>
-            <img
-              src={logo}
-              alt='logo'
-              height='45'
-              className='p-2'
-            />
-          </Navbar.Brand>
-        </NavLink>
-        <Navbar.Toggle
-          ref={ref}
-          onClick={() => setExpanded(!expanded)}
-          aria-controls='basic-navbar-nav'
-          style={{ borderRadius: "1rem", borderColor: "darkviolet" }}
+      <NavLink to='/'>
+        <Navbar.Brand>
+          <img
+            src={logo}
+            alt='logo'
+            height='45'
+            className='p-2'
+          />
+        </Navbar.Brand>
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        to={`/profiles/${currentUser?.profile_id}`}>
+        <Avatar
+          src={currentUser?.profile_image}
+          height={40}
+          profile_id={currentUser?.profile_id}
         />
-        <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='ml-auto'>
-            {currentUser ? loggedInIcons : loggedOutIcons}
-            <NavLink
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-              to='/instructions'>
-              <i className='fa-solid fa-book'></i>Instructions
-            </NavLink>
-          </Nav>
-        </Navbar.Collapse>
+        my profile
+      </NavLink>
+      <Navbar.Toggle
+        ref={ref}
+        onClick={() => setExpanded(!expanded)}
+        aria-controls='basic-navbar-nav'
+        style={{ borderRadius: "1rem", borderColor: "darkviolet" }}
+      />
+      <Navbar.Collapse id='basic-navbar-nav'>
+        <Nav className={`ml-auto ${expanded ? styles.expanded : ''}`}>
+          {currentUser ? loggedInIcons : loggedOutIcons}
+          <NavLink
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+            to='/instructions'>
+            <i className='fa-solid fa-book'></i>Instructions
+          </NavLink>
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 };

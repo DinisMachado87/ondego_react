@@ -34,3 +34,7 @@
 .Active {
   text-shadow: blue 1rem 0.5rem 1rem;
 }
+
+.expanded .NavLink {
+  flex-direction: row; 
+}

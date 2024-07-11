@@ -65,7 +65,7 @@ function EventsPage({ message, filter = "" }) {
                   onChange={(e) => setQuery(e.target.value)}
                   type='text'
                   className='mr-sm-2'
-                  placeholder='Search user or event ...'
+                  placeholder='Search events by user/title...'
                 />
               </Form>
             </div>
