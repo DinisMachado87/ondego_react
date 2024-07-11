@@ -89,7 +89,7 @@ function EventsPage({ message, filter = "" }) {
                   next={() => fetchMoreData(events, setEvents)}
                 />
               ) : (
-                <Container className='appStyles.Content'>
+                <Container className='appStyles.Content pt-5'>
                   <Asset
                     src={NoResults}
                     message={message}

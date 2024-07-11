@@ -24,4 +24,4 @@ yarn-error.log*
 
 /src/pages/events/EventList.js
 
-env.py
+.env.py
