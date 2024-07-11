@@ -44,6 +44,9 @@ function EventCreateForm() {
     link: "",
   });
 
+  const [startInputValue, setStartInputValue] = useState(getTodayAt(18, 0));
+  const [endInputValue, setEndInputValue] = useState(getTodayAt(23, 0));
+
   const {
     what_title,
     what_content,
@@ -55,9 +58,6 @@ function EventCreateForm() {
     event_image,
     link,
   } = eventData;
-
-  const [startInputValue, setStartInputValue] = useState(when_start);
-  const [endInputValue, setEndInputValue] = useState(when_end);
 
   const imageInput = useRef(null);
   const history = useHistory();

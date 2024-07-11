@@ -91,7 +91,7 @@ function EventPage() {
         </Container>
       </Col>
       <Col
-        className={styles.ProfileList}
+        className={`${styles.ProfileList} d-none d-lg-block`}
         lg={4}>
         <Container>
           <LatestFriendsLogIn />
