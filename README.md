@@ -2,7 +2,7 @@
 
 # öndëgö | README
 
-Visit the deployed app [here](https://ondego-app-e1e330a40999.herokuapp.com)
+Visit the deployed app [here](https://ondego-unified-e4541da9959b.herokuapp.com/)
 
 ## Project Description
 
